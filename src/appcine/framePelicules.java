@@ -32,10 +32,18 @@ public class framePelicules extends javax.swing.JFrame {
                
         initComponents();
         System.out.println("ja he carregat els components");
-        this.loadPelicules(this.llistatPelicules);
+        //this.loadPelicules(this.pelicules);
         this.mostrarPelicula(0);
         
         
+    }
+    
+    public framePelicules(Pelicula peli){
+        
+        super();
+        initComponents();
+        this.pelicules.add(peli);
+        this.mostrarPelicula(0);
     }
 
     public void loadPelicules(javax.swing.JComboBox llistat) throws SQLException {
@@ -63,6 +71,7 @@ public class framePelicules extends javax.swing.JFrame {
         System.out.println("ja hem carregat les pelicules");
     }
 
+    
     public void loadPases(ArrayList<Pase> pases) {
         System.out.println("carregam els pases");
         try {
@@ -97,9 +106,6 @@ public class framePelicules extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        llistatPelicules = new javax.swing.JComboBox();
         panellPelicules = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -120,40 +126,6 @@ public class framePelicules extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-
-        jButton1.setText("Tornar enrera");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
-
-        llistatPelicules.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                llistatPeliculesMouseClicked(evt);
-            }
-        });
-        llistatPelicules.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llistatPeliculesActionPerformed(evt);
-            }
-        });
-        llistatPelicules.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                llistatPeliculesVetoableChange(evt);
-            }
-        });
-        jToolBar1.add(llistatPelicules);
-
-        getContentPane().add(jToolBar1);
-        jToolBar1.setBounds(0, 0, 700, 20);
 
         panellPelicules.setLayout(null);
 
@@ -234,26 +206,6 @@ public class framePelicules extends javax.swing.JFrame {
         setBounds((screenSize.width-706)/2, (screenSize.height-673)/2, 706, 673);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void llistatPeliculesVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_llistatPeliculesVetoableChange
-    }//GEN-LAST:event_llistatPeliculesVetoableChange
-
-    private void llistatPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llistatPeliculesMouseClicked
- 
-    }//GEN-LAST:event_llistatPeliculesMouseClicked
-
-    private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
-      try{
-        this.mostrarPelicula(this.llistatPelicules.getSelectedIndex());
-      }catch(IndexOutOfBoundsException e){
-          
-      }
-    }//GEN-LAST:event_llistatPeliculesActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        this.setVisible(false);
-        new pInicial().setVisible(true);// TODO add your handling code here:        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -315,7 +267,6 @@ public class framePelicules extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -325,14 +276,12 @@ public class framePelicules extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelAny;
     private javax.swing.JLabel labelDirector;
     private javax.swing.JLabel labelDuracio;
     private javax.swing.JLabel labelPortada;
     private javax.swing.JTextPane labelSinopsis;
     private javax.swing.JLabel labelTitol;
-    private javax.swing.JComboBox llistatPelicules;
     private javax.swing.JPanel panellPelicules;
     private javax.swing.JTable taulaHorari;
     // End of variables declaration//GEN-END:variables

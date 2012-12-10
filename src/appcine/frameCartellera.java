@@ -4,6 +4,7 @@
  */
 package appcine;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -58,31 +60,74 @@ public class frameCartellera extends javax.swing.JFrame {
 
     public void mostrarPelicules() {
         int i = 0;
-        int separacioX=10;
-        int separacioY=separacioX;
+        int separacioX = 20;
+        int separacioY = separacioX;
+        int ample = 340;
+        int altura = 300;
+        int colX;
+        int colY;
+        javax.swing.ImageIcon icn;
         for (Pelicula peli : this.pelicules) {
-            labelTitol = new javax.swing.JLabel();
-            lblPortada = new javax.swing.JLabel();
-            panelPelicula = new javax.swing.JPanel();
-            int colX=((i%2+1)*40)+separacioX;
-            int colY=(((int) Math.ceil(i/2)+1)*40)+separacioY;
-            System.out.println(colX+"//"+colY);
-            panelPelicula.setBounds(colX, colY, 200, 260);            
-            labelTitol.setBounds(0, 0, 170, 30);
-            labelTitol.setText("hola");
+
+            javax.swing.JPanel panelPelicula = new javax.swing.JPanel();
+            //javax.swing.JLabel lblPortada = new javax.swing.JLabel();
+            javax.swing.JButton lblPortada = new javax.swing.JButton();
+            javax.swing.JLabel labelTitol = new javax.swing.JLabel();
+            int fila = (int) Math.ceil(i / 2);
+            int columna = (i % 2);
+            colX = ((i % 2) * (ample + separacioX));
+            colY = fila * (altura + separacioY);
+            final int id_pelicula=this.pelicules.get(i).getId_pelicula();
+            
+            panelPelicula.setBounds(colX, colY, ample, altura);
+
+            labelTitol.setBounds(0, 0, ample, 40);
+            labelTitol.setText("<html>" + this.pelicules.get(i).getTitol() + "</html>");
+            labelTitol.setForeground(Color.BLACK);
+            labelTitol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            labelTitol.setFont(new java.awt.Font("Lucida Grande", 1, 16));
             panelPelicula.add(labelTitol);
-            this.lblPortada.setText("label1");
-            lblPortada.setBounds(colX, colY, 200, 220);
-            panelPelicula.add(lblPortada);           
-            panelPelicula.setBackground(new java.awt.Color(0, 255, 102));
+
+            String ruta_img = "/recursos/portades/" + this.pelicules.get(i).getRuta_imatge();
+            lblPortada.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta_img)));
+            lblPortada.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        //comprarEntrada(evt, seient, idPase);
+                        mostrarFitxaPelicula(id_pelicula);
+                    }
+                });
+            int ampleImg = lblPortada.getIcon().getIconWidth();
+            int altImg = lblPortada.getIcon().getIconHeight();
+
+            int PosXPortada = (ample - ampleImg) / 2;
+
+            lblPortada.setBounds(PosXPortada, 40, 200, 220);
+            panelPelicula.add(lblPortada);
+
+            //panelPelicula.setBackground(new java.awt.Color(0, 255, 102));
             panelPelicula.setLayout(null);
             jPanel1.add(panelPelicula);
             i++;
-            
         }
+
+        int alturaPanel = (int) Math.ceil(this.pelicules.size() / 2);
+        
+        this.jPanel1.setPreferredSize(new java.awt.Dimension((ample * 2) + 10, (alturaPanel*altura)));
 
     }
 
+    private void mostrarFitxaPelicula(int idPelicula){
+        
+        for(Pelicula p : this.pelicules){
+            
+            if(p.getId_pelicula()==idPelicula){
+                framePelicules fp=new framePelicules(p);
+                fp.setVisible(true);
+            }
+        }
+        
+       
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,11 +138,9 @@ public class frameCartellera extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        scrollPane1 = new java.awt.ScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,27 +154,51 @@ public class frameCartellera extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(440, 0, 620, 320);
 
-        jPanel1.setLayout(null);
+        jToolBar1.setRollover(true);
+        jToolBar1.setMaximumSize(new java.awt.Dimension(6, 1));
+        jToolBar1.setPreferredSize(new java.awt.Dimension(100, 5));
 
-        jButton1.setText("jButton1");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(420, 300, 97, 80);
+        jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButton2.setText("jButton1");
-        jPanel1.add(jButton2);
-        jButton2.setBounds(420, 170, 97, 80);
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(771, 900));
 
-        scrollPane1.add(jPanel1);
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 771, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 900, Short.MAX_VALUE)
+        );
 
-        getContentPane().add(scrollPane1);
-        scrollPane1.setBounds(50, 50, 670, 350);
+        jScrollPane1.setViewportView(jPanel1);
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 738, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
+            .add(layout.createSequentialGroup()
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 91, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-738)/2, (screenSize.height-394)/2, 738, 394);
+        setBounds((screenSize.width-738)/2, (screenSize.height-544)/2, 738, 544);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -172,15 +239,10 @@ public class frameCartellera extends javax.swing.JFrame {
             }
         });
     }
-    private javax.swing.JLabel labelTitol;
-    private javax.swing.JLabel lblPortada;
-    private javax.swing.JPanel panelPelicula;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.ScrollPane scrollPane1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
