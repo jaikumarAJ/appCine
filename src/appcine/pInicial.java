@@ -18,15 +18,17 @@ import javax.swing.SwingConstants;
  */
 public class pInicial extends javax.swing.JFrame {
 
+    //llistat de 
+    public panelPelicules pp = new panelPelicules(this);
+    public panelFitxaPelicula2 pfp = new panelFitxaPelicula2(this);
+
     /**
      * Creates new form pInicial
      */
-    public pInicial() {
+    public pInicial() throws SQLException {
+
         initComponents();
-       /* ImageIcon img1= new ImageIcon("/Users/torandell9/Desktop/DAM2/DI/appCine/rsrc/icono_cine.jpg");
-        JLabel label1=new JLabel("hola");
-        this.btnPelicules=new JButton("hola", img1);
-        this.btnPelicules.setVisible(false);*/
+
     }
 
     /**
@@ -39,17 +41,24 @@ public class pInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        panelInicial = new javax.swing.JPanel();
+        panelContingut = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
         btnPelicules = new javax.swing.JButton();
-        btnComprar = new javax.swing.JButton();
         btnEntrades = new javax.swing.JButton();
+        btnComprar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        panelInicial.setLayout(null);
+        panelContingut.setBackground(new java.awt.Color(0, 204, 51));
+        panelContingut.setForeground(new java.awt.Color(255, 255, 102));
+        panelContingut.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(panelContingut);
+        panelContingut.setBounds(0, 130, 900, 620);
+
+        jToolBar1.setRollover(true);
 
         btnPelicules.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_cine.jpg"))); // NOI18N
         btnPelicules.setText("<html><b>Pelicules</b></html>");
@@ -65,20 +74,7 @@ public class pInicial extends javax.swing.JFrame {
                 btnPeliculesActionPerformed(evt);
             }
         });
-        panelInicial.add(btnPelicules);
-        btnPelicules.setBounds(130, 90, 116, 140);
-
-        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_horario.jpg"))); // NOI18N
-        btnComprar.setText("<html><b>Horarios</b></html>");
-        btnComprar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnComprar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnComprar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnComprarActionPerformed(evt);
-            }
-        });
-        panelInicial.add(btnComprar);
-        btnComprar.setBounds(400, 90, 120, 140);
+        jToolBar1.add(btnPelicules);
 
         btnEntrades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_entrada.jpg"))); // NOI18N
         btnEntrades.setText("<html><b>Entrades");
@@ -95,14 +91,24 @@ public class pInicial extends javax.swing.JFrame {
                 btnEntradesActionPerformed(evt);
             }
         });
-        panelInicial.add(btnEntrades);
-        btnEntrades.setBounds(260, 90, 120, 140);
+        jToolBar1.add(btnEntrades);
 
-        getContentPane().add(panelInicial);
-        panelInicial.setBounds(0, 0, 610, 340);
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_horario.jpg"))); // NOI18N
+        btnComprar.setText("<html><b>Horarios</b></html>");
+        btnComprar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnComprar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnComprar);
+
+        getContentPane().add(jToolBar1);
+        jToolBar1.setBounds(0, 0, 900, 130);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-605)/2, (screenSize.height-362)/2, 605, 362);
+        setBounds((screenSize.width-899)/2, (screenSize.height-775)/2, 899, 775);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculesActionPerformed
@@ -118,14 +124,18 @@ public class pInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntradesActionPerformed
 
     private void btnPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculesMouseClicked
-        try {
-            this.setVisible(false);
-            //framePelicules vPelis=new framePelicules();
-            frameCartellera vPelis=new frameCartellera();
-            vPelis.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        this.pfp.setVisible(false);
+        this.pp.setVisible(false);
+        
+        this.panelContingut.removeAll();
+        
+        this.panelContingut.add(this.pp);
+        
+        this.pp.setVisible(true);
+        System.out.println(this.pp.getBounds());
+        System.out.println("es visible?" + this.pfp.isVisible());
+
     }//GEN-LAST:event_btnPeliculesMouseClicked
 
     private void btnEntradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntradesMouseClicked
@@ -138,7 +148,7 @@ public class pInicial extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnEntradesMouseClicked
 
     /**
@@ -171,7 +181,11 @@ public class pInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new pInicial().setVisible(true);
+                try {
+                    new pInicial().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -180,6 +194,7 @@ public class pInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrades;
     private javax.swing.JButton btnPelicules;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel panelInicial;
+    private javax.swing.JToolBar jToolBar1;
+    public javax.swing.JPanel panelContingut;
     // End of variables declaration//GEN-END:variables
 }

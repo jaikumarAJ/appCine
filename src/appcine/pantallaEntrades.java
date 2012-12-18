@@ -21,19 +21,17 @@ public class pantallaEntrades extends javax.swing.JFrame {
     /**
      * Creates new form pantallaEntrades
      */
-     private ArrayList<Pase> pases = new ArrayList<Pase>();
-
+    public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
+    private ArrayList<Pase> pases = new ArrayList<Pase>();
+    private int idSeleccionat;
+    private String dia;
+    private  HashMap <String, Integer> entrades;
     public pantallaEntrades() throws SQLException {
-        framePelicules fp = new framePelicules();
-        fp.loadPases(this.pases);
-        
-        //omplim els seients amb valors inventats...
-       
+
         initComponents();
-        this.labelSelectPelicula.setVisible(false);
-        fp.loadPelicules(llistatPelicules);
-
-
+        recursosBD rBD = new recursosBD();
+        rBD.selectPelicules(pelicules);
+        this.omplirLlistatPelicules();
     }
 
     /**
@@ -45,6 +43,18 @@ public class pantallaEntrades extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dialogConfirm = new javax.swing.JDialog();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        btnConfirmar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        labelTitol = new javax.swing.JLabel();
+        labelDia = new javax.swing.JLabel();
+        labelHora = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        labelSeient = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         llistatPelicules = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -57,6 +67,75 @@ public class pantallaEntrades extends javax.swing.JFrame {
         etiqSala = new javax.swing.JLabel();
         labelSelectPelicula = new javax.swing.JLabel();
 
+        dialogConfirm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        dialogConfirm.setAlwaysOnTop(true);
+        dialogConfirm.setBounds(new java.awt.Rectangle(0, 22, 400, 270));
+        dialogConfirm.setModal(true);
+        dialogConfirm.getContentPane().setLayout(null);
+
+        jLabel6.setText("<html><b>Pelicula:</b></html>");
+        dialogConfirm.getContentPane().add(jLabel6);
+        jLabel6.setBounds(39, 31, 55, 16);
+
+        jLabel7.setText("<html><b>Dia: </b></html>");
+        dialogConfirm.getContentPane().add(jLabel7);
+        jLabel7.setBounds(39, 59, 55, 16);
+
+        jLabel8.setText("<html><b>Hora:</b></html>");
+        dialogConfirm.getContentPane().add(jLabel8);
+        jLabel8.setBounds(39, 87, 55, 16);
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Confirmar compra ticket");
+        dialogConfirm.getContentPane().add(jLabel9);
+        jLabel9.setBounds(50, 160, 290, 35);
+
+        btnConfirmar.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfirmarMouseClicked(evt);
+            }
+        });
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+        dialogConfirm.getContentPane().add(btnConfirmar);
+        btnConfirmar.setBounds(40, 200, 146, 61);
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
+        dialogConfirm.getContentPane().add(btnCancelar);
+        btnCancelar.setBounds(190, 200, 153, 63);
+
+        labelTitol.setText("jLabel5");
+        dialogConfirm.getContentPane().add(labelTitol);
+        labelTitol.setBounds(120, 30, 260, 16);
+
+        labelDia.setText("jLabel5");
+        dialogConfirm.getContentPane().add(labelDia);
+        labelDia.setBounds(120, 60, 180, 16);
+
+        labelHora.setText("jLabel5");
+        dialogConfirm.getContentPane().add(labelHora);
+        labelHora.setBounds(120, 90, 260, 16);
+
+        jLabel5.setText("<html><b>Seient:</b></html>");
+        dialogConfirm.getContentPane().add(jLabel5);
+        jLabel5.setBounds(40, 120, 44, 16);
+
+        labelSeient.setText("jLabel10");
+        dialogConfirm.getContentPane().add(labelSeient);
+        labelSeient.setBounds(120, 120, 250, 16);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         getContentPane().setLayout(null);
@@ -66,24 +145,9 @@ public class pantallaEntrades extends javax.swing.JFrame {
         jLabel1.setBounds(20, 90, 60, 30);
 
         llistatPelicules.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---Seleccionar una --" }));
-        llistatPelicules.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                llistatPeliculesMouseClicked(evt);
-            }
-        });
-        llistatPelicules.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                llistatPeliculesItemStateChanged(evt);
-            }
-        });
         llistatPelicules.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 llistatPeliculesActionPerformed(evt);
-            }
-        });
-        llistatPelicules.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                llistatPeliculesVetoableChange(evt);
             }
         });
         getContentPane().add(llistatPelicules);
@@ -141,11 +205,18 @@ public class pantallaEntrades extends javax.swing.JFrame {
         labelSelectPelicula.setBounds(20, 180, 160, 16);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-710)/2, (screenSize.height-505)/2, 710, 505);
+        setBounds((screenSize.width-710)/2, (screenSize.height-526)/2, 710, 526);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void llistatPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llistatPeliculesMouseClicked
-    }//GEN-LAST:event_llistatPeliculesMouseClicked
+    private void omplirLlistatPelicules() {
+
+        System.out.println(this.pelicules.size());
+        for (Pelicula p : this.pelicules) {
+
+            this.llistatPelicules.addItem(p.getTitol());
+        }
+        System.out.println("hem carregat les pelicules");
+    }
 
     /**
      * Comprova que un jcombobox ja contengui un valor
@@ -162,21 +233,25 @@ public class pantallaEntrades extends javax.swing.JFrame {
         }
         return false;
     }
+
     private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
 
         this.etiqSala.setText("");
         this.diasDisponibles.removeAllItems();//buidam tota la llista
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
+        if (this.llistatPelicules.getSelectedIndex() > 0) {
+            this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId_pelicula();
 
-        for (int i = 0; i < this.pases.length; i++) { //recorrem tota la llista 
-            if (this.pases[i].getId_pelicula() == this.llistatPelicules.getSelectedIndex() && !teValor(this.pases[i].getDia(), this.diasDisponibles)) {
-                this.diasDisponibles.addItem(this.pases[i].getDia());
+            recursosBD rBD = new recursosBD();
+
+
+            for (String dia : rBD.getDiasPelicula(idSeleccionat)) {
+                this.diasDisponibles.addItem(dia);
             }
-        }
-    }//GEN-LAST:event_llistatPeliculesActionPerformed
 
-    private void llistatPeliculesVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_llistatPeliculesVetoableChange
-    }//GEN-LAST:event_llistatPeliculesVetoableChange
+        }
+
+    }//GEN-LAST:event_llistatPeliculesActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         this.setVisible(false);
@@ -188,21 +263,49 @@ public class pantallaEntrades extends javax.swing.JFrame {
         this.etiqSala.setText("");
         this.llistatHores.removeAllItems();
         this.llistatHores.addItem("---Selecciona una--");
-        /** Aqui carregar els pases que toca...
-        for (int i = 0; i < this.pases.length; i++) {
-            if (this.pases[i].getId_pelicula() == this.llistatPelicules.getSelectedIndex()
-                    && this.diasDisponibles.getSelectedIndex() > 0
-                    && this.diasDisponibles.getSelectedItem().equals(this.pases[i].getDia())
-                    && !teValor(this.pases[i].getHora(), this.llistatHores)) {
-                this.llistatHores.addItem(this.pases[i].getHora());
-            }
-        }
-        * */
 
+        System.out.println("diasDisponiblesActionPerformed");
+
+        if (this.diasDisponibles.getSelectedIndex() > 0) {
+            this.dia = (String) this.diasDisponibles.getSelectedItem();
+            recursosBD rBD = new recursosBD();
+
+            for (String hora : rBD.getHoresPelicula(dia, this.idSeleccionat)) {
+
+                this.llistatHores.addItem(hora);
+            }
+
+
+        }
 
     }//GEN-LAST:event_diasDisponiblesActionPerformed
 
+    private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
+
+
+        recursosBD rBD = new recursosBD();
+        if (this.llistatHores.getSelectedIndex() > 0) {
+            this.mostrarSala(rBD.getIdPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem()));
+        }
+    }//GEN-LAST:event_llistatHoresActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
+    System.out.println("HAN CONFIRMAT");        // TODO add your handling code here:
+    this.dialogConfirm.dispose();
+    }//GEN-LAST:event_btnConfirmarMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+    System.out.println("han cancelat");
+     this.dialogConfirm.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
     public void mostrarSala(final int idPase) {
+        recursosBD rBD = new recursosBD();
+        this.entrades=rBD.getEntrades(idPase);
         this.labelSelectPelicula.setVisible(true);
         int itemsAmple = 10;
         int itemsAlt;
@@ -214,58 +317,50 @@ public class pantallaEntrades extends javax.swing.JFrame {
         int iniciX = (amplePantalla - ampladaTeatre) / 2;
         //int iniciY = 120;
         int iniciY = this.labelSelectPelicula.getY();
+
+        //pintam tots els botons 
         for (int i = 0; i < 10; i++) {
             for (int b = 0; b < 10; b++) {
-                final String seient = b + "" + i;
+                final String seient = b + "-" + i;
                 java.awt.Color color = Color.GREEN;
                 javax.swing.JButton etiq = new javax.swing.JButton();
 
                 //Miram si esta ocupat o no
-                if (this.pases[idPase].getSeientsOcupats().contains(seient))
-                    color = Color.RED;
-                //donam 
-                etiq.addMouseListener(new java.awt.event.MouseAdapter() {
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        comprarEntrada(evt, seient, idPase);
-                    }
-                });
-                int colX = iniciX + (i * (ample + espaiat));
-                int colY = iniciY + (b * (alt + espaiat));
-                //
-                etiq.setOpaque(true);
-                etiq.setBorderPainted(false);
-                etiq.setBackground(color);
+                
+                 if (entrades.containsKey(b+"-"+i))
+                 color = Color.RED;
+                 //donam 
+                 etiq.addMouseListener(new java.awt.event.MouseAdapter() {
+                 public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    comprarEntrada(evt, seient, idPase);
+                 }
+                 });
+                 int colX = iniciX + (i * (ample + espaiat));
+                 int colY = iniciY + (b * (alt + espaiat));
+                 //
+                 etiq.setOpaque(true);
+                 etiq.setBorderPainted(false);
+                 etiq.setBackground(color);
 
-                getContentPane().add(etiq);
-                etiq.setBounds(colX, colY, ample, alt);
+                 getContentPane().add(etiq);
+                 etiq.setBounds(colX, colY, ample, alt);
+               
             }
         }
     }
 
     private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-        if(!this.pases[idPase].getSeientsOcupats().contains(seient)){}
-            //EN CONSTRUCCIÓ: EL SEIENT NO ESTA OCUPAT I PODEM FER LA RESERVA
+        if(!this.entrades.containsKey(seient)){
+            //esta lliure
+            this.labelTitol.setText((String)this.llistatPelicules.getSelectedItem());
+            this.labelDia.setText((String)this.diasDisponibles.getSelectedItem());
+            this.labelHora.setText((String)this.llistatHores.getSelectedItem());
+            this.labelSeient.setText(seient);
+            this.dialogConfirm.setVisible(true);
+            System.out.println("Volen comprar el seient: "+seient);
+        }
+        //EN CONSTRUCCIÓ: EL SEIENT NO ESTA OCUPAT I PODEM FER LA RESERVA
     }
-    private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
-        try {
-            for (int i = 0; i < this.pases.length; i++) {
-                if (this.pases[i].getId_pelicula() == this.llistatPelicules.getSelectedIndex()
-                        && this.diasDisponibles.getSelectedItem().equals(this.pases[i].getDia())
-                        && this.llistatHores.getSelectedIndex() > 0
-                        && this.llistatHores.getSelectedItem().equals(this.pases[i].getHora())) {
-
-                    this.etiqSala.setText(this.pases[i].getSala());
-                    this.mostrarSala(i);
-                    break;
-                }
-            }
-
-        } catch (NullPointerException e) {
-        }// TODO add your handling code here:
-    }//GEN-LAST:event_llistatHoresActionPerformed
-
-    private void llistatPeliculesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_llistatPeliculesItemStateChanged
-    }//GEN-LAST:event_llistatPeliculesItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -306,6 +401,9 @@ public class pantallaEntrades extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JDialog dialogConfirm;
     private javax.swing.JComboBox diasDisponibles;
     private javax.swing.JLabel etiqSala;
     private javax.swing.JButton jButton1;
@@ -313,8 +411,17 @@ public class pantallaEntrades extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel labelDia;
+    private javax.swing.JLabel labelHora;
+    private javax.swing.JLabel labelSeient;
     private javax.swing.JLabel labelSelectPelicula;
+    private javax.swing.JLabel labelTitol;
     private javax.swing.JComboBox llistatHores;
     private javax.swing.JComboBox llistatPelicules;
     // End of variables declaration//GEN-END:variables

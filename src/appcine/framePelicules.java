@@ -12,13 +12,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author torandell9
  */
-public class framePelicules extends javax.swing.JFrame {
+public class framePelicules extends javax.swing.JPanel {
 
    public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
    private ArrayList<Pase> pases = new ArrayList<Pase>();
@@ -44,6 +45,8 @@ public class framePelicules extends javax.swing.JFrame {
         initComponents();
         this.pelicules.add(peli);
         this.mostrarPelicula(0);
+        
+        System.out.println("acabam el constructor framepelicules");
     }
 
     public void loadPelicules(javax.swing.JComboBox llistat) throws SQLException {
@@ -266,6 +269,16 @@ public class framePelicules extends javax.swing.JFrame {
             }
         });
     }
+
+    public JPanel getPanellPelicules() {
+        return panellPelicules;
+    }
+
+    public void setPanellPelicules(JPanel panellPelicules) {
+        this.panellPelicules = panellPelicules;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

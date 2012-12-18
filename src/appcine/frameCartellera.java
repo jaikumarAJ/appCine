@@ -27,37 +27,13 @@ public class frameCartellera extends javax.swing.JFrame {
      */
     public frameCartellera() throws SQLException {
         initComponents();
-        this.selectPelicules(this.pelicules);
-
+        
+        recursosBD rBD=new recursosBD();
+        rBD.selectPelicules(pelicules);
         this.mostrarPelicules();
-
     }
-
-    public void selectPelicules(ArrayList<Pelicula> pelicules) throws SQLException {
-        ConexionMySQL mysql = new ConexionMySQL();
-        Connection cn = mysql.conectar();
-        String cSQL = "Select * from pelicules";
-
-        Statement st = cn.createStatement();
-
-        ResultSet rs = st.executeQuery(cSQL);
-        while (rs.next()) {
-            Pelicula p = new Pelicula();
-
-            p.setAny(rs.getInt("any"));
-            p.setDirector(rs.getString("director"));
-            p.setDuracio(rs.getInt("duracio"));
-            p.setId_pelicula(rs.getInt("id"));
-            p.setRuta_imatge(rs.getString("ruta_imatge"));
-            p.setSinopsis(rs.getString("sinopsis"));
-            p.setTitol(rs.getString("titol"));
-            //  llistat.addItem(p.getTitol());
-            this.pelicules.add(p);
-        }
-
-        System.out.println("ja hem carregat les pelicules");
-    }
-
+    
+  
     public void mostrarPelicules() {
         int i = 0;
         int separacioX = 20;
@@ -95,7 +71,7 @@ public class frameCartellera extends javax.swing.JFrame {
                         //comprarEntrada(evt, seient, idPase);
                         mostrarFitxaPelicula(id_pelicula);
                     }
-                });
+                }); 
             int ampleImg = lblPortada.getIcon().getIconWidth();
             int altImg = lblPortada.getIcon().getIconHeight();
 
@@ -110,21 +86,30 @@ public class frameCartellera extends javax.swing.JFrame {
             i++;
         }
 
-        int alturaPanel = (int) Math.ceil(this.pelicules.size() / 2);
+        int quantFiles = (int) Math.ceil(this.pelicules.size() / 2);
+        int altJpanel=quantFiles*(altura+10);
         
-        this.jPanel1.setPreferredSize(new java.awt.Dimension((ample * 2) + 10, (alturaPanel*altura)));
+        this.jPanel1.setPreferredSize(new java.awt.Dimension((ample * 2) + 10, altJpanel ));
 
     }
 
+    
     private void mostrarFitxaPelicula(int idPelicula){
+       
+        this.jPanel1.setVisible(false);
+        
         
         for(Pelicula p : this.pelicules){
             
             if(p.getId_pelicula()==idPelicula){
                 framePelicules fp=new framePelicules(p);
-                fp.setVisible(true);
+                
+                
+                this.jScrollPane1.add(fp.getPanellPelicules());
+                
             }
         }
+        
         
        
     }
@@ -193,7 +178,7 @@ public class frameCartellera extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 91, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 419, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
