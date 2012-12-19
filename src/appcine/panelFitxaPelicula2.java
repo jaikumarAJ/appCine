@@ -57,17 +57,23 @@ JFrame principal;
     }
     
     @Override
+     public void setBounds(int x, int y, int width, int height) {
+        this.scrollContainer.setBounds(x, y, width, height);
+        super.setBounds(x, y, width, height);
+        
+        System.out.println("canviam els bounds"+this.scrollContainer.getBounds());
+    }
+    
+    
     public void setVisible(boolean aFlag) {
         if(aFlag && this.peli!=null){
-            System.out.println(peli.getTitol());
             this.pelicules.add(peli);
+           
             this.mostrarPelicula(0);
             this.pelicules.remove(0);
-            System.out.println("estam al override");
         }
-        System.out.println("hola::"+aFlag);
+         this.panellPelicules.setVisible(aFlag);
         super.setVisible(aFlag);
-        
     }
     
 
@@ -164,6 +170,7 @@ JFrame principal;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        scrollContainer = new javax.swing.JScrollPane();
         panellPelicules = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -174,15 +181,14 @@ JFrame principal;
         labelDuracio = new javax.swing.JLabel();
         labelAny = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         labelPortada = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
         labelSinopsis = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         taulaHorari = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 255, 153));
+        setLayout(new java.awt.GridLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -207,7 +213,6 @@ JFrame principal;
 
         labelSinopsis.setEditable(false);
         labelSinopsis.setBackground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setViewportView(labelSinopsis);
 
         taulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -229,44 +234,51 @@ JFrame principal;
         panellPeliculesLayout.setHorizontalGroup(
             panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panellPeliculesLayout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(30, 30, 30)
                 .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(10, 10, 10)
-                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 330, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(labelDuracio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 310, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(panellPeliculesLayout.createSequentialGroup()
+                        .add(20, 20, 20)
+                        .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(panellPeliculesLayout.createSequentialGroup()
+                                .add(30, 30, 30)
+                                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(panellPeliculesLayout.createSequentialGroup()
+                                        .add(10, 10, 10)
+                                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                            .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 330, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(labelDuracio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                            .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                    .add(panellPeliculesLayout.createSequentialGroup()
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 310, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(panellPeliculesLayout.createSequentialGroup()
+                        .add(12, 12, 12)
+                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 630, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(0, 69, Short.MAX_VALUE))
             .add(panellPeliculesLayout.createSequentialGroup()
-                .add(30, 30, 30)
-                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 630, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .add(30, 30, 30)
-                .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 630, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 630, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .add(labelSinopsis)
+                .addContainerGap())
         );
         panellPeliculesLayout.setVerticalGroup(
             panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panellPeliculesLayout.createSequentialGroup()
-                .add(10, 10, 10)
                 .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, panellPeliculesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(38, 38, 38))
                     .add(panellPeliculesLayout.createSequentialGroup()
-                        .add(40, 40, 40)
+                        .add(50, 50, 50)
                         .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(panellPeliculesLayout.createSequentialGroup()
                                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -280,42 +292,24 @@ JFrame principal;
                                 .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(10, 10, 10)
                                 .add(labelDuracio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(14, 14, 14)
+                                .add(18, 18, 18)
                                 .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(10, 10, 10)
-                                .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(10, 10, 10)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 0, 0)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(70, 70, 70)
+                        .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 12, Short.MAX_VALUE)))
+                .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
                 .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(14, 14, 14)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 163, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 672, Short.MAX_VALUE)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panellPelicules, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 679, Short.MAX_VALUE)
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panellPelicules, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(15, Short.MAX_VALUE)))
-        );
+        scrollContainer.setViewportView(panellPelicules);
+
+        add(scrollContainer);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -324,9 +318,7 @@ JFrame principal;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelAny;
     private javax.swing.JLabel labelDirector;
     private javax.swing.JLabel labelDuracio;
@@ -334,6 +326,7 @@ JFrame principal;
     private javax.swing.JTextPane labelSinopsis;
     private javax.swing.JLabel labelTitol;
     public javax.swing.JPanel panellPelicules;
+    private javax.swing.JScrollPane scrollContainer;
     private javax.swing.JTable taulaHorari;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,14 +34,17 @@ public class panelPelicules extends javax.swing.JPanel {
     }
 
     @Override
+    
     public void setVisible(boolean aFlag) {
         if(aFlag){
-            this.jPanel1.setVisible(true);
             this.jScrollPane1.setVisible(true);
+            this.jPanel1.setVisible(true);
+           
         }
         super.setVisible(aFlag);
     }
-    
+
+   
     public void mostrarPelicules() {
         int i = 0;
         int separacioX = 20;
@@ -111,10 +114,17 @@ public class panelPelicules extends javax.swing.JPanel {
      * @param idPelicula
      */
     private void mostrarFitxaPelicula(int idPelicula) throws SQLException {
-        System.out.println("Volen veure la pelicula"+idPelicula);
         for (Pelicula p : this.pelicules) {
             if (p.getId_pelicula() == idPelicula) {
-                this.jScrollPane1.removeAll();
+                this.principal.pp.setVisible(false);
+                this.principal.pfp.setPeli(p);
+                
+                this.principal.panelContingut.add(this.principal.pfp);
+                
+                this.principal.pfp.setVisible(true);
+                this.principal.pfp.setBounds(this.getBounds());
+                /*this.jScrollPane1.removeAll();
+                  
                 this.principal.pfp.setPeli(p);
                 this.principal.pfp.setBounds(this.getBounds());
                 this.jScrollPane1.add(this.principal.pfp);
@@ -123,6 +133,9 @@ public class panelPelicules extends javax.swing.JPanel {
                         + this.jScrollPane1.getSize());
                 this.principal.pfp.setVisible(true);
                 this.principal.pfp.panellPelicules.setVisible(true);
+                System.out.println(this.principal.pp.jScrollPane1.isVisible());
+                * 
+                * */
 
             }
         }
@@ -141,6 +154,7 @@ public class panelPelicules extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 51, 51));
         jScrollPane1.setForeground(new java.awt.Color(0, 51, 51));
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);

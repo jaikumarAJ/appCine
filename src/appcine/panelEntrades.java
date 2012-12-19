@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,22 +15,38 @@ import java.util.logging.Logger;
  *
  * @author torandell9
  */
-public class pantallaEntrades extends javax.swing.JFrame {
+public class panelEntrades extends javax.swing.JPanel {
 
     /**
-     * Creates new form pantallaEntrades
+     * Creates new form panelEntrades
      */
     public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     private ArrayList<Pase> pases = new ArrayList<Pase>();
     private int idSeleccionat;
     private String dia;
     private  HashMap <String, Integer> entrades;
-    public pantallaEntrades() throws SQLException {
+    private pInicial pi;
+    
+    public panelEntrades(pInicial pi) {
+        this.pi=pi;
+        try {
+            initComponents();
+            recursosBD rBD = new recursosBD();
+            rBD.selectPelicules(pelicules);
+            this.omplirLlistatPelicules();
+        } catch (SQLException ex) {
+            Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void omplirLlistatPelicules() {
 
-        initComponents();
-        recursosBD rBD = new recursosBD();
-        rBD.selectPelicules(pelicules);
-        this.omplirLlistatPelicules();
+        System.out.println(this.pelicules.size());
+        for (Pelicula p : this.pelicules) {
+
+            this.llistatPelicules.addItem(p.getTitol());
+        }
+        System.out.println("hem carregat les pelicules");
     }
 
     /**
@@ -59,7 +74,6 @@ public class pantallaEntrades extends javax.swing.JFrame {
         llistatPelicules = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
         diasDisponibles = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         llistatHores = new javax.swing.JComboBox();
@@ -136,13 +150,7 @@ public class pantallaEntrades extends javax.swing.JFrame {
         dialogConfirm.getContentPane().add(labelSeient);
         labelSeient.setBounds(120, 120, 250, 16);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
-        getContentPane().setLayout(null);
-
         jLabel1.setText("<html><b>Pelicula:</b></html>");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 90, 60, 30);
 
         llistatPelicules.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---Seleccionar una --" }));
         llistatPelicules.addActionListener(new java.awt.event.ActionListener() {
@@ -150,89 +158,90 @@ public class pantallaEntrades extends javax.swing.JFrame {
                 llistatPeliculesActionPerformed(evt);
             }
         });
-        getContentPane().add(llistatPelicules);
-        llistatPelicules.setBounds(80, 90, 180, 30);
 
         jLabel2.setText("<html><b>Dia:</b></html>");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(280, 90, 40, 30);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-
-        jButton1.setText("Tornar enrera");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jToolBar1.add(jButton1);
-
-        getContentPane().add(jToolBar1);
-        jToolBar1.setBounds(0, 0, 700, 20);
 
         diasDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diasDisponiblesActionPerformed(evt);
             }
         });
-        getContentPane().add(diasDisponibles);
-        diasDisponibles.setBounds(320, 90, 180, 30);
 
         jLabel3.setText("<html><b>Hora:</b></html>");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(510, 90, 60, 30);
 
         llistatHores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 llistatHoresActionPerformed(evt);
             }
         });
-        getContentPane().add(llistatHores);
-        llistatHores.setBounds(560, 90, 96, 30);
 
         jLabel4.setText("<html><b>Sala:</b></html>");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 140, 30, 20);
-        getContentPane().add(etiqSala);
-        etiqSala.setBounds(60, 130, 80, 40);
 
         labelSelectPelicula.setText("<html><b>Seleccioni el seient</b></html>");
-        getContentPane().add(labelSelectPelicula);
-        labelSelectPelicula.setBounds(20, 180, 160, 16);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-710)/2, (screenSize.height-526)/2, 710, 526);
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(27, 27, 27)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, 0)
+                        .add(llistatPelicules, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(20, 20, 20)
+                        .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, 0)
+                        .add(diasDisponibles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(10, 10, 10)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(50, 50, 50)
+                                .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(10, 10, 10)
+                        .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 160, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createSequentialGroup()
+                    .add(0, 0, Short.MAX_VALUE)
+                    .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 700, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(24, 24, 24)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(llistatPelicules, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(diasDisponibles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(10, 10, 10)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(10, 10, 10)
+                        .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(10, 10, 10)
+                .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(235, Short.MAX_VALUE))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createSequentialGroup()
+                    .add(0, 84, Short.MAX_VALUE)
+                    .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(0, 261, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void omplirLlistatPelicules() {
-
-        System.out.println(this.pelicules.size());
-        for (Pelicula p : this.pelicules) {
-
-            this.llistatPelicules.addItem(p.getTitol());
-        }
-        System.out.println("hem carregat les pelicules");
-    }
-
-    /**
-     * Comprova que un jcombobox ja contengui un valor
-     *
-     * @param valor
-     * @param combo
-     * @return
-     */
-    private boolean teValor(String valor, javax.swing.JComboBox combo) {
-        for (int i = 0; i < combo.getItemCount(); i++) {
-            if (combo.getItemAt(i).equals(valor)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
 
@@ -244,19 +253,12 @@ public class pantallaEntrades extends javax.swing.JFrame {
 
             recursosBD rBD = new recursosBD();
 
-
             for (String dia : rBD.getDiasPelicula(idSeleccionat)) {
                 this.diasDisponibles.addItem(dia);
             }
 
         }
-
     }//GEN-LAST:event_llistatPeliculesActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        this.setVisible(false);
-        new pInicial().setVisible(true);// TODO add your handling code here:        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
 
     private void diasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasDisponiblesActionPerformed
 
@@ -275,13 +277,10 @@ public class pantallaEntrades extends javax.swing.JFrame {
                 this.llistatHores.addItem(hora);
             }
 
-
         }
-
     }//GEN-LAST:event_diasDisponiblesActionPerformed
 
     private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
-
 
         recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
@@ -289,22 +288,22 @@ public class pantallaEntrades extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_llistatHoresActionPerformed
 
+    private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
+        System.out.println("HAN CONFIRMAT");     
+        recursosBD rBD = new recursosBD();
+        rBD.guardarEntrada();
+        this.dialogConfirm.dispose();
+    }//GEN-LAST:event_btnConfirmarMouseClicked
+
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
-   // System.out.println("HAN CONFIRMAT");        // TODO add your handling code here:
-        this.
-    this.dialogConfirm.dispose();
-    }//GEN-LAST:event_btnConfirmarMouseClicked
-
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-    System.out.println("han cancelat");
-     this.dialogConfirm.dispose();// TODO add your handling code here:
+        System.out.println("han cancelat");
+        this.dialogConfirm.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseClicked
-
-    public void mostrarSala(final int idPase) {
+public void mostrarSala(final int idPase) {
         recursosBD rBD = new recursosBD();
         this.entrades=rBD.getEntrades(idPase);
         this.labelSelectPelicula.setVisible(true);
@@ -343,14 +342,13 @@ public class pantallaEntrades extends javax.swing.JFrame {
                  etiq.setBorderPainted(false);
                  etiq.setBackground(color);
 
-                    getContentPane().add(etiq);
+                 this.add(etiq);
                  etiq.setBounds(colX, colY, ample, alt);
                
             }
         }
     }
-
-    private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
+ private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
         if(!this.entrades.containsKey(seient)){
             //esta lliure
             this.labelTitol.setText((String)this.llistatPelicules.getSelectedItem());
@@ -362,52 +360,12 @@ public class pantallaEntrades extends javax.swing.JFrame {
         }
         //EN CONSTRUCCIÓ: EL SEIENT NO ESTA OCUPAT I PODEM FER LA RESERVA
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(pantallaEntrades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(pantallaEntrades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(pantallaEntrades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(pantallaEntrades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new pantallaEntrades().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(pantallaEntrades.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JDialog dialogConfirm;
     private javax.swing.JComboBox diasDisponibles;
     private javax.swing.JLabel etiqSala;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

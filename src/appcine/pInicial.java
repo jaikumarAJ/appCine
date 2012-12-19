@@ -4,6 +4,7 @@
  */
 package appcine;
 
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,15 +22,26 @@ public class pInicial extends javax.swing.JFrame {
     //llistat de 
     public panelPelicules pp = new panelPelicules(this);
     public panelFitxaPelicula2 pfp = new panelFitxaPelicula2(this);
+    public panelEntrades pe= new panelEntrades(this);
 
+   
     /**
      * Creates new form pInicial
      */
     public pInicial() throws SQLException {
 
+        System.out.println("Comença el programa");
+      
         initComponents();
 
     }
+    
+    public void ocultarTot(){
+        this.pp.setVisible(false);
+        this.pe.setVisible(false);
+        this.pfp.setVisible(false);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,10 +65,20 @@ public class pInicial extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         panelContingut.setBackground(new java.awt.Color(0, 204, 51));
-        panelContingut.setForeground(new java.awt.Color(255, 255, 102));
-        panelContingut.setLayout(new java.awt.BorderLayout());
+
+        org.jdesktop.layout.GroupLayout panelContingutLayout = new org.jdesktop.layout.GroupLayout(panelContingut);
+        panelContingut.setLayout(panelContingutLayout);
+        panelContingutLayout.setHorizontalGroup(
+            panelContingutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 880, Short.MAX_VALUE)
+        );
+        panelContingutLayout.setVerticalGroup(
+            panelContingutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 420, Short.MAX_VALUE)
+        );
+
         getContentPane().add(panelContingut);
-        panelContingut.setBounds(0, 130, 900, 620);
+        panelContingut.setBounds(10, 130, 880, 420);
 
         jToolBar1.setRollover(true);
 
@@ -108,7 +130,7 @@ public class pInicial extends javax.swing.JFrame {
         jToolBar1.setBounds(0, 0, 900, 130);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-899)/2, (screenSize.height-775)/2, 899, 775);
+        setBounds((screenSize.width-899)/2, (screenSize.height-577)/2, 899, 577);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculesActionPerformed
@@ -123,32 +145,25 @@ public class pInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEntradesActionPerformed
 
+    public void mostrarPanell(javax.swing.JPanel pnl){
+        this.ocultarTot();
+        this.panelContingut.add(pnl);
+       
+        pnl.setVisible(true);
+        pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
+        System.out.println(this.panelContingut.getBounds()+"//"+this.panelContingut.isVisible());
+        System.out.println(pnl.getBounds()+"//"+pnl.isVisible());
+
+    }
     private void btnPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculesMouseClicked
         
-        this.pfp.setVisible(false);
-        this.pp.setVisible(false);
+       
+        this.mostrarPanell(this.pp);
         
-        this.panelContingut.removeAll();
-        
-        this.panelContingut.add(this.pp);
-        
-        this.pp.setVisible(true);
-        System.out.println(this.pp.getBounds());
-        System.out.println("es visible?" + this.pfp.isVisible());
-
     }//GEN-LAST:event_btnPeliculesMouseClicked
 
     private void btnEntradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntradesMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-        pantallaEntrades pE;
-        try {
-            pE = new pantallaEntrades();
-            pE.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        this.mostrarPanell(this.pe);
     }//GEN-LAST:event_btnEntradesMouseClicked
 
     /**

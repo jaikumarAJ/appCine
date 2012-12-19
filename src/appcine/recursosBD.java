@@ -129,7 +129,7 @@ public class recursosBD {
 
         this.cn = this.mysql.conectar();
 
-        String cSQL = "Select id_entrada, fila, columna from entrades where id_pase='"+idPase+"'";
+        String cSQL = "Select id_entrada, fila, butaca from entrades where id_pase='"+idPase+"'";
         System.out.println(cSQL);
         Statement st;
         try {
@@ -137,12 +137,18 @@ public class recursosBD {
             ResultSet rs = st.executeQuery(cSQL);
 
             while (rs.next()) {
-                entrades.put(rs.getString("fila")+"-"+rs.getString("columna"), rs.getInt("id_entrada"));
+                entrades.put(rs.getString("fila")+"-"+rs.getString("butaca"), rs.getInt("id_entrada"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return entrades;
+    }
+    /**
+     * Fica l'entrada dins la base de dades
+     */
+    public void insertarEntrada(){
+        
     }
 }
