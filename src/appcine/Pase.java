@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author torandell9
  */
 public class Pase {
-    
+    int id_pase;
     int id_pelicula;
     String dia;
     String hora;
@@ -35,8 +35,9 @@ public class Pase {
      * @param hora
      * @param sala 
      */
-    public Pase(int id_pelicula, String dia, String hora, String sala) {
+    public Pase(int id_pase, int id_pelicula, String dia, String hora, String sala) {
         super();
+        this.id_pase=id_pase;
         this.id_pelicula = id_pelicula;
         this.dia = dia;
         this.hora = hora;
@@ -45,6 +46,14 @@ public class Pase {
 
     Pase() {
        
+    }
+
+    public int getId_pase() {
+        return id_pase;
+    }
+
+    public void setId_pase(int id_pase) {
+        this.id_pase = id_pase;
     }
 
     public int getId_pelicula() {

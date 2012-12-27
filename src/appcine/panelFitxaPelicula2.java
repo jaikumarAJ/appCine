@@ -32,7 +32,7 @@ JFrame principal;
     public panelFitxaPelicula2(pInicial principal) {
         initComponents();
         this.principal=principal;
-        this.panellPelicules.setVisible(false);
+        this.jPanel1.setVisible(false);
     }
     /*
     public panelFitxaPelicula2(Pelicula peli, JFrame principal) {
@@ -72,7 +72,7 @@ JFrame principal;
             this.mostrarPelicula(0);
             this.pelicules.remove(0);
         }
-         this.panellPelicules.setVisible(aFlag);
+         this.jPanel1.setVisible(aFlag);
         super.setVisible(aFlag);
     }
     
@@ -147,7 +147,10 @@ JFrame principal;
         this.labelSinopsis.setText(this.pelicules.get(index).getSinopsis());
         this.labelPortada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/portades/" + this.pelicules.get(index).getRuta_imatge())));
         this.id_pelicula = this.pelicules.get(index).getId_pelicula();
-
+        this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
+        
+        
+        this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
         //BUIDAM LA TAULA D'HORARIS
         DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();// TODO add your handling code here:    
         modelo.setRowCount(0);
@@ -156,6 +159,7 @@ JFrame principal;
         this.loadPases(pases);
 
         for (Pase p : pases) {
+            
             modelo.addRow(new Object[]{p.getDia(), p.getHora(), "1"});
         }
       
@@ -171,7 +175,7 @@ JFrame principal;
     private void initComponents() {
 
         scrollContainer = new javax.swing.JScrollPane();
-        panellPelicules = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -185,10 +189,13 @@ JFrame principal;
         labelSinopsis = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         taulaHorari = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        labelgenere = new javax.swing.JLabel();
+        labelClassif = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 255, 153));
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -227,87 +234,97 @@ JFrame principal;
         taulaHorari.setShowGrid(true);
         jScrollPane2.setViewportView(taulaHorari);
 
-        jLabel6.setText("<html><b>Pases</b></html>");
+        jLabel7.setText("<html><b>Classificació:</b></html>");
 
-        org.jdesktop.layout.GroupLayout panellPeliculesLayout = new org.jdesktop.layout.GroupLayout(panellPelicules);
-        panellPelicules.setLayout(panellPeliculesLayout);
-        panellPeliculesLayout.setHorizontalGroup(
-            panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(panellPeliculesLayout.createSequentialGroup()
-                        .add(20, 20, 20)
+        jLabel9.setText("<html><b>Gènere:</b></html>");
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(20, 20, 20)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 700, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(6, 6, 6)
+                        .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel1Layout.createSequentialGroup()
                         .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(panellPeliculesLayout.createSequentialGroup()
-                                .add(30, 30, 30)
-                                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(36, 36, 36)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                                     .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(panellPeliculesLayout.createSequentialGroup()
-                                        .add(10, 10, 10)
-                                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 330, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(labelDuracio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                    .add(panellPeliculesLayout.createSequentialGroup()
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 310, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                            .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(panellPeliculesLayout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 630, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(0, 69, Short.MAX_VALUE))
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(labelSinopsis)
-                .addContainerGap())
-        );
-        panellPeliculesLayout.setVerticalGroup(
-            panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panellPeliculesLayout.createSequentialGroup()
-                .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, panellPeliculesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(38, 38, 38))
-                    .add(panellPeliculesLayout.createSequentialGroup()
-                        .add(50, 50, 50)
-                        .add(panellPeliculesLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(panellPeliculesLayout.createSequentialGroup()
-                                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(10, 10, 10)
-                                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(10, 10, 10)
-                                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(10, 10, 10)
-                                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(panellPeliculesLayout.createSequentialGroup()
-                                .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(10, 10, 10)
-                                .add(labelDuracio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(labelDirector, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(labelAny, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(36, 36, 36)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(labelTitol, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                                    .add(labelDuracio, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(jPanel1Layout.createSequentialGroup()
                                 .add(18, 18, 18)
-                                .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(70, 70, 70)
-                        .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 12, Short.MAX_VALUE)))
-                .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(labelClassif, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 308, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(52, 52, 52)
+                                .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(labelgenere, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))))
+                    .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 692, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(375, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(50, 50, 50)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(10, 10, 10)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(labelDuracio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel3)
+                            .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel4))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jLabel7)
+                            .add(labelClassif, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(labelgenere, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(25, 25, 25)
+                        .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 220, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(43, 43, 43)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        scrollContainer.setViewportView(panellPelicules);
+        scrollContainer.setViewportView(jPanel1);
 
         add(scrollContainer);
     }// </editor-fold>//GEN-END:initComponents
@@ -317,15 +334,18 @@ JFrame principal;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    public javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelAny;
+    private javax.swing.JLabel labelClassif;
     private javax.swing.JLabel labelDirector;
     private javax.swing.JLabel labelDuracio;
     private javax.swing.JLabel labelPortada;
     private javax.swing.JTextPane labelSinopsis;
     private javax.swing.JLabel labelTitol;
-    public javax.swing.JPanel panellPelicules;
+    private javax.swing.JLabel labelgenere;
     private javax.swing.JScrollPane scrollContainer;
     private javax.swing.JTable taulaHorari;
     // End of variables declaration//GEN-END:variables

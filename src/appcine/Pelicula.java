@@ -4,6 +4,8 @@
  */
 package appcine;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author torandell9
@@ -17,11 +19,13 @@ public class Pelicula {
     private int any;
     private int id_pelicula;
     private String ruta_imatge;
-
+    private String classificacio;
+    private ArrayList<String> generes = new ArrayList<String>();
+    
     public Pelicula(){
         
     }
-    public Pelicula(int id_pelicula, String titol, int duracio, String director, String sinopsis, int any, String imatge) {
+    public Pelicula(int id_pelicula, String titol, int duracio, String director, String sinopsis, int any, String imatge, String classificacio) {
         this.titol = titol;
         this.id_pelicula=id_pelicula;
         this.any=any;
@@ -29,6 +33,7 @@ public class Pelicula {
         this.director = director;
         this.sinopsis = sinopsis;
         this.ruta_imatge=imatge;
+        this.classificacio=classificacio;
     }
 
     public String getRuta_imatge() {
@@ -87,5 +92,43 @@ public class Pelicula {
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
     }
+
+    public String getClassificacio() {
+        return classificacio;
+    }
+
+    public void setClassificacio(String classificacio) {
+        this.classificacio = classificacio;
+    }
+
+    public ArrayList<String> getGeneres() {
+        return generes;
+    }
+
+    public void setGeneres(ArrayList<String> generes) {
+        this.generes = generes;
+    }
+    
+    public void addGenere(String genere){
+        this.generes.add(genere);
+    }
+
+    public String getStringGeneres(){
+        
+       String ret="";
+       for(String genere : this.generes){
+           ret=ret+genere+", ";
+       }
+       
+       return ret.substring(0, ret.length()-2)+".";
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "Pelicula{" + "titol=" + titol + ", duracio=" + duracio + ", director=" + director + ", sinopsis=" + sinopsis + ", any=" + any + ", id_pelicula=" + id_pelicula + ", ruta_imatge=" + ruta_imatge + ", classificacio=" + classificacio + ", generes=" + generes + '}';
+    }
+    
+    
     
 }
