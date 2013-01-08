@@ -5,6 +5,8 @@
 package appcine;
 
 import java.awt.Color;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,7 +27,7 @@ public class panelPelicules extends javax.swing.JPanel {
      * Creates new form panelPelicules
      */
     
-    public panelPelicules(pInicial principal) throws SQLException {
+    public panelPelicules(pInicial principal) throws SQLException{
         initComponents();
         this.principal = principal;
         recursosBD rBD = new recursosBD();
@@ -46,10 +48,12 @@ public class panelPelicules extends javax.swing.JPanel {
 
    
     public void mostrarPelicules() {
+        System.out.println("l'scroll medeix:"+this.jScrollPane1.getPreferredSize());
         int i = 0;
         int separacioX = 20;
         int separacioY = separacioX;
         int ample = 340;
+        int iniciX = (int)((this.jScrollPane1.getPreferredSize().getWidth()-ample))/2;
         int altura = 300;
         int colX;
         int colY;
@@ -62,7 +66,8 @@ public class panelPelicules extends javax.swing.JPanel {
             javax.swing.JLabel labelTitol = new javax.swing.JLabel();
             int fila = (int) Math.ceil(i / 2);
             int columna = (i % 2);
-            colX = ((i % 2) * (ample + separacioX));
+            
+            colX = iniciX + (((i % 2) * (ample + separacioX)));
             colY = fila * (altura + separacioY);
             final int id_pelicula = this.pelicules.get(i).getId_pelicula();
 
@@ -75,8 +80,22 @@ public class panelPelicules extends javax.swing.JPanel {
             labelTitol.setFont(new java.awt.Font("Lucida Grande", 1, 16));
             panelPelicula.add(labelTitol);
 
+            //IMATGES DESDE LOCAL
             String ruta_img = "/recursos/portades/" + this.pelicules.get(i).getRuta_imatge();
             lblPortada.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta_img)));
+            
+            
+            /*
+             *IMG DESDE URL
+             *  String ruta_img ="http://www.huma06.com/hotelillador.com/img/q_calidad.png";
+            try {
+                
+                lblPortada.setIcon(new javax.swing.ImageIcon(new URL("http://www.huma06.com/hotelillador.com/img/q_calidad.png")));
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             */
+           
             lblPortada.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
                     try {
@@ -105,7 +124,7 @@ public class panelPelicules extends javax.swing.JPanel {
         int altJpanel = quantFiles * (altura + 10);
 
         this.jPanel1.setPreferredSize(new java.awt.Dimension((ample * 2) + 10, altJpanel));
-
+ System.out.println("l'scroll medeix:"+this.jScrollPane1.getPreferredSize());
     }
 
     /**
@@ -154,8 +173,10 @@ public class panelPelicules extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 51, 51));
+        jScrollPane1.setBackground(new java.awt.Color(238, 238, 238));
         jScrollPane1.setForeground(new java.awt.Color(0, 51, 51));
+
+        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

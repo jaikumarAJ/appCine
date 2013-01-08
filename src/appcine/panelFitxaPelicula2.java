@@ -107,7 +107,7 @@ JFrame principal;
         try {
             ConexionMySQL mysql = new ConexionMySQL();
             Connection cn = mysql.conectar();
-            String cSQL = "Select * from pases where id_pelicula=" + this.id_pelicula;
+            String cSQL = "Select p.*, s.nom from pases p, sales s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
 
             Statement st = cn.createStatement();
 
@@ -117,12 +117,12 @@ JFrame principal;
                 p.setDia(rs.getString("dia"));
                 p.setId_pelicula(rs.getInt("id_pelicula"));
                 p.setHora(rs.getString("hora"));
-                //p.setSala(rs.getString("sala"));              
+                p.setSala(rs.getString("nom"));              
                 this.pases.add(p);
                 System.out.println(p.toString());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(framePelicules.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -147,10 +147,9 @@ JFrame principal;
         this.labelSinopsis.setText(this.pelicules.get(index).getSinopsis());
         this.labelPortada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/portades/" + this.pelicules.get(index).getRuta_imatge())));
         this.id_pelicula = this.pelicules.get(index).getId_pelicula();
-        this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
-        
-        
+        this.labelClassif.setText(this.pelicules.get(index).getClassificacio());        
         this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
+        
         //BUIDAM LA TAULA D'HORARIS
         DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();// TODO add your handling code here:    
         modelo.setRowCount(0);
@@ -160,7 +159,7 @@ JFrame principal;
 
         for (Pase p : pases) {
             
-            modelo.addRow(new Object[]{p.getDia(), p.getHora(), "1"});
+            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSala()});
         }
       
     }
@@ -197,6 +196,9 @@ JFrame principal;
         setBackground(new java.awt.Color(153, 255, 153));
         setLayout(new java.awt.GridLayout(1, 0));
 
+        jPanel1.setBackground(new java.awt.Color(51, 255, 0));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Titol:");
@@ -218,8 +220,8 @@ JFrame principal;
 
         labelPortada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/fons_inicial.jpg"))); // NOI18N
 
-        labelSinopsis.setEditable(false);
-        labelSinopsis.setBackground(new java.awt.Color(204, 204, 204));
+        labelSinopsis.setBackground(new java.awt.Color(238, 238, 238));
+        labelSinopsis.setAutoscrolls(false);
 
         taulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,7 +247,6 @@ JFrame principal;
             .add(jPanel1Layout.createSequentialGroup()
                 .add(20, 20, 20)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 700, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(6, 6, 6)
                         .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -280,8 +281,9 @@ JFrame principal;
                                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(18, 18, 18)
                                 .add(labelgenere, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))))
-                    .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 692, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(375, Short.MAX_VALUE))
+                    .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 629, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 618, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -319,9 +321,9 @@ JFrame principal;
                 .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(43, 43, 43)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 157, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 40, Short.MAX_VALUE)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(19, 19, 19))
         );
 
         scrollContainer.setViewportView(jPanel1);

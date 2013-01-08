@@ -33,7 +33,7 @@ public class pInicial extends javax.swing.JFrame {
         System.out.println("Comença el programa");
       
         initComponents();
-
+        this.mostrarPanell(this.pp);
     }
     
     public void ocultarTot(){

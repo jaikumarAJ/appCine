@@ -1,6 +1,7 @@
 package appcine;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -72,9 +75,7 @@ public class recursosBD {
         System.out.println(cSQL);
         try {
 
-
             Statement st;
-
             st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(cSQL);
             while(rs.next()){
@@ -212,6 +213,27 @@ public class recursosBD {
     /**
      * Fica l'entrada dins la base de dades
      */
-    public void insertarEntrada() {
+    public void insertarEntrada(Pase p, int fila, int columna) throws SQLException {
+        
+        String vSQL = "";
+ this.cn = this.mysql.conectar();
+
+        vSQL = "INSERT INTO entrades(id_pase , fila , butaca, id_tarifa) VALUES (? , ?  , ?, 0)";
+        PreparedStatement pst = null;
+      
+            pst = cn.prepareStatement(vSQL);
+            pst.setString(1, String.valueOf(p.getId_pase()));
+            pst.setString(2,  String.valueOf(fila));
+            pst.setString(3,  String.valueOf(columna));
+
+            System.out.println("el pase es:"+p.getId_pase());
+        int n = 0;
+        try {
+            n = pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al introduir"+ex);
+            //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

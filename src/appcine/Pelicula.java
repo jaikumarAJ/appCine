@@ -120,7 +120,10 @@ public class Pelicula {
            ret=ret+genere+", ";
        }
        
-       return ret.substring(0, ret.length()-2)+".";
+       if(ret.length()!=0)
+        return ret.substring(0, ret.length()-2)+".";
+       
+       return "";
     }
     
     

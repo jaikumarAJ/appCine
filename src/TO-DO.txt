@@ -1,0 +1,13 @@
+passar-ho tot a català
+fer que hi capin els botons de les butaques
+mostrar sala al popup per comprar l'entrada i fer mes grans
+guardar entrada a la bd
+2. Filtrar cerques pel·lícules
+3. Quan fan click a un horari a la fitxa de la pelicula
+4. Mostrar genere, classificació de la película
+5. Assignar sales als passes  (bd)
+7. Assignar generes (bd)
+8. Assignar preus (bd)
+
+Panel horarios:
+taula amb una llista de pelicules ordenades per hora (d'ara cap endavant) i la llista de seients disponibles

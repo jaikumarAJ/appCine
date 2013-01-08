@@ -24,11 +24,13 @@ public class panelEntrades extends javax.swing.JPanel {
     private ArrayList<Pase> pases = new ArrayList<Pase>();
     private int idSeleccionat;
     private String dia;
-    private  HashMap <String, Integer> entrades;
+    private HashMap<String, Integer> entrades;
     private pInicial pi;
-    
+    private Pase p;
+    private String seient;
+
     public panelEntrades(pInicial pi) {
-        this.pi=pi;
+        this.pi = pi;
         try {
             initComponents();
             recursosBD rBD = new recursosBD();
@@ -38,7 +40,7 @@ public class panelEntrades extends javax.swing.JPanel {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void omplirLlistatPelicules() {
 
         System.out.println(this.pelicules.size());
@@ -70,6 +72,8 @@ public class panelEntrades extends javax.swing.JPanel {
         labelHora = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         labelSeient = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        labelSala = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         llistatPelicules = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -86,26 +90,17 @@ public class panelEntrades extends javax.swing.JPanel {
         dialogConfirm.setAlwaysOnTop(true);
         dialogConfirm.setBounds(new java.awt.Rectangle(0, 22, 400, 270));
         dialogConfirm.setModal(true);
-        dialogConfirm.getContentPane().setLayout(null);
 
         jLabel6.setText("<html><b>Pelicula:</b></html>");
-        dialogConfirm.getContentPane().add(jLabel6);
-        jLabel6.setBounds(39, 31, 55, 16);
 
         jLabel7.setText("<html><b>Dia: </b></html>");
-        dialogConfirm.getContentPane().add(jLabel7);
-        jLabel7.setBounds(39, 59, 55, 16);
 
         jLabel8.setText("<html><b>Hora:</b></html>");
-        dialogConfirm.getContentPane().add(jLabel8);
-        jLabel8.setBounds(39, 87, 55, 16);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("´asdlfka´fdjañsdfk");
-        dialogConfirm.getContentPane().add(jLabel9);
-        jLabel9.setBounds(50, 160, 290, 35);
+        jLabel9.setText("Confirmar compra");
 
         btnConfirmar.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         btnConfirmar.setText("Confirmar");
@@ -119,8 +114,6 @@ public class panelEntrades extends javax.swing.JPanel {
                 btnConfirmarActionPerformed(evt);
             }
         });
-        dialogConfirm.getContentPane().add(btnConfirmar);
-        btnConfirmar.setBounds(40, 200, 146, 61);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,28 +121,94 @@ public class panelEntrades extends javax.swing.JPanel {
                 btnCancelarMouseClicked(evt);
             }
         });
-        dialogConfirm.getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(190, 200, 153, 63);
 
         labelTitol.setText("jLabel5");
-        dialogConfirm.getContentPane().add(labelTitol);
-        labelTitol.setBounds(120, 30, 260, 16);
 
         labelDia.setText("jLabel5");
-        dialogConfirm.getContentPane().add(labelDia);
-        labelDia.setBounds(120, 60, 180, 16);
 
         labelHora.setText("jLabel5");
-        dialogConfirm.getContentPane().add(labelHora);
-        labelHora.setBounds(120, 90, 260, 16);
 
         jLabel5.setText("<html><b>Seient:</b></html>");
-        dialogConfirm.getContentPane().add(jLabel5);
-        jLabel5.setBounds(40, 120, 44, 16);
 
         labelSeient.setText("jLabel10");
-        dialogConfirm.getContentPane().add(labelSeient);
-        labelSeient.setBounds(120, 120, 250, 16);
+
+        jLabel10.setText("<html><b>Sala:</b></html>");
+
+        labelSala.setText("jLabel10");
+
+        org.jdesktop.layout.GroupLayout dialogConfirmLayout = new org.jdesktop.layout.GroupLayout(dialogConfirm.getContentPane());
+        dialogConfirm.getContentPane().setLayout(dialogConfirmLayout);
+        dialogConfirmLayout.setHorizontalGroup(
+            dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(dialogConfirmLayout.createSequentialGroup()
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(dialogConfirmLayout.createSequentialGroup()
+                        .add(50, 50, 50)
+                        .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 290, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(dialogConfirmLayout.createSequentialGroup()
+                        .add(40, 40, 40)
+                        .add(btnConfirmar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 146, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(4, 4, 4)
+                        .add(btnCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(dialogConfirmLayout.createSequentialGroup()
+                            .add(39, 39, 39)
+                            .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(18, 18, 18)
+                            .add(labelHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 248, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, dialogConfirmLayout.createSequentialGroup()
+                            .add(40, 40, 40)
+                            .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(jLabel10)
+                                .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                            .add(18, 18, 18)
+                            .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(labelSeient, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 250, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(labelSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 250, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, dialogConfirmLayout.createSequentialGroup()
+                        .add(39, 39, 39)
+                        .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, dialogConfirmLayout.createSequentialGroup()
+                                .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(labelTitol, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 248, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, dialogConfirmLayout.createSequentialGroup()
+                                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(labelDia, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 248, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .add(44, 44, 44))
+        );
+        dialogConfirmLayout.setVerticalGroup(
+            dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(dialogConfirmLayout.createSequentialGroup()
+                .add(31, 31, 31)
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(labelTitol))
+                .add(12, 12, 12)
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(labelDia))
+                .add(12, 12, 12)
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(labelHora))
+                .add(13, 13, 13)
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(labelSala))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(labelSeient))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(5, 5, 5)
+                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(btnConfirmar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(btnCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
 
         jLabel1.setText("<html><b>Pel·licula:</b></html>");
 
@@ -223,9 +282,9 @@ public class panelEntrades extends javax.swing.JPanel {
                         .add(diasDisponibles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(12, 12, 12)
-                        .add(llistatHores, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -246,19 +305,18 @@ public class panelEntrades extends javax.swing.JPanel {
                         .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(20, 20, 20))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
                 .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 187, Short.MAX_VALUE)
                         .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18))
                     .add(layout.createSequentialGroup()
                         .add(18, 18, 18)
                         .add(contenedorSeients, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(23, Short.MAX_VALUE))))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -303,19 +361,26 @@ public class panelEntrades extends javax.swing.JPanel {
 
         recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
-            Pase p=rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
+            this.p = rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
             this.etiqSala.setText(p.getSala());
             this.mostrarSala(p.getId_pase());;
         }
     }//GEN-LAST:event_llistatHoresActionPerformed
 
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
-        System.out.println("HAN CONFIRMAT");     
-        /*
+        System.out.println("HAN CONFIRMAT");
+
         recursosBD rBD = new recursosBD();
-        rBD.guardarEntrada();
+        String[] seients = this.seient.split("-");
+        try {
+            rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1]));
+        } catch (SQLException ex) {
+            Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("s'ha guardat dins la bd");
         this.dialogConfirm.dispose();
-        * */
+        this.mostrarSala(this.p.getId_pase());
+
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
@@ -323,23 +388,23 @@ public class panelEntrades extends javax.swing.JPanel {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        System.out.println("han cancelat");
+        System.out.println("han cancel·lat");
         this.dialogConfirm.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseClicked
-public void mostrarSala(final int idPase) {
-    
+    public void mostrarSala(final int idPase) {
+
         this.contenedorSeients.removeAll();
         this.contenedorSeients.setVisible(false);
-        
-       this.contenedorSeients.setVisible(true);
-        
+
+        this.contenedorSeients.setVisible(true);
+
         recursosBD rBD = new recursosBD();
-        Sala s=rBD.getSalaByPase(idPase);
-        
-        int files=s.getFiles();
-        int columnes=s.getButaques();
-        System.out.println("Hi ha "+ files+" files i "+columnes+"columnes ");
-        this.entrades=rBD.getEntrades(idPase);
+        Sala s = rBD.getSalaByPase(idPase);
+
+        int files = s.getFiles();
+        int columnes = s.getButaques();
+        System.out.println("Hi ha " + files + " files i " + columnes + "columnes ");
+        this.entrades = rBD.getEntrades(idPase);
         this.labelSelectPelicula.setVisible(true);
         int itemsAmple = 10;
         int itemsAlt;
@@ -351,8 +416,8 @@ public void mostrarSala(final int idPase) {
         //int iniciX = (amplePantalla - ampladaTeatre) / 2;
         //        int iniciY = this.labelSelectPelicula.getY();
 
-        int iniciX=0;
-        int iniciY=0;
+        int iniciX = 0;
+        int iniciY = 0;
 
         //pintam tots els botons 
         for (int i = 0; i < files; i++) {
@@ -362,37 +427,43 @@ public void mostrarSala(final int idPase) {
                 javax.swing.JButton etiq = new javax.swing.JButton();
 
                 //Miram si esta ocupat o no
-                
-                 if (entrades.containsKey(b+"-"+i))
-                 color = Color.RED;
-                 //donam 
-                 etiq.addMouseListener(new java.awt.event.MouseAdapter() {
-                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    comprarEntrada(evt, seient, idPase);
-                 }
-                 });
-                 int colX = iniciX + (i * (ample + espaiat));
-                 int colY = iniciY + (b * (alt + espaiat));
-                 //
-                 etiq.setOpaque(true);
-                 etiq.setBorderPainted(false);
-                 etiq.setBackground(color);
 
-                 this.contenedorSeients.add(etiq);
-                 etiq.setBounds(colX, colY, ample, alt);
-               
+                if (entrades.containsKey(b + "-" + i)) {
+                    color = Color.RED;
+                }
+                //donam 
+                etiq.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        comprarEntrada(evt, seient, idPase);
+                    }
+                });
+                int colX = iniciX + (i * (ample + espaiat));
+                int colY = iniciY + (b * (alt + espaiat));
+                //
+                etiq.setOpaque(true);
+                etiq.setBorderPainted(false);
+                etiq.setBackground(color);
+
+                this.contenedorSeients.add(etiq);
+                etiq.setBounds(colX, colY, ample, alt);
+
             }
         }
     }
- private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-        if(!this.entrades.containsKey(seient)){
+
+    private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
+        if (!this.entrades.containsKey(seient)) {
+            this.seient=seient;
             //esta lliure
-            this.labelTitol.setText((String)this.llistatPelicules.getSelectedItem());
-            this.labelDia.setText((String)this.diasDisponibles.getSelectedItem());
-            this.labelHora.setText((String)this.llistatHores.getSelectedItem());
+            this.labelTitol.setText((String) this.llistatPelicules.getSelectedItem());
+            this.labelDia.setText((String) this.diasDisponibles.getSelectedItem());
+            this.labelHora.setText((String) this.llistatHores.getSelectedItem());
             this.labelSeient.setText(seient);
+            this.labelSala.setText(this.etiqSala.getText());
+            this.dialogConfirm.setLocationRelativeTo(null);
+            this.dialogConfirm.setSize(400, 330);
             this.dialogConfirm.setVisible(true);
-            System.out.println("Volen comprar el seient: "+seient);
+            System.out.println("Volen comprar el seient: " + seient);
         }
         //EN CONSTRUCCIÓ: EL SEIENT NO ESTA OCUPAT I PODEM FER LA RESERVA
     }
@@ -404,6 +475,7 @@ public void mostrarSala(final int idPase) {
     private javax.swing.JComboBox diasDisponibles;
     private javax.swing.JLabel etiqSala;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -415,6 +487,7 @@ public void mostrarSala(final int idPase) {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelDia;
     private javax.swing.JLabel labelHora;
+    private javax.swing.JLabel labelSala;
     private javax.swing.JLabel labelSeient;
     private javax.swing.JLabel labelSelectPelicula;
     private javax.swing.JLabel labelTitol;
