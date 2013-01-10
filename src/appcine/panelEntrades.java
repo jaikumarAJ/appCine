@@ -77,7 +77,6 @@ public class panelEntrades extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         llistatPelicules = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jToolBar1 = new javax.swing.JToolBar();
         diasDisponibles = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         llistatHores = new javax.swing.JComboBox();
@@ -221,9 +220,6 @@ public class panelEntrades extends javax.swing.JPanel {
 
         jLabel2.setText("<html><b>Dia:</b></html>");
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-
         diasDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diasDisponiblesActionPerformed(evt);
@@ -242,16 +238,8 @@ public class panelEntrades extends javax.swing.JPanel {
 
         labelSelectPelicula.setText("<html><b>Seleccioni el seient</b></html>");
 
-        org.jdesktop.layout.GroupLayout contenedorSeientsLayout = new org.jdesktop.layout.GroupLayout(contenedorSeients);
-        contenedorSeients.setLayout(contenedorSeientsLayout);
-        contenedorSeientsLayout.setHorizontalGroup(
-            contenedorSeientsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 697, Short.MAX_VALUE)
-        );
-        contenedorSeientsLayout.setVerticalGroup(
-            contenedorSeientsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 195, Short.MAX_VALUE)
-        );
+        contenedorSeients.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorSeients.setLayout(null);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -261,29 +249,27 @@ public class panelEntrades extends javax.swing.JPanel {
                 .add(27, 27, 27)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(contenedorSeients, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 700, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
                                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(36, 36, 36)
                                 .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 160, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(0, 0, Short.MAX_VALUE))
+                        .add(0, 660, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(llistatPelicules, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 194, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
+                        .add(52, 52, 52)
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(diasDisponibles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 171, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 255, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(llistatHores, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(contenedorSeients, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -298,7 +284,6 @@ public class panelEntrades extends javax.swing.JPanel {
                         .add(diasDisponibles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(0, 0, 0)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(19, 19, 19)
@@ -308,15 +293,9 @@ public class panelEntrades extends javax.swing.JPanel {
                         .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
                 .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 187, Short.MAX_VALUE)
-                        .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18))
-                    .add(layout.createSequentialGroup()
-                        .add(18, 18, 18)
-                        .add(contenedorSeients, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(12, Short.MAX_VALUE))))
+                .add(18, 18, 18)
+                .add(contenedorSeients, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -411,14 +390,17 @@ public class panelEntrades extends javax.swing.JPanel {
         int espaiat = 2;
         int ample = 25;
         int alt = ample;
-        int amplePantalla = this.getSize().width;
-        int ampladaTeatre = (espaiat * itemsAmple) + (itemsAmple * ample);
-        //int iniciX = (amplePantalla - ampladaTeatre) / 2;
-        //        int iniciY = this.labelSelectPelicula.getY();
+       // int amplePantalla = this.getSize().width;
+       // int ampladaTeatre = (espaiat * itemsAmple) + (itemsAmple * ample);
 
-        int iniciX = 0;
-        int iniciY = 0;
-
+        //calculam quin es l'inici per centrar els seient
+        int tamEspais= espaiat * (columnes -1);
+        int ampladaTotesColumnes= tamEspais + (ample*columnes);
+        
+        float iniciX =  (float)(this.contenedorSeients.getBounds().getWidth() / 2) - (ampladaTotesColumnes /2) ;
+        
+        int iniciY = 0; 
+       
         //pintam tots els botons 
         for (int i = 0; i < files; i++) {
             for (int b = 0; b < columnes; b++) {
@@ -437,7 +419,7 @@ public class panelEntrades extends javax.swing.JPanel {
                         comprarEntrada(evt, seient, idPase);
                     }
                 });
-                int colX = iniciX + (i * (ample + espaiat));
+                int colX = (int) iniciX + (i * (ample + espaiat));
                 int colY = iniciY + (b * (alt + espaiat));
                 //
                 etiq.setOpaque(true);
@@ -449,6 +431,7 @@ public class panelEntrades extends javax.swing.JPanel {
 
             }
         }
+        this.contenedorSeients.setBounds(0, 0, 100, 100);
     }
 
     private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
@@ -484,7 +467,6 @@ public class panelEntrades extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelDia;
     private javax.swing.JLabel labelHora;
     private javax.swing.JLabel labelSala;

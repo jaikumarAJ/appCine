@@ -1,7 +1,6 @@
+mostrar popup quan compren entrada
 passar-ho tot a català
 fer que hi capin els botons de les butaques
-mostrar sala al popup per comprar l'entrada i fer mes grans
-guardar entrada a la bd
 2. Filtrar cerques pel·lícules
 3. Quan fan click a un horari a la fitxa de la pelicula
 4. Mostrar genere, classificació de la película
