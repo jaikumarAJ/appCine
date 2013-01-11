@@ -25,7 +25,7 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
     private int id_pelicula;
     
     private Pelicula peli;
-JFrame principal;
+    pInicial principal;
     /**
      * Creates new form panelFitxaPelicula
      */
@@ -34,20 +34,8 @@ JFrame principal;
         this.principal=principal;
         this.jPanel1.setVisible(false);
     }
-    /*
-    public panelFitxaPelicula2(Pelicula peli, JFrame principal) {
-
-        super();
-        this.principal=principal;
-        initComponents();
-        this.pelicules.add(peli);
-        this.mostrarPelicula(0);
-        
-        this.panellPelicules.setVisible(false);
-        System.out.println("acabam el carregador panelFitxaPelicula"+peli.getDirector());
-        
-    }
-    * */
+   
+    
     public Pelicula getPeli() {
         return peli;
     }
@@ -114,6 +102,7 @@ JFrame principal;
             ResultSet rs = st.executeQuery(cSQL);
             while (rs.next()) {
                 Pase p = new Pase();
+                p.setId_pase(rs.getInt("id_pase"));
                 p.setDia(rs.getString("dia"));
                 p.setId_pelicula(rs.getInt("id_pelicula"));
                 p.setHora(rs.getString("hora"));
@@ -173,6 +162,8 @@ JFrame principal;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         scrollContainer = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -193,10 +184,23 @@ JFrame principal;
         labelgenere = new javax.swing.JLabel();
         labelClassif = new javax.swing.JLabel();
 
+        jMenuItem1.setText("Reservar entrada");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem1MouseClicked(evt);
+            }
+        });
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
         setBackground(new java.awt.Color(153, 255, 153));
         setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -222,6 +226,7 @@ JFrame principal;
 
         labelSinopsis.setBackground(new java.awt.Color(238, 238, 238));
         labelSinopsis.setAutoscrolls(false);
+        labelSinopsis.setOpaque(false);
 
         taulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -231,7 +236,7 @@ JFrame principal;
                 "Dia", "Hora", "Sala"
             }
         ));
-        taulaHorari.setEnabled(false);
+        taulaHorari.setComponentPopupMenu(jPopupMenu1);
         taulaHorari.setGridColor(new java.awt.Color(0, 0, 0));
         taulaHorari.setShowGrid(true);
         jScrollPane2.setViewportView(taulaHorari);
@@ -247,9 +252,7 @@ JFrame principal;
             .add(jPanel1Layout.createSequentialGroup()
                 .add(20, 20, 20)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(6, 6, 6)
-                        .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(labelPortada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 200, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -273,17 +276,18 @@ JFrame principal;
                                     .add(labelDuracio, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(18, 18, 18)
-                                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                                 .add(labelClassif, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 308, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(52, 52, 52)
                                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(18, 18, 18)
                                 .add(labelgenere, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))))
-                    .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 629, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 618, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(178, Short.MAX_VALUE))
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, labelSinopsis)))
+                .addContainerGap(767, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -303,10 +307,10 @@ JFrame principal;
                             .add(jLabel3)
                             .add(labelDirector, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(labelAny, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel4))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(labelAny, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(17, 17, 17)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jLabel7)
                             .add(labelClassif, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -321,15 +325,26 @@ JFrame principal;
                 .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 148, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 40, Short.MAX_VALUE)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(19, 19, 19))
+                .add(26, 26, 26)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 147, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         scrollContainer.setViewportView(jPanel1);
 
         add(scrollContainer);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+        System.out.println("Fer reesreva");        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       int filaSel = this.taulaHorari.getSelectedRow();        // TODO add your handling code here:
+       this.principal.pe = new panelEntrades(this.principal, this.pases.get(filaSel));
+       this.principal.mostrarPanell(this.principal.pe);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -338,7 +353,9 @@ JFrame principal;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     public javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelAny;
     private javax.swing.JLabel labelClassif;

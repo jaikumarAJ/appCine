@@ -60,8 +60,6 @@ public class recursosBD {
 
             //  llistat.addItem(p.getTitol());
             pelicules.add(p);
-            System.out.println(pelicules.size());
-            System.out.println("hem afegit la pelicula " + p.getTitol() + " a l'Arraylist");
         }
 
     }
@@ -78,8 +76,8 @@ public class recursosBD {
             Statement st;
             st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(cSQL);
-            while(rs.next()){
-                
+            while (rs.next()) {
+
                 generes.add(rs.getString("titol"));
             }
 
@@ -214,26 +212,25 @@ public class recursosBD {
      * Fica l'entrada dins la base de dades
      */
     public void insertarEntrada(Pase p, int fila, int columna) throws SQLException {
-        
+
         String vSQL = "";
- this.cn = this.mysql.conectar();
+        this.cn = this.mysql.conectar();
 
-        vSQL = "INSERT INTO entrades(id_pase , fila , butaca, id_tarifa) VALUES (? , ?  , ?, 0)";
+        vSQL = "INSERT INTO entrades(id_pase , fila , butaca, id_tarifa) VALUES (? , ?  , ?, 1)";
         PreparedStatement pst = null;
-      
-            pst = cn.prepareStatement(vSQL);
-            pst.setString(1, String.valueOf(p.getId_pase()));
-            pst.setString(2,  String.valueOf(fila));
-            pst.setString(3,  String.valueOf(columna));
 
-            System.out.println("el pase es:"+p.getId_pase());
+        pst = cn.prepareStatement(vSQL);
+        pst.setString(1, String.valueOf(p.getId_pase()));
+        pst.setString(2, String.valueOf(fila));
+        pst.setString(3, String.valueOf(columna));
+
+        System.out.println("el pase es:" + p.getId_pase());
         int n = 0;
         try {
             n = pst.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Error al introduir"+ex);
-            //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al introduir" + ex);
         }
-        
+
     }
 }

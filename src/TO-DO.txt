@@ -1,8 +1,6 @@
-mostrar popup quan compren entrada
 passar-ho tot a català
-fer que hi capin els botons de les butaques
 2. Filtrar cerques pel·lícules
-3. Quan fan click a un horari a la fitxa de la pelicula
+3. Poder fer click a un horari a la fitxa de la pelicula
 4. Mostrar genere, classificació de la película
 5. Assignar sales als passes  (bd)
 7. Assignar generes (bd)
