@@ -1,11 +1,14 @@
 package appcine;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,12 +26,14 @@ import javax.swing.table.DefaultTableModel;
 public class recursosBD {
 
     ConexionMySQL mysql = new ConexionMySQL();
-    public Connection cn = null;
+    public Connection cn;
 
     /**
      * Constructor buid.
      */
-    public void recursosBD() {
+    public recursosBD() {
+        this.cn = this.mysql.conectar();
+
     }
 
     /**
@@ -38,7 +43,6 @@ public class recursosBD {
      * @throws SQLException
      */
     public void selectPelicules(ArrayList<Pelicula> pelicules) throws SQLException {
-        this.cn = this.mysql.conectar();
 
         String cSQL = "Select * from pelicules";
 
@@ -66,11 +70,9 @@ public class recursosBD {
 
     public ArrayList<String> getGeneres(int id_pelicula) {
         ArrayList<String> generes = new ArrayList<String>();
-        this.cn = this.mysql.conectar();
 
         String cSQL = "Select titol from generos g, pelicules_has_generos phg where g.id=phg.generos_id and phg.pelicules_id=" + id_pelicula;
 
-        System.out.println(cSQL);
         try {
 
             Statement st;
@@ -90,10 +92,8 @@ public class recursosBD {
     }
 
     public ArrayList<String> getDiasPelicula(int idPelicula) {
-        this.cn = this.mysql.conectar();
 
         String cSQL = "Select distinct(dia) from pases where id_pelicula='" + idPelicula + "'";
-        System.out.println(cSQL);
         ArrayList<String> dies = new ArrayList<String>();
         Statement st;
         try {
@@ -111,11 +111,33 @@ public class recursosBD {
 
     }
 
+    public int getDisponibilitatByPase(int idPase) {
+
+        String sql = "Select files*butaques as capacitat, (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase="+idPase+" group by p.id_pase order by p.id_pase";
+
+        Statement st;
+        try {
+            st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                int capacitat= rs.getInt("capacitat");
+                int restants = rs.getInt("restants");
+                if(restants==1){
+                    
+                }
+             return rs.getInt("restants");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return 0;
+    }
+
     public ArrayList<String> getHoresPelicula(String dia, int idPelicula) {
-        this.cn = this.mysql.conectar();
 
         String cSQL = "Select distinct(hora) from pases where id_pelicula='" + idPelicula + "' and dia='" + dia + "'";
-        System.out.println(cSQL);
         ArrayList<String> hores = new ArrayList<String>();
         Statement st;
         try {
@@ -133,12 +155,10 @@ public class recursosBD {
     }
 
     public Pase getPase(int id, String dia, String hora) {
-        this.cn = this.mysql.conectar();
 
         String cSQL = "Select p.*, s.nom 'nom_sala' from pases  p, sales s "
                 + "where id_pelicula='" + id + "' and dia='" + dia + "' and hora='" + hora + "' and p.id_sala=s.id";
 
-        System.out.println(cSQL);
         Statement st;
         try {
             st = this.cn.createStatement();
@@ -161,12 +181,49 @@ public class recursosBD {
 
     }
 
+    public DefaultTableModel getPases(DefaultTableModel modelo) {
+
+        Date date = (Date) Calendar.getInstance().getTime();
+        SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
+        String avui = dataAvui.format(date);
+        String cSQL = "Select p.dia, p.hora, pe.titol, p.id_pase as idP, pe.3d from pases p, pelicules pe, sales s where  p.id_pelicula=pe.id and s.id=p.id_sala and p.dia>='" + avui + "' order by dia, hora asc";
+        Statement st;
+        try {
+            st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(cSQL);
+
+            while (rs.next()) {
+                String tresd = null;
+                if (rs.getBoolean("3d")) {
+                    tresd = "si";
+                } else {
+                    tresd = "no";
+                }
+                //Select pi.titol, p.id_pase as idP, count(id_entrada) from entrades e, pases p, pelicules pi where pi.id=p.id_pelicula and p.id_pase=e.id_pase and e.id_pase=15 group by id_pase
+
+                int disponibilitat=this.getDisponibilitatByPase(rs.getInt("idP"));
+                modelo.addRow(new Object[]{
+                            rs.getString("dia"),
+                            rs.getString("hora"),
+                            rs.getString("titol"),
+                            tresd,
+                            disponibilitat 
+                });
+            }
+
+            return modelo;
+        } catch (SQLException ex) {
+            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public Sala getSalaByPase(int idPase) {
-        this.cn = this.mysql.conectar();
+      
 
         String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
 
-        System.out.println(cSQL);
         Statement st;
         try {
             st = this.cn.createStatement();
@@ -189,10 +246,8 @@ public class recursosBD {
     public HashMap<String, Integer> getEntrades(int idPase) {
         HashMap<String, Integer> entrades = new HashMap<String, Integer>();
 
-        this.cn = this.mysql.conectar();
 
         String cSQL = "Select id_entrada, fila, butaca from entrades where id_pase='" + idPase + "'";
-        System.out.println(cSQL);
         Statement st;
         try {
             st = this.cn.createStatement();
@@ -214,7 +269,6 @@ public class recursosBD {
     public void insertarEntrada(Pase p, int fila, int columna) throws SQLException {
 
         String vSQL = "";
-        this.cn = this.mysql.conectar();
 
         vSQL = "INSERT INTO entrades(id_pase , fila , butaca, id_tarifa) VALUES (? , ?  , ?, 1)";
         PreparedStatement pst = null;

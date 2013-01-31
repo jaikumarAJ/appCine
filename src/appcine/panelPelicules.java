@@ -81,20 +81,22 @@ public class panelPelicules extends javax.swing.JPanel {
             panelPelicula.add(labelTitol);
 
             //IMATGES DESDE LOCAL
+            /**
             String ruta_img = "/recursos/portades/" + this.pelicules.get(i).getRuta_imatge();
             lblPortada.setIcon(new javax.swing.ImageIcon(getClass().getResource(ruta_img)));
-            
+            **/
             
             /*
-             *IMG DESDE URL
-             *  String ruta_img ="http://www.huma06.com/hotelillador.com/img/q_calidad.png";
+             *IMG DESDE URL*/
+             String ruta_img ="http://84.127.90.37/appcine/portades/"+this.pelicules.get(i).getRuta_imatge();
             try {
+                System.out.println(ruta_img);
                 
-                lblPortada.setIcon(new javax.swing.ImageIcon(new URL("http://www.huma06.com/hotelillador.com/img/q_calidad.png")));
+                lblPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
             } catch (MalformedURLException ex) {
                 Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
             }
-             */
+             
            
             lblPortada.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {

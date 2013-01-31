@@ -23,23 +23,27 @@ public class pInicial extends javax.swing.JFrame {
     public panelPelicules pp = new panelPelicules(this);
     public panelFitxaPelicula2 pfp = new panelFitxaPelicula2(this);
     public panelEntrades pe= new panelEntrades(this);
+    public panelHoraris ph = new panelHoraris(this);
 
    
-    /**
+    /*
      * Creates new form pInicial
      */
     public pInicial() throws SQLException {
 
-        System.out.println("Comença el programa");
+        System.out.println("INICI CONSTRUCTOR PINICIAL");
       
         initComponents();
         this.mostrarPanell(this.pp);
+        
+        System.out.println("FINAL CONSTRUCTOR PINICIAL");
     }
     
     public void ocultarTot(){
         this.pp.setVisible(false);
         this.pe.setVisible(false);
         this.pfp.setVisible(false);
+        this.ph.setVisible(false);
     }
     
 
@@ -116,9 +120,14 @@ public class pInicial extends javax.swing.JFrame {
         jToolBar1.add(btnEntrades);
 
         btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_horario.jpg"))); // NOI18N
-        btnComprar.setText("<html><b>Horarios</b></html>");
+        btnComprar.setText("<html><b>Horaris</b></html>");
         btnComprar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnComprar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnComprar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnComprarMouseClicked(evt);
+            }
+        });
         btnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComprarActionPerformed(evt);
@@ -148,15 +157,12 @@ public class pInicial extends javax.swing.JFrame {
     public void mostrarPanell(javax.swing.JPanel pnl){
         this.ocultarTot();
         this.panelContingut.add(pnl);
-       
         pnl.setVisible(true);
         pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
-        System.out.println(this.panelContingut.getBounds()+"//"+this.panelContingut.isVisible());
-        System.out.println(pnl.getBounds()+"//"+pnl.isVisible());
-
+        System.out.println("final de mostrarPanel");
     }
+    
     private void btnPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculesMouseClicked
-        
        
         this.mostrarPanell(this.pp);
         
@@ -165,6 +171,11 @@ public class pInicial extends javax.swing.JFrame {
     private void btnEntradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntradesMouseClicked
         this.mostrarPanell(this.pe);
     }//GEN-LAST:event_btnEntradesMouseClicked
+
+    private void btnComprarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComprarMouseClicked
+
+        this.mostrarPanell(this.ph);// TODO add your handling code here:
+    }//GEN-LAST:event_btnComprarMouseClicked
 
     /**
      * @param args the command line arguments

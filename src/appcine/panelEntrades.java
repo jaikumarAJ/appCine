@@ -32,41 +32,43 @@ public class panelEntrades extends javax.swing.JPanel {
     private String seient;
 
     public panelEntrades(pInicial pi) {
+        System.out.println("Inici constructor 1");
         this.pi = pi;
         try {
             initComponents();
             recursosBD rBD = new recursosBD();
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules();
+            
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
+        System.out.println("FINAL CONSTRUCTOR 1");
     }
 
-    public panelEntrades(pInicial pi, Pase p){
-        System.out.println("Constructor amb 2 parametres");
-       try {
+    public panelEntrades(pInicial pi, Pase p) {
+        System.out.println("INICI constructor 2");
+        this.pi = pi;
+        try {
             initComponents();
             recursosBD rBD = new recursosBD();
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
             this.etiqSala.setText(p.getSala());
-            System.out.println(p);
-            this.mostrarSala(p.getId_pase());
             
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+         System.out.println("FINAL CONSTRUCTOR 2");
     }
+
     private void omplirLlistatPelicules() {
 
         System.out.println(this.pelicules.size());
         for (Pelicula p : this.pelicules) {
-
             this.llistatPelicules.addItem(p.getTitol());
         }
-        System.out.println("hem carregat les pelicules");
     }
 
     /**
@@ -277,9 +279,7 @@ public class panelEntrades extends javax.swing.JPanel {
                     .add(layout.createSequentialGroup()
                         .add(15, 15, 15)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 160, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(0, 0, Short.MAX_VALUE))
+                            .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 160, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -288,8 +288,7 @@ public class panelEntrades extends javax.swing.JPanel {
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(layout.createSequentialGroup()
                                         .add(6, 6, 6)
-                                        .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(0, 0, Short.MAX_VALUE))
+                                        .add(etiqSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 79, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                     .add(layout.createSequentialGroup()
                                         .add(llistatPelicules, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 194, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .add(18, 18, 18)
@@ -299,7 +298,8 @@ public class panelEntrades extends javax.swing.JPanel {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(llistatHores, 0, 195, Short.MAX_VALUE)))))))
+                                        .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                        .add(0, 17, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -325,29 +325,32 @@ public class panelEntrades extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void borrarSeients(){
+    private void borrarSeients() {
         this.contenedorSeients.removeAll();
         this.contenedorSeients.setVisible(false);
         this.contenedorSeients.setVisible(true);
-       
+
     }
     private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
-
+       
+        this.mostrarSala(5);
+        System.out.println("inici llistatPeliculesActionPerformed");
+        
         this.borrarSeients();
         this.etiqSala.setText("");
         this.diasDisponibles.removeAllItems();//buidam tota la llista
-        
+
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId_pelicula();
-
             recursosBD rBD = new recursosBD();
 
             for (String dia : rBD.getDiasPelicula(idSeleccionat)) {
                 this.diasDisponibles.addItem(dia);
             }
-
         }
+        System.out.println("inici llistatPeliculesActionPerformed");
+      
     }//GEN-LAST:event_llistatPeliculesActionPerformed
 
     private void diasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasDisponiblesActionPerformed
@@ -375,12 +378,13 @@ public class panelEntrades extends javax.swing.JPanel {
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
             this.etiqSala.setText(p.getSala());
-            this.mostrarSala(p.getId_pase());;
+           this.mostrarSala(p.getId_pase());;
+           
         }
     }//GEN-LAST:event_llistatHoresActionPerformed
 
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
- 
+
         recursosBD rBD = new recursosBD();
         String[] seients = this.seient.split("-");
         try {
@@ -388,16 +392,15 @@ public class panelEntrades extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         this.dialogConfirm.setVisible(false);
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
-        
+
         this.dialogConfirm.dispose();
         this.mostrarSala(this.p.getId_pase());
 
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
-    
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfirmarActionPerformed
@@ -406,9 +409,8 @@ public class panelEntrades extends javax.swing.JPanel {
         System.out.println("han cancel·lat");
         this.dialogConfirm.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseClicked
-  
+
     public void mostrarSala(final int idPase) {
-        
         this.borrarSeients();
 
         recursosBD rBD = new recursosBD();
@@ -423,16 +425,16 @@ public class panelEntrades extends javax.swing.JPanel {
         int espaiat = 2;
         int ample = 25;
         int alt = ample;
-     
+
         //calculam quin es l'inici per centrar els seient
-        int tamEspais= espaiat * (columnes -1);
-        int ampladaTotesColumnes= tamEspais + (ample*columnes);
-        
-        float iniciX =  (float)(this.contenedorSeients.getBounds().getWidth() / 2) - (ampladaTotesColumnes /2) ;
-        
-        System.out.println("les butaques s'han de començar a dibuixar al punt"+iniciX+"("+columnes+")");
-        int iniciY = 0; 
-       
+        int tamEspais = espaiat * (columnes - 1);
+        int ampladaTotesColumnes = tamEspais + (ample * columnes);
+
+        float iniciX = (float) (this.contenedorSeients.getBounds().getWidth() / 2) - (ampladaTotesColumnes / 2);
+
+        System.out.println("les butaques s'han de començar a dibuixar al punt" + iniciX + "(" + columnes + ")");
+        int iniciY = 0;
+
         //pintam tots els botons 
         for (int i = 0; i < columnes; i++) {
             for (int b = 0; b < files; b++) {
@@ -441,7 +443,6 @@ public class panelEntrades extends javax.swing.JPanel {
                 javax.swing.JButton etiq = new javax.swing.JButton();
 
                 //Miram si esta ocupat o no
-
                 if (entrades.containsKey(b + "-" + i)) {
                     color = Color.RED;
                 }
@@ -463,18 +464,16 @@ public class panelEntrades extends javax.swing.JPanel {
 
             }
         }
-       
+
         this.contenedorSeients.setPreferredSize(
                 new Dimension(
-                    (int)this.contenedorSeients.getPreferredSize().getWidth(), 
-                    (files*(alt+espaiat))
-                )
-         );
+                (int) this.contenedorSeients.getPreferredSize().getWidth(),
+                (files * (alt + espaiat))));
     }
 
     private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
         if (!this.entrades.containsKey(seient)) {
-            this.seient=seient;
+            this.seient = seient;
             //esta lliure
             this.labelTitol.setText((String) this.llistatPelicules.getSelectedItem());
             this.labelDia.setText((String) this.diasDisponibles.getSelectedItem());
