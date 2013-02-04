@@ -34,11 +34,22 @@ public class pInicial extends javax.swing.JFrame {
         System.out.println("INICI CONSTRUCTOR PINICIAL");
       
         initComponents();
-        this.mostrarPanell(this.pp);
+      
         
         System.out.println("FINAL CONSTRUCTOR PINICIAL");
     }
     
+    public void setVisible(boolean aFlag){
+        
+        if(aFlag){
+            System.out.println("se mostra la pantalla Inicial");
+              this.mostrarPanell(this.pp);
+        }
+        super.setVisible(aFlag);
+    }
+    /*
+     * Amaga la finestra
+     */
     public void ocultarTot(){
         this.pp.setVisible(false);
         this.pe.setVisible(false);
@@ -66,7 +77,6 @@ public class pInicial extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
 
         panelContingut.setBackground(new java.awt.Color(0, 204, 51));
 
@@ -74,20 +84,20 @@ public class pInicial extends javax.swing.JFrame {
         panelContingut.setLayout(panelContingutLayout);
         panelContingutLayout.setHorizontalGroup(
             panelContingutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 880, Short.MAX_VALUE)
+            .add(0, 1120, Short.MAX_VALUE)
         );
         panelContingutLayout.setVerticalGroup(
             panelContingutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 420, Short.MAX_VALUE)
+            .add(0, 483, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panelContingut);
-        panelContingut.setBounds(10, 130, 880, 420);
+        getContentPane().add(panelContingut, java.awt.BorderLayout.CENTER);
 
         jToolBar1.setRollover(true);
 
         btnPelicules.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_cine.jpg"))); // NOI18N
         btnPelicules.setText("<html><b>Pelicules</b></html>");
+        btnPelicules.setFocusable(false);
         btnPelicules.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPelicules.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnPelicules.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,11 +145,10 @@ public class pInicial extends javax.swing.JFrame {
         });
         jToolBar1.add(btnComprar);
 
-        getContentPane().add(jToolBar1);
-        jToolBar1.setBounds(0, 0, 900, 130);
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-899)/2, (screenSize.height-577)/2, 899, 577);
+        setBounds((screenSize.width-1120)/2, (screenSize.height-631)/2, 1120, 631);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculesActionPerformed
@@ -156,9 +165,10 @@ public class pInicial extends javax.swing.JFrame {
 
     public void mostrarPanell(javax.swing.JPanel pnl){
         this.ocultarTot();
-        this.panelContingut.add(pnl);
+        //this.panelContingut.add(pnl,java.awt.BorderLayout.CENTER);
         pnl.setVisible(true);
-        pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
+        getContentPane().add(pnl, java.awt.BorderLayout.CENTER);
+       // pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
         System.out.println("final de mostrarPanel");
     }
     

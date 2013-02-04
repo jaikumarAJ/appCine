@@ -16,6 +16,7 @@ public class ConexionMySQL {
     public String bd = "cinema";
     public String login = "root";
     public String password = "esteucoo";
+    
     public String url = "jdbc:mysql://84.127.90.37/" + bd;
 
     public Connection conectar() {

@@ -33,6 +33,7 @@ public class panelPelicules extends javax.swing.JPanel {
         recursosBD rBD = new recursosBD();
         rBD.selectPelicules(pelicules);
         this.mostrarPelicules();
+        this.setVisible(true);
     }
 
     @Override
@@ -42,13 +43,13 @@ public class panelPelicules extends javax.swing.JPanel {
             this.jScrollPane1.setVisible(true);
             this.jPanel1.setVisible(true);
            
+            System.out.println("mostram el panell de pelicules");
         }
         super.setVisible(aFlag);
     }
 
    
     public void mostrarPelicules() {
-        System.out.println("l'scroll medeix:"+this.jScrollPane1.getPreferredSize());
         int i = 0;
         int separacioX = 20;
         int separacioY = separacioX;
@@ -137,14 +138,17 @@ public class panelPelicules extends javax.swing.JPanel {
     private void mostrarFitxaPelicula(int idPelicula) throws SQLException {
         for (Pelicula p : this.pelicules) {
             if (p.getId_pelicula() == idPelicula) {
-                this.principal.pp.setVisible(false);
-                this.principal.pfp.setPeli(p);
                 
+                
+                this.principal.pfp.setPeli(p);
+                this.principal.mostrarPanell(this.principal.pfp);
+               
+                /*
                 this.principal.panelContingut.add(this.principal.pfp);
                 
                 this.principal.pfp.setVisible(true);
                 this.principal.pfp.setBounds(this.getBounds());
-                /*this.jScrollPane1.removeAll();
+                this.jScrollPane1.removeAll();
                   
                 this.principal.pfp.setPeli(p);
                 this.principal.pfp.setBounds(this.getBounds());
