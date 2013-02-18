@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="80bd0abf-ecd0-4328-a7be-a4edfdb20d47">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEntrada" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT fila, butaca, precio, titol,e.id_entrada, dia,sa.nom as sala,  hora FROM entrades e, pelicules pe, pases pa, sales sa, tarifas t where sa.id=pa.id_sala and id_entrada=$P{idEntrada} and t.id=e.id_tarifa and e.id_pase=pa.id_pase and pa.id_pelicula=pe.id;]]>
+	</queryString>
+	<field name="fila" class="java.lang.Integer"/>
+	<field name="butaca" class="java.lang.Integer"/>
+	<field name="precio" class="java.lang.Float"/>
+	<field name="titol" class="java.lang.String"/>
+	<field name="id_entrada" class="java.lang.Integer"/>
+	<field name="dia" class="java.sql.Date"/>
+	<field name="sala" class="java.lang.String"/>
+	<field name="hora" class="java.sql.Time"/>
+	<variable name="variable1" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<image>
+				<reportElement uuid="454ff32a-6b63-4a21-9554-9d736c2f0303" x="86" y="0" width="491" height="127"/>
+				<imageExpression><![CDATA["/Users/torandell9/Desktop/DAM2/DI/appCine/src/recursos/logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3799da8f-bc9e-4d50-9ea5-ef8e8b40c241" x="9" y="34" width="22" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ref:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a0bc4ed4-8384-4e13-8b70-efc77f95615d" x="44" y="34" width="511" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id_entrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b44a2c4d-5764-4273-a7c2-9f888d6223de" x="0" y="1" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titol}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="98" splitType="Stretch">
+			<textField>
+				<reportElement uuid="326432e3-d4f2-420d-99b7-1a76e1c69453" x="312" y="55" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{butaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6937daaf-9b35-4a07-ac85-aa0d8338bb19" x="45" y="62" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d23f8999-c3c9-40f2-ac61-ab43c13aed8f" x="312" y="31" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fila}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fe9438e5-9735-4b92-863d-32562af6d37a" x="9" y="62" width="36" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preu:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="001d1de4-f5ef-4170-83a2-0b467a6dbad9" x="44" y="7" width="101" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dia}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="970f0f48-1341-4f00-9b07-ebf997ef75a5" x="44" y="35" width="101" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{hora}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="583c37c9-063a-4d94-80b3-130111392517" x="9" y="7" width="35" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="583c37c9-063a-4d94-80b3-130111392517" x="9" y="35" width="35" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9db7beb-dfd8-4e38-a787-e6c8e2dce476" x="257" y="31" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fila:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2f111c2d-88c0-4558-9943-c92294df2c15" x="257" y="7" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sala:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e847e7f-7bb5-4d13-b415-e726ad59508a" x="257" y="54" width="42" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Butaca:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6c7dc3ba-31a5-4c99-a8e8-b7210c55af81" x="312" y="7" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{sala}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5800255f-d938-4a34-ad36-4fb18ae31a18" x="0" y="0" width="555" height="36"/>
+				<textElement/>
+				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque volutpat mattis mauris id sollicitudin. Ut sollicitudin, dolor id aliquet bibendum, erat ipsum lacinia elit, non vestibulum ipsum leo ac mi. Maecenas hendrerit, arcu nec hendrerit euismod, lectus lorem egestas mi.]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -4,14 +4,13 @@
  */
 package appcine;
 
-import java.lang.reflect.Field;
+import java.awt.Image;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
+
 
 /**
  *
@@ -31,6 +30,17 @@ public class pInicial extends javax.swing.JFrame {
      */
     public pInicial() throws SQLException {
 
+        Image i;
+        try {
+            i = ImageIO.read(getClass().getResource("/recursos/icono_cine.jpg"));
+            setIconImage(i);
+
+        } catch (IOException ex) {
+            System.out.println("no s'ha pogut posar l'icona");
+            ex.printStackTrace();
+            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         System.out.println("INICI CONSTRUCTOR PINICIAL");
       
         initComponents();

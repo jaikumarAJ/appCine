@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2303d1d-ce87-480c-a654-2005dc27675a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM pelicules;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="titol" class="java.lang.String"/>
+	<field name="sinopsis" class="java.lang.String"/>
+	<field name="duracio" class="java.lang.Integer"/>
+	<field name="director" class="java.lang.String"/>
+	<field name="any" class="java.lang.Integer"/>
+	<field name="ruta_imatge" class="java.lang.String"/>
+	<field name="3d" class="java.lang.Boolean"/>
+	<field name="classificacio" class="java.lang.String"/>
+	<group name="titol">
+		<groupExpression><![CDATA[$F{titol}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="7947a470-a400-485b-acac-3f5dcccf5be7" style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#333333"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{titol}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement uuid="66aaa197-0ec8-4868-bc67-54074db43c77" mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="126f8e26-3997-4e7d-a2b1-7d51508bbdbb" x="-20" y="0" width="595" height="64"/>
+				<imageExpression><![CDATA["wood.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="0393ef16-efae-46ed-aa1d-9faf29c2282c" style="Title" x="0" y="5" width="263" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Wood Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bee89475-629d-4323-997c-4238f2180ffa" style="SubTitle" x="63" y="39" width="200" height="22" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Wood SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="a489ef35-38d6-4dd4-8fb5-2863b20faea8" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="fee62ba2-0a3d-4b59-bec0-359ac6302524" style="Column header" x="0" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0037451e-213a-4c68-a4b7-d93145233427" style="Column header" x="69" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[sinopsis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3547fad0-105e-4d23-b7ae-cb95a2175b2b" style="Column header" x="138" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[duracio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="826b443d-f720-4ec7-8ca9-a4fa52ef38ca" style="Column header" x="207" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[director]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97fdf061-b81b-4014-8612-6ee017ff543d" style="Column header" x="276" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[any]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d69dd47-954a-4127-97b6-0c0c15e6aa45" style="Column header" x="345" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[ruta_imatge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="30014ef0-2004-4b90-b904-ff881585defd" style="Column header" x="414" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[3d]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="021252d0-7422-4268-ad62-9efbda736cae" style="Column header" x="483" y="19" width="69" height="15"/>
+				<textElement/>
+				<text><![CDATA[classificacio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="1defba16-cb05-4298-a82f-547b0356dc4b" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="8d201773-ddc4-4cf9-961f-83b1a0607970" style="Detail" x="0" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c2bdcf4d-f676-495a-b86d-34d577d3f44e" style="Detail" x="69" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{sinopsis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d18c860c-604f-4e9e-b345-7ecc1ce15ffd" style="Detail" x="138" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{duracio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8bbf9d7a-6d80-412c-88b0-246031502cfb" style="Detail" x="207" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{director}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="43b75b0d-077e-4106-aca2-56333579b093" style="Detail" x="276" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{any}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="68f6c8c8-76ed-47b1-abd6-3f3a36d7974f" style="Detail" x="345" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ruta_imatge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d9894ffb-2411-40f2-a319-d8f8846041c0" style="Detail" x="414" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{3d}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="72698b50-3f4f-4b56-9bc8-f409baa4f167" style="Detail" x="483" y="0" width="69" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{classificacio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="4a96dce8-a006-4e7a-b236-671208b91fee" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="626dee1d-598e-410c-bae0-749f94aef358" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="67678ea9-4a6c-40b9-ad1e-2f140470c04b" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="dfa3d00e-3671-4a22-ab77-42ab65e5950f" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

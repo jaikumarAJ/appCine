@@ -113,7 +113,7 @@ public class recursosBD {
 
     public int getDisponibilitatByPase(int idPase) {
 
-        String sql = "Select files*butaques as capacitat, (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase="+idPase+" group by p.id_pase order by p.id_pase";
+        String sql = "Select files*butaques as capacitat, (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase=" + idPase + " group by p.id_pase order by p.id_pase";
 
         Statement st;
         try {
@@ -121,12 +121,11 @@ public class recursosBD {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                int capacitat= rs.getInt("capacitat");
+                int capacitat = rs.getInt("capacitat");
                 int restants = rs.getInt("restants");
-                if(restants==1){
-                    
+                if (restants == 1) {
                 }
-             return rs.getInt("restants");
+                return rs.getInt("restants");
             }
         } catch (SQLException ex) {
             Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,14 +200,14 @@ public class recursosBD {
                 }
                 //Select pi.titol, p.id_pase as idP, count(id_entrada) from entrades e, pases p, pelicules pi where pi.id=p.id_pelicula and p.id_pase=e.id_pase and e.id_pase=15 group by id_pase
 
-                int disponibilitat=this.getDisponibilitatByPase(rs.getInt("idP"));
+                int disponibilitat = this.getDisponibilitatByPase(rs.getInt("idP"));
                 modelo.addRow(new Object[]{
                             rs.getString("dia"),
                             rs.getString("hora"),
                             rs.getString("titol"),
                             tresd,
-                            disponibilitat 
-                });
+                            disponibilitat
+                        });
             }
 
             return modelo;
@@ -220,7 +219,7 @@ public class recursosBD {
     }
 
     public Sala getSalaByPase(int idPase) {
-      
+
 
         String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
 
@@ -266,25 +265,31 @@ public class recursosBD {
     /**
      * Fica l'entrada dins la base de dades
      */
-    public void insertarEntrada(Pase p, int fila, int columna) throws SQLException {
+    public int insertarEntrada(Pase p, int fila, int columna) throws SQLException {
 
         String vSQL = "";
 
         vSQL = "INSERT INTO entrades(id_pase , fila , butaca, id_tarifa) VALUES (? , ?  , ?, 1)";
         PreparedStatement pst = null;
 
-        pst = cn.prepareStatement(vSQL);
+        pst = cn.prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, String.valueOf(p.getId_pase()));
         pst.setString(2, String.valueOf(fila));
         pst.setString(3, String.valueOf(columna));
 
-        System.out.println("el pase es:" + p.getId_pase());
         int n = 0;
         try {
+
             n = pst.executeUpdate();
+            ResultSet keys = pst.getGeneratedKeys();
+            keys.next();
+            System.out.println("entrada:"+keys.getInt(1));
+            return keys.getInt(1);
+
         } catch (SQLException ex) {
             System.out.println("Error al introduir" + ex);
         }
 
+        return 0;
     }
 }

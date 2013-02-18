@@ -1,5 +1,8 @@
-jtable horaris
 centrar pelicules a pantalla completa
+comentar codi
+arxiu configuració
+tarifes
+jtable horaris
 mostrar precarrega quan trien una opció del menú o fer que es carregui tot antes de començar el programa
 3. Poder fer click a un horari a la fitxa de la pelicula
 5. Assignar sales als passes  (bd)

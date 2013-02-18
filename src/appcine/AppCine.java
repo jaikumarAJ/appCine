@@ -18,7 +18,6 @@ public class AppCine {
      */
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        
         pInicial pi=new pInicial();
         pi.setVisible(true);
     }

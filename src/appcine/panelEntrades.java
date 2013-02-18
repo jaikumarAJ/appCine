@@ -6,12 +6,20 @@ package appcine;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -320,8 +328,8 @@ public class panelEntrades extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(labelSelectPelicula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 274, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -387,12 +395,30 @@ public class panelEntrades extends javax.swing.JPanel {
 
         recursosBD rBD = new recursosBD();
         String[] seients = this.seient.split("-");
+         Map<String, Object> params = new HashMap<String, Object>();
         try {
-            rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1]));
+              params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+       
+        
+         try {
+           
+            ConexionMySQL cm = new ConexionMySQL();
+            
+            Connection connexio = cm.conectar();
+
+            JasperReport reporte = JasperCompileManager.compileReport("report1.jrxml");
+
+            JasperPrint print = JasperFillManager.fillReport(reporte, params, connexio);
+
+            JasperViewer.viewReport(print);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }      
+         
         this.dialogConfirm.setVisible(false);
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
