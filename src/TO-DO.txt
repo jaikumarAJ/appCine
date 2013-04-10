@@ -1,7 +1,8 @@
-centrar pelicules a pantalla completa
+Acabar sales
+tarifes dia espectador ??
+a la pantalla d'entrades, al desplegable de dia ordenar per data
 comentar codi
 arxiu configuració
-tarifes
 jtable horaris
 mostrar precarrega quan trien una opció del menú o fer que es carregui tot antes de començar el programa
 3. Poder fer click a un horari a la fitxa de la pelicula

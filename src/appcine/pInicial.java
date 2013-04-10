@@ -6,10 +6,12 @@ package appcine;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+
 
 
 /**
@@ -29,23 +31,21 @@ public class pInicial extends javax.swing.JFrame {
      * Creates new form pInicial
      */
     public pInicial() throws SQLException {
+        System.out.println("INICI CONSTRUCTOR PINICIAL");
 
         Image i;
         try {
             i = ImageIO.read(getClass().getResource("/recursos/icono_cine.jpg"));
             setIconImage(i);
-
         } catch (IOException ex) {
             System.out.println("no s'ha pogut posar l'icona");
             ex.printStackTrace();
             Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println("INICI CONSTRUCTOR PINICIAL");
       
         initComponents();
       
-        
         System.out.println("FINAL CONSTRUCTOR PINICIAL");
     }
     
@@ -83,6 +83,7 @@ public class pInicial extends javax.swing.JFrame {
         btnPelicules = new javax.swing.JButton();
         btnEntrades = new javax.swing.JButton();
         btnComprar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -155,6 +156,18 @@ public class pInicial extends javax.swing.JFrame {
         });
         jToolBar1.add(btnComprar);
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_stats.png"))); // NOI18N
+        jButton2.setText("<html><b>Estadístiques</b></html>");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
+
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -188,6 +201,25 @@ public class pInicial extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnPeliculesMouseClicked
 
+    public void mostrarStats(){
+        /*  ConexionMySQL cm = new ConexionMySQL();
+            
+            Connection connexio = cm.conectar();
+
+            JasperReport reporte;
+        try {
+            reporte = JasperCompileManager.compileReport("src/appCine/report_grafiques.jrxml");
+            JasperPrint print = JasperFillManager.fillReport(reporte, null, connexio);
+
+            JasperViewer.viewReport(print, false);
+            
+        } catch (JRException ex) {
+            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("error llegint l'informe report_grafiques");
+        }
+*/
+            
+    }
     private void btnEntradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntradesMouseClicked
         this.mostrarPanell(this.pe);
     }//GEN-LAST:event_btnEntradesMouseClicked
@@ -196,6 +228,11 @@ public class pInicial extends javax.swing.JFrame {
 
         this.mostrarPanell(this.ph);// TODO add your handling code here:
     }//GEN-LAST:event_btnComprarMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        this.mostrarStats();
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -240,6 +277,7 @@ public class pInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrades;
     private javax.swing.JButton btnPelicules;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JToolBar jToolBar1;
     public javax.swing.JPanel panelContingut;
     // End of variables declaration//GEN-END:variables

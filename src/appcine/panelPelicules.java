@@ -100,12 +100,13 @@ public class panelPelicules extends javax.swing.JPanel {
 
             //IMATGES DESDE LOCAL
             /**
-             * String ruta_img = "/recursos/portades/" +
-             * this.pelicules.get(i).getRuta_imatge(); lblPortada.setIcon(new
-             * javax.swing.ImageIcon(getClass().getResource(ruta_img)));
-            *
+              String ruta_img = "/recursos/portades/" +
+             this.pelicules.get(i).getRuta_imatge(); lblPortada.setIcon(new
+             javax.swing.ImageIcon(getClass().getResource(ruta_img)));
+            
              */
-            String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
+           String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRuta_imatge();
+           // String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
             try {
                 System.out.println(ruta_img);
 

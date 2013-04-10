@@ -131,7 +131,8 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
         this.labelDuracio.setText("<html>" + this.pelicules.get(index).getDuracio() + " minuts</html>");
         this.labelSinopsis.setText(this.pelicules.get(index).getSinopsis());
 
-        String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(index).getRuta_imatge();
+        //String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(index).getRuta_imatge();
+        String ruta_img = "http://localhost/portades/" + this.pelicules.get(index).getRuta_imatge();
         try {
             System.out.println(ruta_img);
 

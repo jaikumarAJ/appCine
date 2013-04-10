@@ -15,11 +15,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
+
 
 /**
  *
@@ -402,7 +398,7 @@ public class panelEntrades extends javax.swing.JPanel {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       
+       /*
         
          try {
            
@@ -414,10 +410,12 @@ public class panelEntrades extends javax.swing.JPanel {
 
             JasperPrint print = JasperFillManager.fillReport(reporte, params, connexio);
 
-            JasperViewer.viewReport(print);
+            JasperViewer.viewReport(print, false);
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }      
+        }   
+        **/
          
         this.dialogConfirm.setVisible(false);
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
