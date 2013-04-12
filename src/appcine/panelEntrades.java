@@ -95,8 +95,6 @@ public class panelEntrades extends javax.swing.JPanel {
         labelTitol = new javax.swing.JLabel();
         labelDia = new javax.swing.JLabel();
         labelHora = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        labelSeient = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         labelSala = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -153,10 +151,6 @@ public class panelEntrades extends javax.swing.JPanel {
 
         labelHora.setText("jLabel5");
 
-        jLabel5.setText("<html><b>Seient:</b></html>");
-
-        labelSeient.setText("jLabel10");
-
         jLabel10.setText("<html><b>Sala:</b></html>");
 
         labelSala.setText("jLabel10");
@@ -183,13 +177,9 @@ public class panelEntrades extends javax.swing.JPanel {
                             .add(labelHora, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 248, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(org.jdesktop.layout.GroupLayout.LEADING, dialogConfirmLayout.createSequentialGroup()
                             .add(40, 40, 40)
-                            .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jLabel10)
-                                .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
-                            .add(18, 18, 18)
-                            .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(labelSeient, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 250, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(labelSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 250, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(labelSala, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 250, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, dialogConfirmLayout.createSequentialGroup()
                         .add(39, 39, 39)
                         .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -222,11 +212,7 @@ public class panelEntrades extends javax.swing.JPanel {
                 .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(labelSala))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(labelSeient))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(34, 34, 34)
                 .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(5, 5, 5)
                 .add(dialogConfirmLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -503,7 +489,7 @@ public class panelEntrades extends javax.swing.JPanel {
             this.labelTitol.setText((String) this.llistatPelicules.getSelectedItem());
             this.labelDia.setText((String) this.diasDisponibles.getSelectedItem());
             this.labelHora.setText((String) this.llistatHores.getSelectedItem());
-            this.labelSeient.setText(seient);
+            //this.labelSeient.setText(seient);
             this.labelSala.setText(this.etiqSala.getText());
             //Mostram el dialog que demana confirmació
             this.dialogConfirm.setLocationRelativeTo(null);
@@ -523,7 +509,6 @@ public class panelEntrades extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -532,7 +517,6 @@ public class panelEntrades extends javax.swing.JPanel {
     private javax.swing.JLabel labelDia;
     private javax.swing.JLabel labelHora;
     private javax.swing.JLabel labelSala;
-    private javax.swing.JLabel labelSeient;
     private javax.swing.JLabel labelSelectPelicula;
     private javax.swing.JLabel labelTitol;
     private javax.swing.JComboBox llistatHores;
