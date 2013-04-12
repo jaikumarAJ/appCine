@@ -265,17 +265,16 @@ public class recursosBD {
     /**
      * Fica l'entrada dins la base de dades
      */
-    public int insertarEntrada(Pase p, int fila, int columna) throws SQLException {
+    public int insertarEntrada(Pase p, String butaca) throws SQLException {
 
         String vSQL = "";
 
-        vSQL = "INSERT INTO entrades(id_pase , fila , butaca, id_tarifa) VALUES (? , ?  , ?, 1)";
+        vSQL = "INSERT INTO entrades(id_pase , butaca, id_tarifa) VALUES (? , ?, 1)";
         PreparedStatement pst = null;
 
         pst = cn.prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, String.valueOf(p.getId_pase()));
-        pst.setString(2, String.valueOf(fila));
-        pst.setString(3, String.valueOf(columna));
+        pst.setString(2, String.valueOf(butaca));
 
         int n = 0;
         try {

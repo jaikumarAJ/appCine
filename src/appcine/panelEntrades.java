@@ -6,6 +6,7 @@ package appcine;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import sales.DibuixSala;
 
 /**
  *
@@ -43,11 +44,11 @@ public class panelEntrades extends javax.swing.JPanel {
             recursosBD rBD = new recursosBD();
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         System.out.println("FINAL CONSTRUCTOR 1");
     }
 
@@ -60,11 +61,11 @@ public class panelEntrades extends javax.swing.JPanel {
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
             this.etiqSala.setText(p.getSala());
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
-         System.out.println("FINAL CONSTRUCTOR 2");
+        System.out.println("FINAL CONSTRUCTOR 2");
     }
 
     private void omplirLlistatPelicules() {
@@ -336,10 +337,9 @@ public class panelEntrades extends javax.swing.JPanel {
 
     }
     private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
-       
-        this.mostrarSala(5);
+
         System.out.println("inici llistatPeliculesActionPerformed");
-        
+
         this.borrarSeients();
         this.etiqSala.setText("");
         this.diasDisponibles.removeAllItems();//buidam tota la llista
@@ -354,7 +354,7 @@ public class panelEntrades extends javax.swing.JPanel {
             }
         }
         System.out.println("inici llistatPeliculesActionPerformed");
-      
+
     }//GEN-LAST:event_llistatPeliculesActionPerformed
 
     private void diasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasDisponiblesActionPerformed
@@ -382,41 +382,23 @@ public class panelEntrades extends javax.swing.JPanel {
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
             this.etiqSala.setText(p.getSala());
-           this.mostrarSala(p.getId_pase());;
-           
+            this.mostrarSala(p.getId_pase());
+
         }
     }//GEN-LAST:event_llistatHoresActionPerformed
 
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
 
         recursosBD rBD = new recursosBD();
-        String[] seients = this.seient.split("-");
-         Map<String, Object> params = new HashMap<String, Object>();
+        //String[] seients = this.seient.split("-");
+        //Map<String, Object> params = new HashMap<String, Object>();
         try {
-              params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
+            rBD.insertarEntrada(this.p, seient);
+          //  params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-       /*
-        
-         try {
-           
-            ConexionMySQL cm = new ConexionMySQL();
-            
-            Connection connexio = cm.conectar();
-
-            JasperReport reporte = JasperCompileManager.compileReport("report1.jrxml");
-
-            JasperPrint print = JasperFillManager.fillReport(reporte, params, connexio);
-
-            JasperViewer.viewReport(print, false);
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }   
-        **/
-         
         this.dialogConfirm.setVisible(false);
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
@@ -435,6 +417,22 @@ public class panelEntrades extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     public void mostrarSala(final int idPase) {
+        this.borrarSeients();
+
+        try{
+        recursosBD rBD = new recursosBD();
+        Class c = Class.forName("sales.sala2");
+        Constructor constructor=c.getDeclaredConstructor(Integer.class);
+        DibuixSala sala=(DibuixSala) constructor.newInstance(idPase);
+        sala.setPanel(this);
+        sala.setBounds(this.contenedorSeients.getBounds());
+        this.contenedorSeients.add(sala);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void mostrarSala2(final int idPase) {
         this.borrarSeients();
 
         recursosBD rBD = new recursosBD();
@@ -495,7 +493,10 @@ public class panelEntrades extends javax.swing.JPanel {
                 (files * (alt + espaiat))));
     }
 
-    private void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
+    public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
+        recursosBD rbd=new recursosBD();
+        this.entrades=rbd.getEntrades(idPase);
+        
         if (!this.entrades.containsKey(seient)) {
             this.seient = seient;
             //esta lliure

@@ -52,22 +52,24 @@ public class DibuixSala extends javax.swing.JPanel {
                 try {
                     if (entrades.containsKey("null-" + fields[i].getName())) {
                         cadira.setBackground(Color.RED);
+                        cadira.setBorderPainted(false);
+
                     } else {
-                        cadira.setBackground(Color.GREEN);
+                        cadira.setBorderPainted(true);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                cadira.setBorderPainted(false);
                 cadira.setOpaque(true);
                 cadira.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        System.out.println(idPase);
                         panel.comprarEntrada(evt, fields[pos].getName(), idPase);
                     }
                 });
 
             } catch (Exception ex) {
-                Logger.getLogger(sala1.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.toString());
             }
 
         }
