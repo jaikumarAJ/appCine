@@ -286,11 +286,11 @@ public class panelEntrades extends javax.swing.JPanel {
                                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(diasDisponibles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(42, 42, 42)
                                         .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(llistatHores, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                        .add(0, 17, Short.MAX_VALUE)))
+                        .add(0, 165, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -380,7 +380,7 @@ public class panelEntrades extends javax.swing.JPanel {
         //Map<String, Object> params = new HashMap<String, Object>();
         try {
             rBD.insertarEntrada(this.p, seient);
-          //  params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
+            //  params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -404,16 +404,18 @@ public class panelEntrades extends javax.swing.JPanel {
 
     public void mostrarSala(final int idPase) {
         this.borrarSeients();
+                recursosBD rBD = new recursosBD();
 
-        try{
-        recursosBD rBD = new recursosBD();
-        Class c = Class.forName("sales.sala2");
-        Constructor constructor=c.getDeclaredConstructor(Integer.class);
-        DibuixSala sala=(DibuixSala) constructor.newInstance(idPase);
-        sala.setPanel(this);
-        sala.setBounds(this.contenedorSeients.getBounds());
-        this.contenedorSeients.add(sala);
-        }catch(Exception ex){
+        Sala s = rBD.getSalaByPase(idPase);
+
+        try {
+            Class c = Class.forName("sales."+s.getTipus_sala());
+            Constructor constructor = c.getDeclaredConstructor(Integer.class);
+            DibuixSala sala = (DibuixSala) constructor.newInstance(idPase);
+            sala.setPanel(this);
+            sala.setBounds(this.contenedorSeients.getBounds());
+            this.contenedorSeients.add(sala);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -480,9 +482,9 @@ public class panelEntrades extends javax.swing.JPanel {
     }
 
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-        recursosBD rbd=new recursosBD();
-        this.entrades=rbd.getEntrades(idPase);
-        
+        recursosBD rbd = new recursosBD();
+        this.entrades = rbd.getEntrades(idPase);
+
         if (!this.entrades.containsKey(seient)) {
             this.seient = seient;
             //esta lliure

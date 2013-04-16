@@ -231,6 +231,7 @@ public class recursosBD {
             while (rs.next()) {
                 s.setButaques(rs.getInt("butaques"));
                 s.setFiles(rs.getInt("files"));
+                s.setTipus_sala(rs.getString("tipus_sala"));
                 s.setIdSala(rs.getInt("id"));
                 s.setNom(rs.getString("nom"));
             }
