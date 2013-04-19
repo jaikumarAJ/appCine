@@ -4,25 +4,31 @@
  */
 package appcine;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+import recursos.Colors;
+
+//COLORS
+
 
 /**
  *
  * @author torandell9
  */
 public class panelPelicules extends javax.swing.JPanel {
-
+    /**
+    static Color colorFonsPrincipal = new Color(Integer.parseInt("228751", 16));
+    static Color colorFonsPelicules1 = new Color(Integer.parseInt("36DA82", 16));
+  
+    static Color colorTitolPelicules = new Color(Integer.parseInt("333333",16));
+    * */
     ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     pInicial principal;
 
@@ -55,7 +61,9 @@ public class panelPelicules extends javax.swing.JPanel {
         ArrayList<JPanel> alContenedors = new ArrayList<JPanel>();
         for (int i = 0; i < quantContenedors; i++) {
             JPanel panelCont = new JPanel();
-            alContenedors.add(new JPanel());
+           
+            panelCont.setBackground(Colors.colorFonsPelicules1);
+            alContenedors.add(panelCont);
             alContenedors.get(i).setAlignmentX(Component.CENTER_ALIGNMENT);
             alContenedors.get(i).setAlignmentY((400 * i)+440);
             alContenedors.get(i).setMaximumSize(new java.awt.Dimension(650, 500));
@@ -76,12 +84,11 @@ public class panelPelicules extends javax.swing.JPanel {
         int colX;
         int colY;
         javax.swing.ImageIcon icn;
-
         ArrayList<JPanel> alContenedors = this.pintarContenedors(this.pelicules.size());
-
         int contenedor = 0;
         for (Pelicula peli : this.pelicules) {
             javax.swing.JPanel panelPelicula = new javax.swing.JPanel();
+            panelPelicula.setBackground(Colors.colorFonsPelicules1);
             javax.swing.JButton lblPortada = new javax.swing.JButton();
             javax.swing.JLabel labelTitol = new javax.swing.JLabel();
             int fila = (int) Math.ceil(i / 2);
@@ -94,7 +101,7 @@ public class panelPelicules extends javax.swing.JPanel {
             panelPelicula.setAlignmentX(Component.CENTER_ALIGNMENT);
             labelTitol.setBounds(0, 0, ample, 40);
             labelTitol.setText("<html>" + this.pelicules.get(i).getTitol() + "</html>");
-            labelTitol.setForeground(Color.BLACK);
+            labelTitol.setForeground(Colors.colorTitolPelicules);
             labelTitol.setFont(new java.awt.Font("Lucida Grande", 1, 16));
             panelPelicula.add(labelTitol);
 
@@ -132,13 +139,7 @@ public class panelPelicules extends javax.swing.JPanel {
             panelPelicula.add(lblPortada);
             panelPelicula.setLayout(null);
             alContenedors.get(contenedor).add(panelPelicula);
-            /*
-            panelPelicula.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panelPelicula.setMinimumSize(new Dimension(300, 300));
-            panelPelicula.setMaximumSize(new Dimension(300, 300));
-            
-            **/
-            //jPanel1.add(panelPelicula);
+          
             i++;
 
             if (i % 2 == 0) {
@@ -150,7 +151,6 @@ public class panelPelicules extends javax.swing.JPanel {
         int altJpanel = quantFiles * (altura + 10);
 
         this.jPanel1.setPreferredSize(new java.awt.Dimension((ample * 2) + 10, altJpanel));
-        System.out.println("l'scroll medeix:" + this.jScrollPane1.getPreferredSize());
 
     }
 
@@ -189,7 +189,7 @@ public class panelPelicules extends javax.swing.JPanel {
         jScrollPane1.setForeground(new java.awt.Color(0, 51, 51));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(700, 4));
 
-        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel1.setBackground(Colors.colorFonsPrincipal);
         jPanel1.setAlignmentX(Component.CENTER_ALIGNMENT);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
         jScrollPane1.setViewportView(jPanel1);

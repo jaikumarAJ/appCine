@@ -1,4 +1,6 @@
 triar paleta de colors
+recuperar reports
+fer que funcioni reservar l'entrada desde la fitxa de la pel·lícula
 tarifes dia espectador ??
 a la pantalla d'entrades, al desplegable de dia ordenar per data
 comentar codi

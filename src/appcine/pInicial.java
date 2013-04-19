@@ -6,11 +6,11 @@ package appcine;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import recursos.Colors;
 
 
 
@@ -26,12 +26,13 @@ public class pInicial extends javax.swing.JFrame {
     public panelEntrades pe= new panelEntrades(this);
     public panelHoraris ph = new panelHoraris(this);
 
+   //COLORS
+    
    
     /*
      * Creates new form pInicial
      */
     public pInicial() throws SQLException {
-        System.out.println("INICI CONSTRUCTOR PINICIAL");
 
         Image i;
         try {
@@ -89,7 +90,7 @@ public class pInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelContingut.setBackground(new java.awt.Color(0, 204, 51));
+        panelContingut.setBackground(new java.awt.Color(204, 204, 204));
 
         org.jdesktop.layout.GroupLayout panelContingutLayout = new org.jdesktop.layout.GroupLayout(panelContingut);
         panelContingut.setLayout(panelContingutLayout);
@@ -104,12 +105,18 @@ public class pInicial extends javax.swing.JFrame {
 
         getContentPane().add(panelContingut, java.awt.BorderLayout.CENTER);
 
+        jToolBar1.setFloatable(false);
+        jToolBar1.setForeground(new java.awt.Color(102, 204, 0));
         jToolBar1.setRollover(true);
 
-        btnPelicules.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_cine.jpg"))); // NOI18N
+        btnPelicules.setBackground(Colors.colorBotonera);
+        btnPelicules.setForeground(Colors.colorLletresTabs);
+        btnPelicules.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_cine.png"))); // NOI18N
         btnPelicules.setText("<html><b>Pelicules</b></html>");
+        btnPelicules.setBorderPainted(false);
         btnPelicules.setFocusable(false);
         btnPelicules.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPelicules.setOpaque(true);
         btnPelicules.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnPelicules.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -123,10 +130,15 @@ public class pInicial extends javax.swing.JFrame {
         });
         jToolBar1.add(btnPelicules);
 
+        btnEntrades.setBackground(Colors.colorBotonera);
+        btnPelicules.setForeground(Colors.colorLletresTabs);
+        btnEntrades.setForeground(Colors.colorLletresTabs);
         btnEntrades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_entrada.jpg"))); // NOI18N
         btnEntrades.setText("<html><b>Entrades");
         btnEntrades.setActionCommand("<html><b>Entrades</b></html>");
+        btnEntrades.setBorderPainted(false);
         btnEntrades.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEntrades.setOpaque(true);
         btnEntrades.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnEntrades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,9 +152,14 @@ public class pInicial extends javax.swing.JFrame {
         });
         jToolBar1.add(btnEntrades);
 
+        btnComprar.setBackground(Colors.colorBotonera);
+        btnPelicules.setForeground(Colors.colorLletresTabs);
+        btnComprar.setForeground(Colors.colorLletresTabs);
         btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_horario.jpg"))); // NOI18N
         btnComprar.setText("<html><b>Horaris</b></html>");
+        btnComprar.setBorderPainted(false);
         btnComprar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnComprar.setOpaque(true);
         btnComprar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnComprar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -156,10 +173,15 @@ public class pInicial extends javax.swing.JFrame {
         });
         jToolBar1.add(btnComprar);
 
+        jButton2.setBackground(Colors.colorBotonera);
+        jButton2.setForeground(Colors.colorLletresTabs);
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_stats.png"))); // NOI18N
+        btnPelicules.setForeground(Colors.colorLletresTabs);
         jButton2.setText("<html><b>Estadístiques</b></html>");
+        jButton2.setBorderPainted(false);
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setOpaque(true);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

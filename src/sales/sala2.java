@@ -1,5 +1,7 @@
 package sales;
 
+import java.awt.Color;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -563,6 +565,9 @@ public class sala2 extends DibuixSala {
         jButton1090 = new javax.swing.JButton();
         jButton1091 = new javax.swing.JButton();
         jButton1092 = new javax.swing.JButton();
+
+        jButton442.setBackground(new java.awt.Color(204, 0, 153));
+        jButton442.setOpaque(true);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
