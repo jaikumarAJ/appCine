@@ -6,10 +6,17 @@ package appcine;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import recursos.Colors;
 
 
@@ -224,7 +231,7 @@ public class pInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeliculesMouseClicked
 
     public void mostrarStats(){
-        /*  ConexionMySQL cm = new ConexionMySQL();
+        ConexionMySQL cm = new ConexionMySQL();
             
             Connection connexio = cm.conectar();
 
@@ -239,8 +246,7 @@ public class pInicial extends javax.swing.JFrame {
             Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("error llegint l'informe report_grafiques");
         }
-*/
-            
+        
     }
     private void btnEntradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntradesMouseClicked
         this.mostrarPanell(this.pe);
