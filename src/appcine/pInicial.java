@@ -133,7 +133,7 @@ public class pInicial extends javax.swing.JFrame {
         btnEntrades.setBackground(Colors.colorBotonera);
         btnPelicules.setForeground(Colors.colorLletresTabs);
         btnEntrades.setForeground(Colors.colorLletresTabs);
-        btnEntrades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_entrada.jpg"))); // NOI18N
+        btnEntrades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/entrada.png"))); // NOI18N
         btnEntrades.setText("<html><b>Entrades");
         btnEntrades.setActionCommand("<html><b>Entrades</b></html>");
         btnEntrades.setBorderPainted(false);

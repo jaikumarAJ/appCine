@@ -107,7 +107,7 @@
               <Connection code="Colors.colorLletresTabs" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/icono_entrada.jpg"/>
+              <Image iconType="3" name="/recursos/entrada.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;Entrades"/>
             <Property name="actionCommand" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;Entrades&lt;/b&gt;&lt;/html&gt;"/>

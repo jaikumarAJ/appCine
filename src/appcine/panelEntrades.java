@@ -7,15 +7,13 @@ package appcine;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import recursos.Colors;
 import sales.DibuixSala;
 
 /**
@@ -220,6 +218,8 @@ public class panelEntrades extends javax.swing.JPanel {
                     .add(btnCancelar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(142, Short.MAX_VALUE))
         );
+
+        setBackground(Colors.colorFonsPrincipal);
 
         jLabel1.setText("<html><b>Pel·licula:</b></html>");
 

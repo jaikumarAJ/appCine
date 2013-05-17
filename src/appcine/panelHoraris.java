@@ -4,10 +4,12 @@
  */
 package appcine;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import recursos.Colors;
 
 /**
  *
@@ -48,7 +50,6 @@ public class panelHoraris extends javax.swing.JPanel {
 
         this.taulaHorari.setRowSorter(sorter);
 
-        System.out.println("carregat el tablemodel");
     }
 
     /**
@@ -63,6 +64,9 @@ public class panelHoraris extends javax.swing.JPanel {
         scrollTaula = new javax.swing.JScrollPane();
         taulaHorari = new javax.swing.JTable();
 
+        setBackground(Colors.colorFonsPrincipal);
+
+        taulaHorari.setBackground(Colors.colorFonsPelicules1);
         taulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
