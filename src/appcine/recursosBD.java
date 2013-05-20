@@ -1,7 +1,9 @@
 package appcine;
 
+import entitats.Pase;
+import entitats.Pelicula;
+import entitats.Salas;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +11,16 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.classic.Session;
 
 /*
  * To change this template, choose Tools | Templates
@@ -44,26 +51,9 @@ public class recursosBD {
      */
     public void selectPelicules(ArrayList<Pelicula> pelicules) throws SQLException {
 
-        String cSQL = "Select * from pelicules";
-
-        Statement st = this.cn.createStatement();
-
-        ResultSet rs = st.executeQuery(cSQL);
-        while (rs.next()) {
-            Pelicula p = new Pelicula();
-
-            p.setAny(rs.getInt("any"));
-            p.setDirector(rs.getString("director"));
-            p.setDuracio(rs.getInt("duracio"));
-            p.setId_pelicula(rs.getInt("id"));
-            p.setRuta_imatge(rs.getString("ruta_imatge"));
-            p.setSinopsis(rs.getString("sinopsis"));
-            p.setTitol(rs.getString("titol"));
-            p.setClassificacio(rs.getString("classificacio"));
-            p.setGeneres(this.getGeneres(p.getId_pelicula()));
-
-            //  llistat.addItem(p.getTitol());
-            pelicules.add(p);
+        for (Object o : this.getSelect("from Pelicula")) {
+            Pelicula peli = (Pelicula) o;
+            pelicules.add(peli);
         }
 
     }
@@ -92,6 +82,7 @@ public class recursosBD {
     }
 
     public ArrayList<String> getDiasPelicula(int idPelicula) {
+
 
         String cSQL = "Select distinct(dia) from pases where id_pelicula='" + idPelicula + "'";
         ArrayList<String> dies = new ArrayList<String>();
@@ -155,6 +146,7 @@ public class recursosBD {
 
     public Pase getPase(int id, String dia, String hora) {
 
+        //TODO: aquest metode ha de retornar un objecte Pase amb hibernate
         String cSQL = "Select p.*, s.nom 'nom_sala' from pases  p, sales s "
                 + "where id_pelicula='" + id + "' and dia='" + dia + "' and hora='" + hora + "' and p.id_sala=s.id";
 
@@ -165,11 +157,20 @@ public class recursosBD {
             Pase p = new Pase();
             while (rs.next()) {
 
-                p.setDia(rs.getString("dia"));
-                p.setHora(rs.getString("hora"));
-                p.setId_pelicula(rs.getInt("id_pelicula"));
-                p.setId_pase(rs.getInt("id_pase"));
-                p.setSala(rs.getString("nom_sala"));
+                p.setDia(rs.getDate("dia"));
+                p.setHora(rs.getDate("hora"));
+                Pelicula pe = new Pelicula();
+                //TODO: POSAR ID REAL DE LA PELICULA
+                pe.setId(1);
+                p.setPelicules(pe);
+                Pase pa = new Pase();
+                pa.setIdPase(29);
+                p.setIdPase(rs.getInt("id_pase"));
+
+                // TODO: posar nom real de la sala
+                Salas s = new Salas();
+                s.setNom("POSA LA SALA REAL!");
+                p.setSalas(s);
             }
             return p;
         } catch (SQLException ex) {
@@ -182,44 +183,53 @@ public class recursosBD {
 
     public DefaultTableModel getPases(DefaultTableModel modelo) {
 
+        System.out.println("som al get pases");
+
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
         String avui = dataAvui.format(date);
-        String cSQL = "Select p.dia, p.hora, pe.titol, p.id_pase as idP, pe.3d from pases p, pelicules pe, sales s where  p.id_pelicula=pe.id and s.id=p.id_sala and p.dia>='" + avui + "' order by dia, hora asc";
-        Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
+        String sql="from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
+        System.out.println(sql);
+        ArrayList<Pase> pases = (ArrayList) this.getSelect(sql);
+        for (Pase p : pases) {
+            int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
+            modelo.addRow(new Object[]{
+                        p.getDia(),
+                        p.getHora(),
+                        p.getPelicules().getTitol(),
+                        p.getPelicules().gettresd(),
+                        disponibilitat
+                    });
 
-            while (rs.next()) {
-                String tresd = null;
-                if (rs.getBoolean("3d")) {
-                    tresd = "si";
-                } else {
-                    tresd = "no";
-                }
-                //Select pi.titol, p.id_pase as idP, count(id_entrada) from entrades e, pases p, pelicules pi where pi.id=p.id_pelicula and p.id_pase=e.id_pase and e.id_pase=15 group by id_pase
-
-                int disponibilitat = this.getDisponibilitatByPase(rs.getInt("idP"));
-                modelo.addRow(new Object[]{
-                            rs.getString("dia"),
-                            rs.getString("hora"),
-                            rs.getString("titol"),
-                            tresd,
-                            disponibilitat
-                        });
-            }
-
-            return modelo;
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return modelo;
+        /**
+         *
+         * String cSQL = "Select p.dia, p.hora, pe.titol, p.id_pase as idP,
+         * pe.3d from pases p, pelicules pe, sales s where p.id_pelicula=pe.id
+         * and s.id=p.id_sala and p.dia>='" + avui + "' order by dia, hora asc";
+         * Statement st; try { st = this.cn.createStatement(); ResultSet rs =
+         * st.executeQuery(cSQL);
+         *
+         * while (rs.next()) { String tresd = null; if (rs.getBoolean("3d")) {
+         * tresd = "si"; } else { tresd = "no"; } //Select pi.titol, p.id_pase
+         * as idP, count(id_entrada) from entrades e, pases p, pelicules pi
+         * where pi.id=p.id_pelicula and p.id_pase=e.id_pase and e.id_pase=15
+         * group by id_pase
+         *
+         * int disponibilitat = this.getDisponibilitatByPase(rs.getInt("idP"));
+         * modelo.addRow(new Object[]{ rs.getString("dia"),
+         * rs.getString("hora"), rs.getString("titol"), tresd, disponibilitat
+         * }); }
+         *
+         * return modelo; } catch (SQLException ex) {
+         * Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null,
+         * ex); } *
+         */
     }
 
     public Sala getSalaByPase(int idPase) {
-
 
         String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
 
@@ -274,7 +284,7 @@ public class recursosBD {
         PreparedStatement pst = null;
 
         pst = cn.prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS);
-        pst.setString(1, String.valueOf(p.getId_pase()));
+        pst.setString(1, String.valueOf(p.getIdPase()));
         pst.setString(2, String.valueOf(butaca));
 
         int n = 0;
@@ -283,7 +293,7 @@ public class recursosBD {
             n = pst.executeUpdate();
             ResultSet keys = pst.getGeneratedKeys();
             keys.next();
-            System.out.println("entrada:"+keys.getInt(1));
+            System.out.println("entrada:" + keys.getInt(1));
             return keys.getInt(1);
 
         } catch (SQLException ex) {
@@ -291,5 +301,23 @@ public class recursosBD {
         }
 
         return 0;
+    }
+
+    /**
+     * ******************
+     * HIBERNATE PART *******************
+     */
+    private List getSelect(String sql) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query q = session.createQuery(sql);
+            List resultList = q.list();
+            session.getTransaction().commit();
+            return resultList;
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return null;
     }
 }

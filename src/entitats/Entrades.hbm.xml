@@ -1,21 +1,20 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="entitats.Entrades" table="entrades" catalog="cinema">
-        <id name="idEntrada" type="java.lang.Integer">
-            <column name="id_entrada" />
-            <generator class="identity" />
-        </id>
-        <many-to-one name="butaques" class="entitats.Butaques" fetch="select">
-            <column name="butaques_id_butaca" not-null="true" />
-        </many-to-one>
-        <many-to-one name="tarifas" class="entitats.Tarifas" fetch="select">
-            <column name="id_tarifa" not-null="true" />
-        </many-to-one>
-        <many-to-one name="pases" class="entitats.Pases" fetch="select">
-            <column name="id_pase" not-null="true" />
-        </many-to-one>
-    </class>
+  <class catalog="cinema" name="entitats.Entrades" table="entrades">
+    <id name="idEntrada" type="java.lang.Integer">
+      <column name="id_entrada"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="entitats.Butaques" fetch="select" name="butaques">
+      <column name="butaques_id_butaca" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="entitats.Tarifas" fetch="select" name="tarifas">
+      <column name="id_tarifa" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="entitats.Pase" fetch="select" name="pases">
+      <column name="id_pase" not-null="true"/>
+    </many-to-one>
+  </class>
 </hibernate-mapping>

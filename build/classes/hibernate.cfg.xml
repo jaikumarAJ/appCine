@@ -4,11 +4,20 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cinema?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cinema_antiga?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="appcine/Pelicules.hbm.xml"/>
+    <mapping resource="entitats/Pelicula.hbm.xml"/>
+    <mapping resource="entitats/Fila.hbm.xml"/>
+    <mapping resource="entitats/Zona.hbm.xml"/>
+    <mapping resource="entitats/Generos.hbm.xml"/>
+    <mapping resource="entitats/Entrades.hbm.xml"/>
+    <mapping resource="entitats/Pase.hbm.xml"/>
+    <mapping resource="entitats/Salas.hbm.xml"/>
+    <mapping resource="entitats/Tarifas.hbm.xml"/>
+    <mapping resource="entitats/Butaques.hbm.xml"/>
+    <mapping resource="entitats/Usuaris.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

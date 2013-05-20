@@ -13,8 +13,9 @@ public class Salas  implements java.io.Serializable {
 
      private Integer id;
      private String nom;
-     private Set paseses = new HashSet(0);
-     private Set zonas = new HashSet(0);
+     private int files;
+     private int butaques;
+     private String tipusSala;
 
     public Salas() {
     }
@@ -23,42 +24,55 @@ public class Salas  implements java.io.Serializable {
     public Salas(String nom) {
         this.nom = nom;
     }
-    public Salas(String nom, Set paseses, Set zonas) {
-       this.nom = nom;
-       this.paseses = paseses;
-       this.zonas = zonas;
+
+    public Salas(Integer id, String nom, int files, int butaques, String tipusSala) {
+        this.id = id;
+        this.nom = nom;
+        this.files = files;
+        this.butaques = butaques;
+        this.tipusSala = tipusSala;
     }
-   
+
     public Integer getId() {
-        return this.id;
+        return id;
     }
-    
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getFiles() {
+        return files;
+    }
+
+    public int getButaques() {
+        return butaques;
+    }
+
+    public String getTipusSala() {
+        return tipusSala;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getNom() {
-        return this.nom;
-    }
-    
+
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public Set getPaseses() {
-        return this.paseses;
-    }
-    
-    public void setPaseses(Set paseses) {
-        this.paseses = paseses;
-    }
-    public Set getZonas() {
-        return this.zonas;
-    }
-    
-    public void setZonas(Set zonas) {
-        this.zonas = zonas;
+
+    public void setFiles(int files) {
+        this.files = files;
     }
 
+    public void setButaques(int butaques) {
+        this.butaques = butaques;
+    }
 
+    public void setTipusSala(String tipusSala) {
+        this.tipusSala = tipusSala;
+    }
+    
 
 
 }

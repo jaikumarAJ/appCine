@@ -29,7 +29,7 @@ public class pInicial extends javax.swing.JFrame {
 
     //llistat de 
     public panelPelicules pp = new panelPelicules(this);
-    public panelFitxaPelicula2 pfp = new panelFitxaPelicula2(this);
+    public PanelFitxaPelicula pfp = new PanelFitxaPelicula(this);
     public panelEntrades pe= new panelEntrades(this);
     public panelHoraris ph = new panelHoraris(this);
 

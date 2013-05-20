@@ -1,27 +1,23 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="entitats.Salas" table="salas" catalog="cinema">
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
-            <generator class="identity" />
-        </id>
-        <property name="nom" type="string">
-            <column name="nom" length="45" not-null="true" />
-        </property>
-        <set name="paseses" inverse="true">
-            <key>
-                <column name="id_sala" not-null="true" />
-            </key>
-            <one-to-many class="entitats.Pases" />
-        </set>
-        <set name="zonas" inverse="true">
-            <key>
-                <column name="id_sala" not-null="true" />
-            </key>
-            <one-to-many class="entitats.Zona" />
-        </set>
-    </class>
+  <class catalog="cinema" name="entitats.Salas" table="salas">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="nom" type="string">
+      <column length="45" name="nom" not-null="true"/>
+    </property>
+    <property name="tipusSala" type="string">
+      <column length="10" name="tipus_sala" not-null="true"/>
+    </property>
+    <property name="files" type="java.lang.Integer">
+      <column length="11" name="files" not-null="true"/>
+    </property>
+    <property name="butaques" type="java.lang.Integer">
+      <column length="11" name="butaques" not-null="true"/>
+    </property>
+  </class>
 </hibernate-mapping>

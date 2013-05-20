@@ -4,6 +4,8 @@
  */
 package appcine;
 
+import entitats.Pase;
+import entitats.Pelicula;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
@@ -58,7 +60,7 @@ public class panelEntrades extends javax.swing.JPanel {
             recursosBD rBD = new recursosBD();
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
-            this.etiqSala.setText(p.getSala());
+            this.etiqSala.setText(p.getSalas().getNom());
 
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
@@ -332,7 +334,7 @@ public class panelEntrades extends javax.swing.JPanel {
 
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
-            this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId_pelicula();
+            this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
             recursosBD rBD = new recursosBD();
 
             for (String dia : rBD.getDiasPelicula(idSeleccionat)) {
@@ -367,8 +369,8 @@ public class panelEntrades extends javax.swing.JPanel {
         recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
-            this.etiqSala.setText(p.getSala());
-            this.mostrarSala(p.getId_pase());
+            this.etiqSala.setText(p.getSalas().getNom());
+            this.mostrarSala(p);
 
         }
     }//GEN-LAST:event_llistatHoresActionPerformed
@@ -389,7 +391,7 @@ public class panelEntrades extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
         this.dialogConfirm.dispose();
-        this.mostrarSala(this.p.getId_pase());
+        this.mostrarSala(this.p);
 
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
@@ -402,16 +404,14 @@ public class panelEntrades extends javax.swing.JPanel {
         this.dialogConfirm.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseClicked
 
-    public void mostrarSala(final int idPase) {
+    public void mostrarSala(Pase p) {
         this.borrarSeients();
-                recursosBD rBD = new recursosBD();
-
-        Sala s = rBD.getSalaByPase(idPase);
+        recursosBD rBD = new recursosBD();
 
         try {
-            Class c = Class.forName("sales."+s.getTipus_sala());
+            Class c = Class.forName("sales." + p.getSalas().getTipusSala());
             Constructor constructor = c.getDeclaredConstructor(Integer.class);
-            DibuixSala sala = (DibuixSala) constructor.newInstance(idPase);
+            DibuixSala sala = (DibuixSala) constructor.newInstance(p.getIdPase());
             sala.setPanel(this);
             sala.setBounds(this.contenedorSeients.getBounds());
             this.contenedorSeients.add(sala);

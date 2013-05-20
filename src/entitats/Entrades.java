@@ -12,12 +12,12 @@ public class Entrades  implements java.io.Serializable {
      private Integer idEntrada;
      private Butaques butaques;
      private Tarifas tarifas;
-     private Pases pases;
+     private Pase pases;
 
     public Entrades() {
     }
 
-    public Entrades(Butaques butaques, Tarifas tarifas, Pases pases) {
+    public Entrades(Butaques butaques, Tarifas tarifas, Pase pases) {
        this.butaques = butaques;
        this.tarifas = tarifas;
        this.pases = pases;
@@ -44,11 +44,11 @@ public class Entrades  implements java.io.Serializable {
     public void setTarifas(Tarifas tarifas) {
         this.tarifas = tarifas;
     }
-    public Pases getPases() {
+    public Pase getPases() {
         return this.pases;
     }
     
-    public void setPases(Pases pases) {
+    public void setPases(Pase pases) {
         this.pases = pases;
     }
 

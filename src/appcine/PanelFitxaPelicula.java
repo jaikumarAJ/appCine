@@ -4,6 +4,9 @@
  */
 package appcine;
 
+import entitats.Pase;
+import entitats.Pelicula;
+import entitats.Salas;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
@@ -19,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author torandell9
  */
-public class panelFitxaPelicula2 extends javax.swing.JPanel {
+public class PanelFitxaPelicula extends javax.swing.JPanel {
 
     public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     private ArrayList<Pase> pases = new ArrayList<Pase>();
@@ -30,7 +33,7 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
     /**
      * Creates new form panelFitxaPelicula
      */
-    public panelFitxaPelicula2(pInicial principal) {
+    public PanelFitxaPelicula(pInicial principal) {
         initComponents();
         this.principal = principal;
         this.jPanel1.setVisible(false);
@@ -49,7 +52,6 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
         this.scrollContainer.setBounds(x, y, width, height);
         super.setBounds(x, y, width, height);
 
-        System.out.println("canviam els bounds" + this.scrollContainer.getBounds());
     }
 
     public void setVisible(boolean aFlag) {
@@ -63,6 +65,7 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
         super.setVisible(aFlag);
     }
 
+    /*
     public void loadPelicules(javax.swing.JComboBox llistat) throws SQLException {
         ConexionMySQL mysql = new ConexionMySQL();
         Connection cn = mysql.conectar();
@@ -77,8 +80,8 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
             p.setAny(rs.getInt("any"));
             p.setDirector(rs.getString("director"));
             p.setDuracio(rs.getInt("duracio"));
-            p.setId_pelicula(rs.getInt("id"));
-            p.setRuta_imatge(rs.getString("ruta_imatge"));
+            p.setId(rs.getInt("id"));
+            p.setRutaImatge(rs.getString("ruta_imatge"));
             p.setSinopsis(rs.getString("sinopsis"));
             p.setTitol(rs.getString("titol"));
             llistat.addItem(p.getTitol());
@@ -87,9 +90,8 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
 
         System.out.println("ja hem carregat les pelicules");
     }
-
+*/
     public void loadPases(ArrayList<Pase> pases) {
-        System.out.println("carregam els pases");
         try {
             ConexionMySQL mysql = new ConexionMySQL();
             Connection cn = mysql.conectar();
@@ -100,11 +102,15 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
             ResultSet rs = st.executeQuery(cSQL);
             while (rs.next()) {
                 Pase p = new Pase();
-                p.setId_pase(rs.getInt("id_pase"));
-                p.setDia(rs.getString("dia"));
-                p.setId_pelicula(rs.getInt("id_pelicula"));
-                p.setHora(rs.getString("hora"));
-                p.setSala(rs.getString("nom"));
+                p.setIdPase(rs.getInt("id_pase"));
+                p.setDia(rs.getDate("dia"));
+                // TODO: canviar per id real de la pelicula;
+                
+                p.setHora(rs.getDate("hora"));
+                Salas s = new Salas();
+                s.setNom(rs.getString("nom"));
+                p.setSalas(s);
+               
                 this.pases.add(p);
                 System.out.println(p.toString());
             }
@@ -132,7 +138,7 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
         this.labelSinopsis.setText(this.pelicules.get(index).getSinopsis());
 
         //String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(index).getRuta_imatge();
-        String ruta_img = "http://localhost/portades/" + this.pelicules.get(index).getRuta_imatge();
+        String ruta_img = "http://localhost/portades/" + this.pelicules.get(index).getRutaImatge();
         try {
             System.out.println(ruta_img);
 
@@ -141,10 +147,12 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
             Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        this.id_pelicula = this.pelicules.get(index).getId_pelicula();
+        this.id_pelicula = this.pelicules.get(index).getId();
         this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
-        this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
-
+        // TODO: reomplir la llista de generes
+        //this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
+        this.labelgenere.setText("pensa a arreglarme!!!");
+        
         //BUIDAM LA TAULA D'HORARIS
         DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();// TODO add your handling code here:    
         modelo.setRowCount(0);
@@ -154,8 +162,8 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
         this.loadPases(pases);
 
         for (Pase p : pases) {
-
-            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSala()});
+         
+            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSalas().getNom()});
         }
 
     }
@@ -365,7 +373,7 @@ public class panelFitxaPelicula2 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelAny;

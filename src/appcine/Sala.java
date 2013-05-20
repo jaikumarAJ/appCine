@@ -13,21 +13,17 @@ public class Sala {
     int butaques;
     int files;
     String nom;
-    String tipus_sala;
-    
-    
+    String tipusSala;
     public Sala(){
-        super();
+        
     }
     
     
-    public Sala(int idSala, int butaques, int files, String nom, String tipus_sala) {
-        super();
+    public Sala(int idSala, int butaques, int files, String nom) {
         this.idSala = idSala;
         this.butaques = butaques;
         this.files = files;
         this.nom = nom;
-        this.tipus_sala=tipus_sala;
     }
 
     public int getIdSala() {
@@ -58,16 +54,16 @@ public class Sala {
         return nom;
     }
 
-    public String getTipus_sala() {
-        return tipus_sala;
-    }
-
-    public void setTipus_sala(String tipus_sala) {
-        this.tipus_sala = tipus_sala;
-    }
-
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    void setTipus_sala(String string) {
+       this.tipusSala=string;
+    }
+
+    public String getTipusSala() {
+        return tipusSala;
     }
     
     

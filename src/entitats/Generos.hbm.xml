@@ -15,7 +15,7 @@
             <key>
                 <column name="generos_id" not-null="true" />
             </key>
-            <many-to-many entity-name="entitats.Pelicules">
+            <many-to-many entity-name="entitats.Pelicula">
                 <column name="pelicules_id" not-null="true" />
             </many-to-many>
         </set>

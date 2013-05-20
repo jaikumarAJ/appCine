@@ -4,6 +4,7 @@
  */
 package appcine;
 
+import entitats.Pelicula;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.net.MalformedURLException;
@@ -29,6 +30,7 @@ public class panelPelicules extends javax.swing.JPanel {
   
     static Color colorTitolPelicules = new Color(Integer.parseInt("333333",16));
     * */
+    //ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     pInicial principal;
 
@@ -95,7 +97,7 @@ public class panelPelicules extends javax.swing.JPanel {
             int columna = (i % 2);
             colX = iniciX + (((i % 2) * (ample + separacioX)));
             colY = fila * (altura + separacioY);
-            final int id_pelicula = this.pelicules.get(i).getId_pelicula();
+            final int id_pelicula = this.pelicules.get(i).getId();
             panelPelicula.setBounds(colX, colY, ample, altura);
             panelPelicula.setPreferredSize(new Dimension(altura, ample));
             panelPelicula.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -112,7 +114,7 @@ public class panelPelicules extends javax.swing.JPanel {
              javax.swing.ImageIcon(getClass().getResource(ruta_img)));
             
              */
-           String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRuta_imatge();
+           String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
            // String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
             try {
                 System.out.println(ruta_img);
@@ -161,7 +163,7 @@ public class panelPelicules extends javax.swing.JPanel {
      */
     private void mostrarFitxaPelicula(int idPelicula) throws SQLException {
         for (Pelicula p : this.pelicules) {
-            if (p.getId_pelicula() == idPelicula) {
+            if (p.getId() == idPelicula) {
 
                 this.principal.pfp.setPeli(p);
                 this.principal.mostrarPanell(this.principal.pfp);
