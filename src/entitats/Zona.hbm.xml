@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="entitats.Zona" table="zona" catalog="cinema">
+        <id name="idZona" type="java.lang.Integer">
+            <column name="id_zona" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="salas" class="entitats.Salas" fetch="select">
+            <column name="id_sala" not-null="true" />
+        </many-to-one>
+        <property name="nomZona" type="string">
+            <column name="nom_zona" length="45" />
+        </property>
+        <set name="filas" inverse="true">
+            <key>
+                <column name="ZONA_id_zona" not-null="true" />
+            </key>
+            <one-to-many class="entitats.Fila" />
+        </set>
+    </class>
+</hibernate-mapping>

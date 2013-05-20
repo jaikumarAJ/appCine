@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="entitats.Tarifas" table="tarifas" catalog="cinema">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="tipo" type="string">
+            <column name="tipo" length="14" />
+        </property>
+        <property name="precio" type="java.lang.Float">
+            <column name="precio" precision="2" />
+        </property>
+        <set name="entradeses" inverse="true">
+            <key>
+                <column name="id_tarifa" not-null="true" />
+            </key>
+            <one-to-many class="entitats.Entrades" />
+        </set>
+    </class>
+</hibernate-mapping>

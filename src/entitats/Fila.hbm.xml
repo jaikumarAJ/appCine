@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="entitats.Fila" table="fila" catalog="cinema">
+        <id name="idFila" type="java.lang.Integer">
+            <column name="id_fila" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="zona" class="entitats.Zona" fetch="select">
+            <column name="ZONA_id_zona" not-null="true" />
+        </many-to-one>
+        <property name="nomFila" type="string">
+            <column name="nom_fila" length="45" />
+        </property>
+        <set name="butaqueses" inverse="true">
+            <key>
+                <column name="FILA_id_fila" not-null="true" />
+            </key>
+            <one-to-many class="entitats.Butaques" />
+        </set>
+    </class>
+</hibernate-mapping>
