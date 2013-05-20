@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="cinema"/>
-  <table-filter match-name="generos"/>
-  <table-filter match-name="pelicules_has_generos"/>
-  <table-filter match-name="usuaris"/>
-  <table-filter match-name="butaques"/>
-  <table-filter match-name="entrades"/>
-  <table-filter match-name="fila"/>
-  <table-filter match-name="tarifas"/>
-  <table-filter match-name="zona"/>
-  <table-filter match-name="pases"/>
-  <table-filter match-name="salas"/>
-  <table-filter match-name="pelicules"/>
+    <schema-selection match-catalog="cinema_antiga"/>
+    <table-filter match-name="entrades"/>    <table-filter match-name="pelicules"/>
+    <table-filter match-name="generos"/>
+    <table-filter match-name="pelicules_has_generos"/>
+    <table-filter match-name="butaques"/>
+    <table-filter match-name="sales"/>
+    <table-filter match-name="tarifas"/>
+    <table-filter match-name="pases"/>
 </hibernate-reverse-engineering>

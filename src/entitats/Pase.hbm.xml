@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-may-2013 20:04:39 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="cinema" name="entitats.Pase" table="pases">
+    <class name="entitats.Pase" table="pases" catalog="cinema_antiga">
     <id name="idPase" type="java.lang.Integer">
       <column name="id_pase"/>
       <generator class="identity"/>
     </id>
-    <many-to-one class="entitats.Salas" fetch="select" name="salas">
+    <many-to-one class="entitats.Sala" fetch="select" name="sales">
       <column name="id_sala" not-null="true"/>
     </many-to-one>
     <many-to-one class="entitats.Pelicula" fetch="select" name="pelicules">
@@ -18,6 +19,9 @@
     </property>
     <property name="hora" type="time">
       <column length="8" name="hora" not-null="true"/>
+    </property>
+    <property name="idTarifa" type="int">
+      <column name="id_tarifa" not-null="true"/>
     </property>
     <set inverse="true" name="entradeses">
       <key>

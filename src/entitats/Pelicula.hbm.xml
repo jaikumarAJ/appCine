@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 17-may-2013 16:47:18 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="cinema" name="entitats.Pelicula" table="pelicules">
+  <class catalog="cinema_antiga" name="entitats.Pelicula" table="pelicules">
     <id name="id" type="java.lang.Integer">
       <column name="id"/>
       <generator class="identity"/>
@@ -25,11 +25,25 @@
     <property name="rutaImatge" type="string">
       <column length="400" name="ruta_imatge" not-null="true"/>
     </property>
-    <property name="tresd" type="java.lang.Boolean">
+    <property name="3d" type="java.lang.Boolean">
       <column name="3d"/>
     </property>
     <property name="classificacio" type="string">
       <column length="3" name="classificacio"/>
     </property>
+    <set inverse="false" name="generoses" table="pelicules_has_generos">
+      <key>
+        <column name="pelicules_id" not-null="true"/>
+      </key>
+      <many-to-many entity-name="entitats.Generos">
+        <column name="generos_id" not-null="true"/>
+      </many-to-many>
+    </set>
+    <set inverse="true" name="paseses">
+      <key>
+        <column name="id_pelicula" not-null="true"/>
+      </key>
+      <one-to-many class="entitats.Pase"/>
+    </set>
   </class>
 </hibernate-mapping>

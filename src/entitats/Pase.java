@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 11:53:27 by Hibernate Tools 3.2.1.GA
+// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -13,27 +13,30 @@ public class Pase  implements java.io.Serializable {
 
 
      private Integer idPase;
-     private Salas salas;
+     private Sala sales;
      private Pelicula pelicules;
      private Date dia;
      private Date hora;
+     private int idTarifa;
      private Set entradeses = new HashSet(0);
 
     public Pase() {
     }
 
 	
-    public Pase(Salas salas, Pelicula pelicules, Date dia, Date hora) {
-        this.salas = salas;
+    public Pase(Sala sales, Pelicula pelicules, Date dia, Date hora, int idTarifa) {
+        this.sales = sales;
         this.pelicules = pelicules;
         this.dia = dia;
         this.hora = hora;
+        this.idTarifa = idTarifa;
     }
-    public Pase(Salas salas, Pelicula pelicules, Date dia, Date hora, Set entradeses) {
-       this.salas = salas;
+    public Pase(Sala sales, Pelicula pelicules, Date dia, Date hora, int idTarifa, Set entradeses) {
+       this.sales = sales;
        this.pelicules = pelicules;
        this.dia = dia;
        this.hora = hora;
+       this.idTarifa = idTarifa;
        this.entradeses = entradeses;
     }
    
@@ -44,12 +47,12 @@ public class Pase  implements java.io.Serializable {
     public void setIdPase(Integer idPase) {
         this.idPase = idPase;
     }
-    public Salas getSalas() {
-        return this.salas;
+    public Sala getSales() {
+        return this.sales;
     }
     
-    public void setSalas(Salas salas) {
-        this.salas = salas;
+    public void setSales(Sala sales) {
+        this.sales = sales;
     }
     public Pelicula getPelicules() {
         return this.pelicules;
@@ -71,6 +74,13 @@ public class Pase  implements java.io.Serializable {
     
     public void setHora(Date hora) {
         this.hora = hora;
+    }
+    public int getIdTarifa() {
+        return this.idTarifa;
+    }
+    
+    public void setIdTarifa(int idTarifa) {
+        this.idTarifa = idTarifa;
     }
     public Set getEntradeses() {
         return this.entradeses;

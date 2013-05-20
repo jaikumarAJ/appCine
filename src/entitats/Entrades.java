@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 11:53:27 by Hibernate Tools 3.2.1.GA
+// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
 
 
 
@@ -10,17 +10,25 @@ public class Entrades  implements java.io.Serializable {
 
 
      private Integer idEntrada;
-     private Butaques butaques;
      private Tarifas tarifas;
      private Pase pases;
+     private Integer fila;
+     private String butaca;
 
     public Entrades() {
     }
 
-    public Entrades(Butaques butaques, Tarifas tarifas, Pase pases) {
-       this.butaques = butaques;
+	
+    public Entrades(Tarifas tarifas, Pase pases, String butaca) {
+        this.tarifas = tarifas;
+        this.pases = pases;
+        this.butaca = butaca;
+    }
+    public Entrades(Tarifas tarifas, Pase pases, Integer fila, String butaca) {
        this.tarifas = tarifas;
        this.pases = pases;
+       this.fila = fila;
+       this.butaca = butaca;
     }
    
     public Integer getIdEntrada() {
@@ -29,13 +37,6 @@ public class Entrades  implements java.io.Serializable {
     
     public void setIdEntrada(Integer idEntrada) {
         this.idEntrada = idEntrada;
-    }
-    public Butaques getButaques() {
-        return this.butaques;
-    }
-    
-    public void setButaques(Butaques butaques) {
-        this.butaques = butaques;
     }
     public Tarifas getTarifas() {
         return this.tarifas;
@@ -50,6 +51,20 @@ public class Entrades  implements java.io.Serializable {
     
     public void setPases(Pase pases) {
         this.pases = pases;
+    }
+    public Integer getFila() {
+        return this.fila;
+    }
+    
+    public void setFila(Integer fila) {
+        this.fila = fila;
+    }
+    public String getButaca() {
+        return this.butaca;
+    }
+    
+    public void setButaca(String butaca) {
+        this.butaca = butaca;
     }
 
 

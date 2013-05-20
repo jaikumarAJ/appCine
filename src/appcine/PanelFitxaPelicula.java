@@ -6,7 +6,7 @@ package appcine;
 
 import entitats.Pase;
 import entitats.Pelicula;
-import entitats.Salas;
+import entitats.Sala;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
@@ -107,9 +107,9 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
                 // TODO: canviar per id real de la pelicula;
                 
                 p.setHora(rs.getDate("hora"));
-                Salas s = new Salas();
+                Sala s = new Sala();
                 s.setNom(rs.getString("nom"));
-                p.setSalas(s);
+                p.setSales(s);
                
                 this.pases.add(p);
                 System.out.println(p.toString());
@@ -163,7 +163,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
 
         for (Pase p : pases) {
          
-            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSalas().getNom()});
+            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSales().getNom()});
         }
 
     }

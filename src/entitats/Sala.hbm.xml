@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="cinema" name="entitats.Salas" table="salas">
+  <class catalog="cinema_antiga" name="entitats.Sala" table="sales">
     <id name="id" type="java.lang.Integer">
       <column name="id"/>
       <generator class="identity"/>
     </id>
+    <property name="files" type="int">
+      <column name="files" not-null="true"/>
+    </property>
+    <property name="butaques" type="int">
+      <column name="butaques" not-null="true"/>
+    </property>
     <property name="nom" type="string">
       <column length="45" name="nom" not-null="true"/>
     </property>
     <property name="tipusSala" type="string">
       <column length="10" name="tipus_sala" not-null="true"/>
     </property>
-    <property name="files" type="java.lang.Integer">
-      <column length="11" name="files" not-null="true"/>
-    </property>
-    <property name="butaques" type="java.lang.Integer">
-      <column length="11" name="butaques" not-null="true"/>
-    </property>
+    <set inverse="true" name="paseses">
+      <key>
+        <column name="id_sala" not-null="true"/>
+      </key>
+      <one-to-many class="entitats.Pase"/>
+    </set>
   </class>
 </hibernate-mapping>

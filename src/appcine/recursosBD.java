@@ -2,7 +2,7 @@ package appcine;
 
 import entitats.Pase;
 import entitats.Pelicula;
-import entitats.Salas;
+import entitats.Sala;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,6 +30,7 @@ import org.hibernate.classic.Session;
  *
  * @author torandell9
  */
+// TODO : COMENTAR AQUESTA CLASE
 public class recursosBD {
 
     ConexionMySQL mysql = new ConexionMySQL();
@@ -143,42 +144,16 @@ public class recursosBD {
 
         return hores;
     }
-
+    
     public Pase getPase(int id, String dia, String hora) {
-
-        //TODO: aquest metode ha de retornar un objecte Pase amb hibernate
-        String cSQL = "Select p.*, s.nom 'nom_sala' from pases  p, sales s "
-                + "where id_pelicula='" + id + "' and dia='" + dia + "' and hora='" + hora + "' and p.id_sala=s.id";
-
-        Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
-            Pase p = new Pase();
-            while (rs.next()) {
-
-                p.setDia(rs.getDate("dia"));
-                p.setHora(rs.getDate("hora"));
-                Pelicula pe = new Pelicula();
-                //TODO: POSAR ID REAL DE LA PELICULA
-                pe.setId(1);
-                p.setPelicules(pe);
-                Pase pa = new Pase();
-                pa.setIdPase(29);
-                p.setIdPase(rs.getInt("id_pase"));
-
-                // TODO: posar nom real de la sala
-                Salas s = new Salas();
-                s.setNom("POSA LA SALA REAL!");
-                p.setSalas(s);
-            }
+        
+        String cSQL = "from Pase pa where pa.dia='" + dia + "' and hora='" + hora + "' and pa.pelicules.id="+id;
+        ArrayList<Pase> pases = (ArrayList) this.getSelect(cSQL);
+        for (Pase p: pases) {
             return p;
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return null;
-
     }
 
     public DefaultTableModel getPases(DefaultTableModel modelo) {
@@ -188,7 +163,7 @@ public class recursosBD {
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
         String avui = dataAvui.format(date);
-        String sql="from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
+        String sql = "from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
         System.out.println(sql);
         ArrayList<Pase> pases = (ArrayList) this.getSelect(sql);
         for (Pase p : pases) {
@@ -197,7 +172,7 @@ public class recursosBD {
                         p.getDia(),
                         p.getHora(),
                         p.getPelicules().getTitol(),
-                        p.getPelicules().gettresd(),
+                        p.getPelicules().get3d(),
                         disponibilitat
                     });
 
@@ -241,8 +216,8 @@ public class recursosBD {
             while (rs.next()) {
                 s.setButaques(rs.getInt("butaques"));
                 s.setFiles(rs.getInt("files"));
-                s.setTipus_sala(rs.getString("tipus_sala"));
-                s.setIdSala(rs.getInt("id"));
+                s.setTipusSala(rs.getString("tipus_sala"));
+                s.setId(rs.getInt("id"));
                 s.setNom(rs.getString("nom"));
             }
             return s;

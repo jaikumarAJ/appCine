@@ -60,7 +60,7 @@ public class panelEntrades extends javax.swing.JPanel {
             recursosBD rBD = new recursosBD();
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
-            this.etiqSala.setText(p.getSalas().getNom());
+            this.etiqSala.setText(p.getSales().getNom());
 
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
@@ -369,7 +369,7 @@ public class panelEntrades extends javax.swing.JPanel {
         recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
-            this.etiqSala.setText(p.getSalas().getNom());
+            this.etiqSala.setText(p.getSales().getNom());
             this.mostrarSala(p);
 
         }
@@ -409,7 +409,7 @@ public class panelEntrades extends javax.swing.JPanel {
         recursosBD rBD = new recursosBD();
 
         try {
-            Class c = Class.forName("sales." + p.getSalas().getTipusSala());
+            Class c = Class.forName("sales." + p.getSales().getTipusSala());
             Constructor constructor = c.getDeclaredConstructor(Integer.class);
             DibuixSala sala = (DibuixSala) constructor.newInstance(p.getIdPase());
             sala.setPanel(this);
@@ -419,11 +419,12 @@ public class panelEntrades extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
-
+/**
     public void mostrarSala2(final int idPase) {
         this.borrarSeients();
 
         recursosBD rBD = new recursosBD();
+     
         Sala s = rBD.getSalaByPase(idPase);
 
         int files = s.getFiles();
@@ -480,7 +481,7 @@ public class panelEntrades extends javax.swing.JPanel {
                 (int) this.contenedorSeients.getPreferredSize().getWidth(),
                 (files * (alt + espaiat))));
     }
-
+    * */
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
         recursosBD rbd = new recursosBD();
         this.entrades = rbd.getEntrades(idPase);
@@ -499,6 +500,7 @@ public class panelEntrades extends javax.swing.JPanel {
             this.dialogConfirm.setVisible(true);
         }
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;

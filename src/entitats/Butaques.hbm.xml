@@ -1,21 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20-may-2013 11:53:29 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="entitats.Butaques" table="butaques" catalog="cinema">
-        <id name="idButaca" type="java.lang.Integer">
-            <column name="id_butaca" />
-            <generator class="identity" />
+    <class name="entitats.Butaques" table="butaques" catalog="cinema_antiga">
+        <id name="id" type="string">
+            <column name="id" length="50" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="fila" class="entitats.Fila" fetch="select">
-            <column name="FILA_id_fila" not-null="true" />
-        </many-to-one>
-        <set name="entradeses" inverse="true">
-            <key>
-                <column name="butaques_id_butaca" not-null="true" />
-            </key>
-            <one-to-many class="entitats.Entrades" />
-        </set>
+        <property name="fila" type="string">
+            <column name="fila" length="5" not-null="true" />
+        </property>
+        <property name="columna" type="string">
+            <column name="columna" length="5" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

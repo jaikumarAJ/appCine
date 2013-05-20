@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 11:53:27 by Hibernate Tools 3.2.1.GA
+// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
