@@ -90,6 +90,11 @@ public class Pase  implements java.io.Serializable {
         this.entradeses = entradeses;
     }
 
+    @Override
+    public String toString() {
+        return "Pase{" + "idPase=" + idPase + ", sales=" + sales + ", pelicules=" + pelicules + ", dia=" + dia + ", hora=" + hora + ", idTarifa=" + idTarifa + ", entradeses=" + entradeses + '}';
+    }
+
 
 
 

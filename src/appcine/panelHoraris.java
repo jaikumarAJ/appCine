@@ -17,10 +17,6 @@ import recursos.Colors;
  * @author torandell9
  */
 public class panelHoraris extends javax.swing.JPanel {
-
-    /**
-     * Creates new form panelHoraris
-     */
     public pInicial pi;
     public ArrayList<Pase> pases = new ArrayList<Pase>();
 

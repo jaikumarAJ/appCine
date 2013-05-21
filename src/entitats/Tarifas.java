@@ -54,9 +54,6 @@ public class Tarifas  implements java.io.Serializable {
         this.entradeses = entradeses;
     }
 
-
-
-
 }
 
 

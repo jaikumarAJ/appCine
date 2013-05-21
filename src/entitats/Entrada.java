@@ -69,7 +69,7 @@ public class Entrada  implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return "Entrada{" + "idEntrada=" + idEntrada + ", tarifas=" + tarifas + ", pases=" + pases + ", fila=" + fila + ", butaca=" + butaca + '}';
+        return "Entrada{" + "idEntrada=" + idEntrada + ", FILA="+ fila + ", butaca=" + butaca + '}';
     }
 
 

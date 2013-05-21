@@ -37,15 +37,36 @@ public class recursosBD {
 
     ConexionMySQL mysql = new ConexionMySQL();
     public Connection cn;
+    /**
+     * HIBERNATE
+     */
+    Session session;
 
     /**
      * Constructor buid.
      */
     public recursosBD() {
-        this.cn = this.mysql.conectar();
+        this.cn = this.mysql.conectar(); //TODO: borrar aquesta linea quan estigui tot amb hibernate
+        this.session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
 
     }
+    /**
+     * Métode generic al que se l'hi passa la sentencia HQL i retorna un ArrayList dels resultats
+     * @param hql : Sentencia hql que s'ha d'executar
+     * @return ArrayList amb els resultats de la consulta
+     */
+    private List getSelect(String hql) {
+        try {
 
+            Query q = session.createQuery(hql);
+            ArrayList resultList = (ArrayList) q.list();
+            return resultList;
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return null;
+    }
     /**
      * Selecciona totes les pelicules i les fica dins un arraylist
      *
@@ -61,78 +82,51 @@ public class recursosBD {
 
     }
 
-    public ArrayList<String> getGeneres(int id_pelicula) {
-        ArrayList<String> generes = new ArrayList<String>();
-
-        
-        String cSQL = "Select titol from generos g, pelicules_has_generos phg where g.id=phg.generos_id and phg.pelicules_id=" + id_pelicula;
-
-        try {
-
-            Statement st;
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
-            while (rs.next()) {
-
-                generes.add(rs.getString("titol"));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return generes;
-
-    }
-
+    /**
+     * Selecciona els diferents dies que es pasa una pel·lícula.
+     * @param idPelicula : el nom ho dui tot
+     * @return ArrayList de java.sql.Date amb les dates en format yyyy-mm-dd
+     */
     public ArrayList<java.sql.Date> getDiasPelicula(int idPelicula) {
-        
         String hql = "SELECT distinct pa.dia from Pase pa where pa.pelicules.id='2'";
-        
-        return (ArrayList)this.getSelect(hql);
+        return (ArrayList) this.getSelect(hql);
 
     }
-
-    public int getDisponibilitatByPase(int idPase) {
-
-        String sql = "Select files*butaques as capacitat, (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase=" + idPase + " group by p.id_pase order by p.id_pase";
-
-        Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                int capacitat = rs.getInt("capacitat");
-                int restants = rs.getInt("restants");
-                if (restants == 1) {
-                }
-                return rs.getInt("restants");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return 0;
-    }
-
+/**
+     * Retorna les hores en que es mostra la pel·lícula en un dia en concret
+     *
+     * @param dia
+     * @param idPelicula
+     * @return ArrayList d'hores que es mostra la pel·lícula
+     */
     public ArrayList<Time> getHoresPelicula(String dia, int idPelicula) {
 
         String cSQL = "Select distinct pa.hora from Pase pa where pa.pelicules.id='" + idPelicula + "' and pa.dia='" + dia + "'";
         return (ArrayList<Time>) this.getSelect(cSQL);
     }
-    
+
+    /**
+     * Retorna un objecte Pase per la pel·lícula al dia i hora donades
+     *
+     * @param id : id de la pel·lícula
+     * @param dia
+     * @param hora
+     * @return objecte Pase complet
+     */
     public Pase getPase(int id, String dia, String hora) {
-        
-        String cSQL = "from Pase pa where pa.dia='" + dia + "' and hora='" + hora + "' and pa.pelicules.id="+id;
+        String cSQL = "from Pase pa where pa.dia='" + dia + "' and hora='" + hora + "' and pa.pelicules.id=" + id;
         ArrayList<Pase> pases = (ArrayList) this.getSelect(cSQL);
-        for (Pase p: pases) {
+        for (Pase p : pases) {
             return p;
         }
-        
         return null;
     }
 
+    /**
+     * Ompleix el modelo passat per paràmetre 
+     * @param modelo
+     * @return
+     */
     public DefaultTableModel getPases(DefaultTableModel modelo) {
 
         Date date = (Date) Calendar.getInstance().getTime();
@@ -142,7 +136,9 @@ public class recursosBD {
         System.out.println(sql);
         ArrayList<Pase> pases = (ArrayList) this.getSelect(sql);
         for (Pase p : pases) {
-            int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
+             int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
+            System.out.println("----xxxxxxxx  ----");
+           
             modelo.addRow(new Object[]{
                         p.getDia(),
                         p.getHora(),
@@ -178,59 +174,124 @@ public class recursosBD {
          * ex); } *
          */
     }
-
-    /*
-    public Sala getSalaByPase(int idPase) {
-
-        String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
-
-        Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
-            Sala s = new Sala();
-            while (rs.next()) {
-                s.setButaques(rs.getInt("butaques"));
-                s.setFiles(rs.getInt("files"));
-                s.setTipusSala(rs.getString("tipus_sala"));
-                s.setId(rs.getInt("id"));
-                s.setNom(rs.getString("nom"));
-            }
-            return s;
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-*/
+    
+     
+    /**
+     * Retorna totes les Entrades venudes per un pase determinat
+     * @param idPase
+     * @return HashMap tipus <fila-butaca, idEntrada>
+     */
     public HashMap<String, Integer> getEntrades(int idPase) {
         HashMap<String, Integer> entrades = new HashMap<String, Integer>();
- 
-       String hql ="from Entrada en where en.pases.idPase="+idPase;
-       
-       for (Object o : (ArrayList)this.getSelect(hql)) {
+
+        String hql = "from Entrada en where en.pases.idPase=" + idPase;
+
+        for (Object o : (ArrayList) this.getSelect(hql)) {
             Entrada ent = (Entrada) o;
-            System.out.println(ent);
-            entrades.put(ent.getFila()+"-"+ent.getButaca(), ent.getIdEntrada());
-         
+            entrades.put(ent.getFila() + "-" + ent.getButaca(), ent.getIdEntrada());
+
         }
         /**
-        String cSQL = "Select id_entrada, fila, butaca from entrades where id_pase='" + idPase + "'";
+         * String cSQL = "Select id_entrada, fila, butaca from entrades where
+         * id_pase='" + idPase + "'"; Statement st; try { st =
+         * this.cn.createStatement(); ResultSet rs = st.executeQuery(cSQL);
+         *
+         * while (rs.next()) { entrades.put(rs.getString("fila") + "-" +
+         * rs.getString("butaca"), rs.getInt("id_entrada")); } } catch
+         * (SQLException ex) {
+         * Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null,
+         * ex); }
+         */
+        return entrades;
+    }
+    
+    
+    public ArrayList<String> getGeneres(int id_pelicula) {
+        ArrayList<String> generes = new ArrayList<String>();
+
+        String cSQL = "Select titol from generos g, pelicules_has_generos phg where g.id=phg.generos_id and phg.pelicules_id=" + id_pelicula;
+
+        try {
+
+            Statement st;
+            st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(cSQL);
+            while (rs.next()) {
+
+                generes.add(rs.getString("titol"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return generes;
+
+    }
+    
+    public int getDisponibilitatByPase(int idPase) {
+        System.out.println("Som al getDisponibilitatBYpASE");
+        
+        String hql="from Entrada ent where ent.pases.idPase="+idPase;
+         hql = "Select s.files*s.butaques as capacitat,"
+                + " (files*butaques-(Select count(idEntrada) from Entrada ent )) as restants "
+                + "from Sala s, Pase p, Entrada e where s.id=p.sales.id and p.idPase=" + idPase ;
+           
+        /*+ " group by p.id_pase order by p.id_pase"   for(Object o : this.getSelect(sql)){
+            Entrada ent= (Entrada) o;
+            System.out.println(ent);
+        }* */
+         String sql = "Select files*butaques as capacitat,"
+                + " (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants "
+                + "from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase=" + idPase + " group by p.id_pase order by p.id_pase";
+              
+       
+       
         Statement st;
         try {
             st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
+            ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                entrades.put(rs.getString("fila") + "-" + rs.getString("butaca"), rs.getInt("id_entrada"));
+                int capacitat = rs.getInt("capacitat");
+                int restants = rs.getInt("restants");
+                if (restants == 1) {
+                }
+                return rs.getInt("restants");
             }
         } catch (SQLException ex) {
             Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
-        return entrades;
+
+        return 0;
     }
+
+    /*
+     public Sala getSalaByPase(int idPase) {
+
+     String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
+
+     Statement st;
+     try {
+     st = this.cn.createStatement();
+     ResultSet rs = st.executeQuery(cSQL);
+     Sala s = new Sala();
+     while (rs.next()) {
+     s.setButaques(rs.getInt("butaques"));
+     s.setFiles(rs.getInt("files"));
+     s.setTipusSala(rs.getString("tipus_sala"));
+     s.setId(rs.getInt("id"));
+     s.setNom(rs.getString("nom"));
+     }
+     return s;
+     } catch (SQLException ex) {
+     Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
+     }
+
+     return null;
+     }
+     */
+   
 
     /**
      * Fica l'entrada dins la base de dades
@@ -253,6 +314,7 @@ public class recursosBD {
             ResultSet keys = pst.getGeneratedKeys();
             keys.next();
             System.out.println("entrada:" + keys.getInt(1));
+            this.session.getTransaction().commit();
             return keys.getInt(1);
 
         } catch (SQLException ex) {
@@ -261,22 +323,5 @@ public class recursosBD {
 
         return 0;
     }
-
-    /**
-     * ******************
-     * HIBERNATE PART *******************
-     */
-    private List getSelect(String sql) {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query q = session.createQuery(sql);
-            List resultList = q.list();
-            session.getTransaction().commit();
-            return resultList;
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        }
-        return null;
-    }
+    
 }

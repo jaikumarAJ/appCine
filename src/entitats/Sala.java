@@ -79,6 +79,11 @@ public class Sala  implements java.io.Serializable {
         this.paseses = paseses;
     }
 
+    @Override
+    public String toString() {
+        return "Sala{" + "id=" + id + ", files=" + files + ", butaques=" + butaques + ", nom=" + nom + ", tipusSala=" + tipusSala + ", paseses=" + paseses + '}';
+    }
+
 
 
 

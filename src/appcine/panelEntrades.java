@@ -37,13 +37,13 @@ public class panelEntrades extends javax.swing.JPanel {
     private pInicial pi;
     private Pase p;
     private String seient;
-
+    private recursosBD rBD;
     public panelEntrades(pInicial pi) {
         System.out.println("Inici constructor 1");
         this.pi = pi;
         try {
             initComponents();
-            recursosBD rBD = new recursosBD();
+            this.rBD= new recursosBD();
             rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules();
 
@@ -59,8 +59,7 @@ public class panelEntrades extends javax.swing.JPanel {
         this.pi = pi;
         try {
             initComponents();
-            recursosBD rBD = new recursosBD();
-            rBD.selectPelicules(pelicules);
+            this.rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
             this.etiqSala.setText(p.getSales().getNom());
 
@@ -335,9 +334,9 @@ public class panelEntrades extends javax.swing.JPanel {
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
-            recursosBD rBD = new recursosBD();
+           
 
-            for(Date dies : rBD.getDiasPelicula(idSeleccionat)){
+            for(Date dies : this.rBD.getDiasPelicula(idSeleccionat)){
                 //System.out.print();
                 this.diasDisponibles.addItem(dies.toString());
             }
@@ -355,9 +354,8 @@ public class panelEntrades extends javax.swing.JPanel {
 
         if (this.diasDisponibles.getSelectedIndex() > 0) {
             this.dia = (String) this.diasDisponibles.getSelectedItem();
-            recursosBD rBD = new recursosBD();
 
-            for(Time hora : rBD.getHoresPelicula(dia, this.idSeleccionat)){
+            for(Time hora : this.rBD.getHoresPelicula(dia, this.idSeleccionat)){
                  this.llistatHores.addItem(hora.toString());
             }
            
@@ -365,11 +363,12 @@ public class panelEntrades extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_diasDisponiblesActionPerformed
 
+    
     private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
 
-        recursosBD rBD = new recursosBD();
+       // recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
-            this.p = rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
+            this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
             this.etiqSala.setText(p.getSales().getNom());
             this.mostrarSala(p);
 
@@ -378,11 +377,11 @@ public class panelEntrades extends javax.swing.JPanel {
 
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
 
-        recursosBD rBD = new recursosBD();
+       // recursosBD rBD = new recursosBD();
         //String[] seients = this.seient.split("-");
         //Map<String, Object> params = new HashMap<String, Object>();
         try {
-            rBD.insertarEntrada(this.p, seient);
+            this.rBD.insertarEntrada(this.p, seient);
             //  params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
@@ -407,7 +406,7 @@ public class panelEntrades extends javax.swing.JPanel {
 
     public void mostrarSala(Pase p) {
         this.borrarSeients();
-        recursosBD rBD = new recursosBD();
+      
 
         try {
             Class c = Class.forName("sales." + p.getSales().getTipusSala());
@@ -484,8 +483,8 @@ public class panelEntrades extends javax.swing.JPanel {
     }
     * */
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-        recursosBD rbd = new recursosBD();
-        this.entrades = rbd.getEntrades(idPase);
+//        recursosBD rbd = new recursosBD();
+        this.entrades = this.rBD.getEntrades(idPase);
 
         if (!this.entrades.containsKey(seient)) {
             this.seient = seient;

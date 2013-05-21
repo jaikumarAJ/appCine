@@ -126,6 +126,11 @@ public class Pelicula  implements java.io.Serializable {
         this.paseses = paseses;
     }
 
+    @Override
+    public String toString() {
+        return "Pelicula{" + "id=" + id + ", titol=" + titol + ", sinopsis=" + sinopsis + ", duracio=" + duracio + ", director=" + director + ", any=" + any + ", rutaImatge=" + rutaImatge + ", tresd=" + tresd + ", classificacio=" + classificacio + ", generoses=" + generoses + ", paseses=" + paseses + '}';
+    }
+
 
 
 

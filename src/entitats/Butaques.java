@@ -44,6 +44,11 @@ public class Butaques  implements java.io.Serializable {
         this.columna = columna;
     }
 
+    @Override
+    public String toString() {
+        return "Butaques{" + "id=" + id + ", fila=" + fila + ", columna=" + columna + '}';
+    }
+
 
 
 

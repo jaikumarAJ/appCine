@@ -45,6 +45,11 @@ public class Generos  implements java.io.Serializable {
         this.peliculeses = peliculeses;
     }
 
+    @Override
+    public String toString() {
+        return "Generos{" + "id=" + id + ", titol=" + titol + ", peliculeses=" + peliculeses + '}';
+    }
+
 
 
 

@@ -1,0 +1,856 @@
+-- phpMyAdmin SQL Dump
+-- version 3.3.9.2
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 21-05-2013 a las 13:34:01
+-- Versión del servidor: 5.5.9
+-- Versión de PHP: 5.3.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Base de datos: `cinema_antiga`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `butaca`
+--
+
+CREATE TABLE `butaca` (
+  `id` varchar(50) NOT NULL DEFAULT '',
+  `fila` varchar(5) NOT NULL,
+  `columna` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcar la base de datos para la tabla `butaca`
+--
+
+INSERT INTO `butaca` (`id`, `fila`, `columna`) VALUES
+('12341234', '', ''),
+('jButton1', '', ''),
+('jButton10', '', ''),
+('jButton100', '', ''),
+('jButton101', '', ''),
+('jButton102', '', ''),
+('jButton103', '', ''),
+('jButton104', '', ''),
+('jButton105', '', ''),
+('jButton106', '', ''),
+('jButton107', '', ''),
+('jButton108', '', ''),
+('jButton109', '', ''),
+('jButton11', '', ''),
+('jButton110', '', ''),
+('jButton111', '', ''),
+('jButton112', '', ''),
+('jButton113', '', ''),
+('jButton114', '', ''),
+('jButton115', '', ''),
+('jButton116', '', ''),
+('jButton117', '', ''),
+('jButton118', '', ''),
+('jButton119', '', ''),
+('jButton12', '', ''),
+('jButton120', '', ''),
+('jButton121', '', ''),
+('jButton122', '', ''),
+('jButton123', '', ''),
+('jButton124', '', ''),
+('jButton125', '', ''),
+('jButton126', '', ''),
+('jButton127', '', ''),
+('jButton128', '', ''),
+('jButton129', '', ''),
+('jButton13', '', ''),
+('jButton130', '', ''),
+('jButton131', '', ''),
+('jButton132', '', ''),
+('jButton133', '', ''),
+('jButton134', '', ''),
+('jButton135', '', ''),
+('jButton136', '', ''),
+('jButton137', '', ''),
+('jButton138', '', ''),
+('jButton139', '', ''),
+('jButton14', '', ''),
+('jButton140', '', ''),
+('jButton141', '', ''),
+('jButton142', '', ''),
+('jButton143', '', ''),
+('jButton144', '', ''),
+('jButton145', '', ''),
+('jButton146', '', ''),
+('jButton147', '', ''),
+('jButton148', '', ''),
+('jButton149', '', ''),
+('jButton15', '', ''),
+('jButton150', '', ''),
+('jButton151', '', ''),
+('jButton152', '', ''),
+('jButton153', '', ''),
+('jButton154', '', ''),
+('jButton155', '', ''),
+('jButton156', '', ''),
+('jButton157', '', ''),
+('jButton158', '', ''),
+('jButton159', '', ''),
+('jButton16', '', ''),
+('jButton160', '', ''),
+('jButton161', '', ''),
+('jButton162', '', ''),
+('jButton163', '', ''),
+('jButton164', '', ''),
+('jButton165', '', ''),
+('jButton166', '', ''),
+('jButton167', '', ''),
+('jButton168', '', ''),
+('jButton169', '', ''),
+('jButton17', '', ''),
+('jButton170', '', ''),
+('jButton171', '', ''),
+('jButton172', '', ''),
+('jButton173', '', ''),
+('jButton174', '', ''),
+('jButton175', '', ''),
+('jButton176', '', ''),
+('jButton177', '', ''),
+('jButton178', '', ''),
+('jButton18', '', ''),
+('jButton180', '', ''),
+('jButton183', '', ''),
+('jButton185', '', ''),
+('jButton19', '', ''),
+('jButton2', '', ''),
+('jButton20', '', ''),
+('jButton21', '', ''),
+('jButton22', '', ''),
+('jButton23', '', ''),
+('jButton24', '', ''),
+('jButton25', '', ''),
+('jButton26', '', ''),
+('jButton27', '', ''),
+('jButton28', '', ''),
+('jButton29', '', ''),
+('jButton3', '', ''),
+('jButton30', '', ''),
+('jButton31', '', ''),
+('jButton32', '', ''),
+('jButton33', '', ''),
+('jButton34', '', ''),
+('jButton35', '', ''),
+('jButton36', '', ''),
+('jButton37', '', ''),
+('jButton38', '', ''),
+('jButton39', '', ''),
+('jButton4', '', ''),
+('jButton40', '', ''),
+('jButton41', '', ''),
+('jButton42', '', ''),
+('jButton43', '', ''),
+('jButton44', '', ''),
+('jButton45', '', ''),
+('jButton46', '', ''),
+('jButton47', '', ''),
+('jButton48', '', ''),
+('jButton49', '', ''),
+('jButton5', '', ''),
+('jButton50', '', ''),
+('jButton51', '', ''),
+('jButton52', '', ''),
+('jButton53', '', ''),
+('jButton54', '', ''),
+('jButton55', '', ''),
+('jButton56', '', ''),
+('jButton57', '', ''),
+('jButton58', '', ''),
+('jButton59', '', ''),
+('jButton6', '', ''),
+('jButton60', '', ''),
+('jButton61', '', ''),
+('jButton62', '', ''),
+('jButton63', '', ''),
+('jButton64', '', ''),
+('jButton65', '', ''),
+('jButton66', '', ''),
+('jButton67', '', ''),
+('jButton68', '', ''),
+('jButton69', '', ''),
+('jButton7', '', ''),
+('jButton70', '', ''),
+('jButton71', '', ''),
+('jButton72', '', ''),
+('jButton73', '', ''),
+('jButton74', '', ''),
+('jButton75', '', ''),
+('jButton76', '', ''),
+('jButton77', '', ''),
+('jButton78', '', ''),
+('jButton79', '', ''),
+('jButton8', '', ''),
+('jButton80', '', ''),
+('jButton81', '', ''),
+('jButton82', '', ''),
+('jButton83', '', ''),
+('jButton84', '', ''),
+('jButton85', '', ''),
+('jButton86', '', ''),
+('jButton87', '', ''),
+('jButton88', '', ''),
+('jButton89', '', ''),
+('jButton9', '', ''),
+('jButton90', '', ''),
+('jButton91', '', ''),
+('jButton92', '', ''),
+('jButton93', '', ''),
+('jButton94', '', ''),
+('jButton95', '', ''),
+('jButton96', '', ''),
+('jButton97', '', ''),
+('jButton98', '', ''),
+('jButton99', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entrada`
+--
+
+CREATE TABLE `entrada` (
+  `id_entrada` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pase` int(11) NOT NULL,
+  `fila` int(11) DEFAULT NULL,
+  `butaca` varchar(50) NOT NULL,
+  `id_tarifa` int(11) NOT NULL,
+  PRIMARY KEY (`id_entrada`),
+  KEY `id_pase` (`id_pase`),
+  KEY `fk_entrades_tarifas1` (`id_tarifa`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=287 ;
+
+--
+-- Volcar la base de datos para la tabla `entrada`
+--
+
+INSERT INTO `entrada` (`id_entrada`, `id_pase`, `fila`, `butaca`, `id_tarifa`) VALUES
+(1, 5, 1, '1', 1),
+(2, 5, 1, '2', 1),
+(3, 5, 1, '3', 1),
+(4, 5, 1, '4', 1),
+(5, 5, 1, '5', 1),
+(6, 5, 1, '6', 1),
+(7, 5, 2, '8', 1),
+(12, 6, 7, '24', 1),
+(13, 4, 3, '13', 1),
+(14, 14, 1, '5', 1),
+(15, 14, 1, '4', 1),
+(16, 14, 2, '5', 1),
+(17, 20, 5, '20', 1),
+(18, 15, 0, '2', 1),
+(19, 15, 2, '5', 1),
+(20, 15, 1, '5', 1),
+(21, 15, 0, '5', 1),
+(22, 15, 2, '1', 1),
+(23, 20, 5, '18', 1),
+(24, 20, 10, '16', 1),
+(25, 5, 6, '8', 1),
+(26, 10, 1, '2', 1),
+(27, 15, 1, '1', 1),
+(28, 9, 4, '4', 1),
+(29, 14, 1, '1', 1),
+(30, 3, 2, '13', 1),
+(31, 14, 2, '3', 1),
+(32, 21, 2, '4', 1),
+(33, 14, 1, '2', 1),
+(34, 13, 2, '8', 1),
+(35, 19, 1, '2', 1),
+(36, 12, 1, '3', 1),
+(37, 14, 0, '3', 1),
+(38, 2, 1, '2', 1),
+(39, 1, 3, '8', 1),
+(40, 12, 1, '4', 1),
+(41, 19, 2, '6', 1),
+(42, 4, 4, '18', 1),
+(43, 3, 3, '18', 1),
+(44, 12, 2, '4', 1),
+(45, 10, 1, '4', 1),
+(46, 4, 5, '16', 1),
+(47, 4, 4, '6', 1),
+(48, 12, 2, '6', 1),
+(49, 19, 1, '3', 1),
+(50, 14, 0, '6', 1),
+(51, 15, 1, '6', 1),
+(52, 15, 0, '0', 1),
+(53, 11, 2, '4', 1),
+(54, 1, 1, '4', 1),
+(55, 1, 6, '5', 1),
+(56, 4, 8, '11', 1),
+(57, 24, 0, '3', 1),
+(58, 24, 2, '5', 1),
+(59, 31, 3, '13', 1),
+(60, 31, 5, '18', 1),
+(61, 31, 7, '18', 1),
+(62, 31, 2, '18', 1),
+(63, 32, 0, '5', 1),
+(64, 32, 1, '2', 1),
+(65, 32, 2, '5', 1),
+(66, 32, 0, '0', 1),
+(67, 33, 4, '7', 1),
+(68, 33, 7, '12', 1),
+(69, 33, 5, '12', 1),
+(70, 33, 1, '2', 1),
+(71, 33, 9, '5', 1),
+(72, 33, 8, '2', 1),
+(73, 33, 6, '4', 1),
+(74, 33, 2, '11', 1),
+(75, 33, 4, '11', 1),
+(76, 33, 1, '8', 1),
+(77, 33, 1, '9', 1),
+(78, 34, 0, '4', 1),
+(79, 34, 0, '5', 1),
+(80, 34, 0, '6', 1),
+(81, 34, 1, '3', 1),
+(82, 35, 1, '14', 1),
+(83, 35, 1, '15', 1),
+(84, 35, 1, '16', 1),
+(85, 37, 1, '3', 1),
+(86, 37, 2, '5', 1),
+(87, 37, 0, '6', 1),
+(88, 37, 0, '2', 1),
+(89, 37, 0, '3', 1),
+(90, 39, 1, '1', 1),
+(91, 39, 1, '2', 1),
+(92, 42, 1, '5', 1),
+(93, 42, 2, '6', 1),
+(94, 41, 1, '1', 1),
+(95, 41, 1, '2', 1),
+(96, 41, 1, '3', 1),
+(97, 41, 1, '4', 1),
+(98, 41, 1, '5', 1),
+(99, 45, 2, '5', 1),
+(100, 45, 6, '10', 1),
+(101, 45, 6, '8', 1),
+(102, 47, 3, '13', 1),
+(103, 47, 5, '20', 1),
+(104, 47, 6, '17', 1),
+(105, 47, 4, '8', 1),
+(106, 47, 5, '6', 1),
+(107, 49, 2, '7', 1),
+(108, 49, 6, '9', 1),
+(109, 49, 8, '4', 1),
+(110, 51, 1, '4', 1),
+(111, 51, 2, '6', 1),
+(112, 51, 1, '2', 1),
+(113, 51, 1, '3', 1),
+(114, 51, 1, '5', 1),
+(115, 53, 1, '2', 1),
+(116, 53, 1, '3', 1),
+(117, 53, 1, '4', 1),
+(118, 55, 3, '4', 1),
+(119, 55, 3, '5', 1),
+(120, 55, 3, '6', 1),
+(121, 57, 0, '14', 1),
+(122, 57, 1, '15', 1),
+(123, 57, 0, '16', 1),
+(124, 57, 1, '16', 1),
+(125, 61, 0, '14', 1),
+(126, 61, 0, '15', 1),
+(127, 61, 0, '13', 1),
+(128, 61, 0, '12', 1),
+(129, 61, 0, '16', 1),
+(130, 63, 0, '11', 1),
+(131, 63, 4, '13', 1),
+(132, 63, 0, '12', 1),
+(133, 65, 0, '3', 1),
+(134, 65, 0, '5', 1),
+(135, 65, 3, '6', 1),
+(136, 68, 1, '1', 1),
+(137, 68, 1, '4', 1),
+(138, 68, 1, '3', 1),
+(139, 68, 1, '2', 1),
+(140, 69, 3, '3', 1),
+(141, 69, 5, '5', 1),
+(142, 69, 5, '6', 1),
+(143, 69, 1, '8', 1),
+(144, 69, 1, '6', 1),
+(145, 71, 3, '6', 1),
+(146, 71, 3, '7', 1),
+(147, 71, 4, '9', 1),
+(148, 71, 3, '8', 1),
+(149, 71, 3, '9', 1),
+(150, 74, 3, '3', 1),
+(151, 74, 3, '4', 1),
+(152, 74, 3, '5', 1),
+(153, 74, 3, '6', 1),
+(154, 76, 2, '2', 1),
+(155, 76, 2, '4', 1),
+(156, 76, 2, '5', 1),
+(157, 76, 2, '6', 1),
+(158, 77, 1, '4', 1),
+(159, 77, 1, '5', 1),
+(160, 77, 1, '6', 1),
+(161, 80, 0, '3', 1),
+(162, 80, 0, '4', 1),
+(163, 81, 1, '13', 1),
+(164, 81, 1, '15', 1),
+(165, 81, 1, '14', 1),
+(166, 83, 1, '2', 1),
+(167, 83, 1, '3', 1),
+(168, 85, 1, '12', 1),
+(169, 85, 1, '15', 1),
+(170, 85, 1, '13', 1),
+(171, 85, 1, '14', 1),
+(172, 89, 2, '2', 1),
+(173, 89, 2, '5', 1),
+(174, 91, 2, '4', 1),
+(175, 91, 2, '5', 1),
+(176, 91, 1, '4', 1),
+(177, 91, 1, '5', 1),
+(178, 94, 1, '6', 1),
+(179, 94, 1, '7', 1),
+(180, 94, 1, '8', 1),
+(181, 94, 1, '9', 1),
+(182, 96, 3, '4', 1),
+(183, 96, 3, '5', 1),
+(184, 96, 3, '6', 1),
+(185, 96, 3, '7', 1),
+(186, 96, 3, '8', 1),
+(187, 96, 3, '9', 1),
+(188, 97, 2, '4', 1),
+(189, 97, 2, '5', 1),
+(190, 97, 2, '6', 1),
+(191, 97, 2, '7', 1),
+(192, 100, 1, '1', 1),
+(193, 100, 1, '4', 1),
+(194, 59, 0, '5', 1),
+(195, 59, 1, '4', 1),
+(196, 59, 0, '4', 1),
+(197, 59, 0, '3', 1),
+(198, 59, 1, '3', 1),
+(199, 59, 1, '5', 1),
+(200, 145, 3, '3', 1),
+(201, 146, 7, '18', 1),
+(202, 146, 5, '16', 1),
+(203, 146, 6, '17', 1),
+(204, 146, 7, '16', 1),
+(205, 146, 5, '18', 1),
+(206, 146, 6, '19', 1),
+(207, 146, 7, '20', 1),
+(208, 146, 5, '20', 1),
+(209, 102, 1, '4', 1),
+(210, 87, 2, '5', 1),
+(211, 31, NULL, 'jButton46', 1),
+(212, 74, NULL, 'jButton7', 1),
+(213, 22, NULL, 'jButton8', 1),
+(214, 101, NULL, 'jButton49', 1),
+(215, 73, NULL, 'jButton55', 1),
+(216, 18, NULL, 'jButton11', 1),
+(217, 87, NULL, 'jButton24', 1),
+(218, 87, NULL, 'jButton31', 1),
+(219, 87, NULL, 'jButton77', 1),
+(220, 18, NULL, 'jButton122', 1),
+(221, 18, NULL, 'jButton123', 1),
+(222, 18, NULL, 'jButton119', 1),
+(223, 18, NULL, 'jButton120', 1),
+(224, 18, NULL, 'jButton72', 1),
+(225, 104, NULL, 'jButton69', 1),
+(226, 104, NULL, 'jButton77', 1),
+(227, 104, NULL, 'jButton91', 1),
+(228, 104, NULL, 'jButton122', 1),
+(229, 3, NULL, 'jButton29', 1),
+(230, 3, NULL, 'jButton20', 1),
+(231, 3, NULL, 'jButton24', 1),
+(232, 3, NULL, 'jButton18', 1),
+(233, 3, NULL, 'jButton38', 1),
+(234, 3, NULL, 'jButton1', 1),
+(235, 9, NULL, 'jButton22', 1),
+(236, 74, NULL, 'jButton17', 1),
+(237, 103, NULL, 'jButton96', 1),
+(238, 87, NULL, 'jButton74', 1),
+(239, 87, NULL, 'jButton99', 1),
+(240, 87, NULL, 'jButton56', 1),
+(241, 87, NULL, 'jButton28', 1),
+(242, 87, NULL, 'jButton26', 1),
+(243, 87, NULL, 'jButton27', 1),
+(244, 87, NULL, 'jButton47', 1),
+(245, 87, NULL, 'jButton38', 1),
+(246, 73, NULL, 'jButton252', 1),
+(247, 102, NULL, 'jButton74', 1),
+(248, 88, NULL, 'jButton100', 1),
+(249, 115, NULL, 'jButton176', 1),
+(250, 22, NULL, 'jButton188', 1),
+(251, 22, NULL, 'jButton155', 1),
+(252, 73, NULL, 'jButton103', 1),
+(253, 13, NULL, 'jButton276', 1),
+(254, 13, NULL, 'jButton180', 1),
+(255, 13, NULL, 'jButton222', 1),
+(256, 13, NULL, 'jButton238', 1),
+(257, 13, NULL, 'jButton172', 1),
+(258, 10, NULL, 'jButton80', 1),
+(259, 75, NULL, 'jButton45', 1),
+(260, 74, NULL, 'jButton53', 1),
+(261, 22, NULL, 'jButton54', 1),
+(262, 22, NULL, 'jButton68', 1),
+(263, 22, NULL, 'jButton547', 1),
+(264, 3, NULL, 'jButton572', 1),
+(265, 3, NULL, 'jButton671', 1),
+(266, 3, NULL, 'jButton632', 1),
+(267, 3, NULL, 'jButton590', 1),
+(268, 104, NULL, 'jButton718', 1),
+(269, 104, NULL, 'jButton757', 1),
+(270, 104, NULL, 'jButton796', 1),
+(271, 104, NULL, 'jButton835', 1),
+(272, 10, NULL, 'jButton36', 1),
+(273, 10, NULL, 'jButton81', 1),
+(274, 10, NULL, 'jButton79', 1),
+(275, 10, NULL, 'jButton107', 1),
+(276, 10, NULL, 'jButton548', 1),
+(277, 10, NULL, 'jButton550', 1),
+(278, 10, NULL, 'jButton549', 1),
+(279, 102, NULL, 'jButton68', 1),
+(280, 102, NULL, 'jButton71', 1),
+(281, 102, NULL, 'jButton73', 1),
+(282, 74, NULL, 'jButton72', 1),
+(283, 76, NULL, 'jButton115', 1),
+(284, 115, NULL, 'jButton623', 1),
+(285, 75, NULL, 'jButton540', 1),
+(286, 26, NULL, 'jButton602', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `genere`
+--
+
+CREATE TABLE `genere` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `titol` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Volcar la base de datos para la tabla `genere`
+--
+
+INSERT INTO `genere` (`id`, `titol`) VALUES
+(1, 'Acció'),
+(2, 'Aventures'),
+(3, 'Documental'),
+(4, 'Ciencia Ficció'),
+(5, 'Psicológica'),
+(6, 'Terror'),
+(7, 'Comedia'),
+(8, 'Drama'),
+(9, 'Infantil');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pase`
+--
+
+CREATE TABLE `pase` (
+  `id_pase` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pelicula` int(11) NOT NULL,
+  `dia` date NOT NULL,
+  `hora` time NOT NULL,
+  `id_sala` int(11) NOT NULL,
+  `id_tarifa` int(11) NOT NULL,
+  PRIMARY KEY (`id_pase`),
+  KEY `id_pelicula` (`id_pelicula`),
+  KEY `id_pelicula_2` (`id_pelicula`),
+  KEY `fk_pases_salas1` (`id_sala`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=157 ;
+
+--
+-- Volcar la base de datos para la tabla `pase`
+--
+
+INSERT INTO `pase` (`id_pase`, `id_pelicula`, `dia`, `hora`, `id_sala`, `id_tarifa`) VALUES
+(1, 1, '2013-06-30', '19:50:00', 4, 1),
+(2, 3, '2013-06-30', '22:05:00', 2, 1),
+(3, 5, '2013-06-30', '17:40:00', 3, 1),
+(4, 1, '2013-07-30', '17:30:00', 3, 1),
+(5, 6, '2013-07-30', '15:45:00', 1, 1),
+(6, 3, '2013-05-30', '15:45:00', 3, 1),
+(7, 9, '2013-05-30', '14:25:00', 1, 1),
+(9, 5, '2013-05-30', '15:00:00', 1, 1),
+(10, 6, '2013-07-30', '13:40:00', 2, 1),
+(11, 7, '2013-07-30', '08:20:00', 2, 1),
+(12, 2, '2013-08-30', '09:40:00', 2, 1),
+(13, 5, '2013-08-30', '10:30:00', 3, 1),
+(14, 3, '2013-09-30', '11:10:00', 2, 1),
+(15, 4, '2013-05-30', '17:10:00', 2, 1),
+(17, 8, '2013-09-30', '20:15:00', 3, 1),
+(18, 6, '2013-05-30', '19:52:00', 3, 1),
+(19, 2, '2013-05-30', '15:30:00', 2, 1),
+(20, 4, '2013-05-30', '20:40:00', 3, 1),
+(21, 2, '2013-05-30', '19:50:00', 2, 1),
+(22, 3, '2013-05-30', '23:25:00', 3, 1),
+(23, 9, '2013-05-30', '16:51:00', 3, 1),
+(24, 1, '2013-05-30', '17:50:00', 2, 1),
+(25, 3, '2013-05-30', '21:00:00', 3, 1),
+(26, 5, '2013-05-30', '22:05:00', 4, 1),
+(27, 8, '2013-05-30', '19:25:00', 1, 1),
+(28, 7, '2013-05-30', '18:15:00', 1, 1),
+(31, 1, '2013-06-25', '15:20:00', 3, 1),
+(32, 1, '2013-06-20', '20:40:00', 2, 1),
+(33, 1, '2013-07-25', '15:20:00', 4, 1),
+(34, 1, '2013-07-20', '20:40:00', 2, 1),
+(35, 1, '2013-08-25', '15:20:00', 3, 1),
+(36, 1, '2013-08-20', '20:40:00', 3, 1),
+(37, 1, '2013-09-25', '15:20:00', 2, 1),
+(38, 1, '2013-09-20', '20:40:00', 4, 1),
+(39, 1, '2013-10-25', '15:20:00', 2, 1),
+(40, 1, '2013-10-20', '20:40:00', 2, 1),
+(41, 1, '2013-11-25', '15:20:00', 2, 1),
+(42, 1, '2013-11-20', '20:40:00', 2, 1),
+(43, 1, '2013-12-25', '15:20:00', 1, 1),
+(44, 1, '2013-12-20', '20:40:00', 3, 1),
+(45, 2, '2013-06-25', '15:20:00', 4, 1),
+(46, 2, '2013-06-20', '20:40:00', 1, 1),
+(47, 2, '2013-07-25', '15:20:00', 3, 1),
+(48, 2, '2013-07-20', '20:40:00', 3, 1),
+(49, 2, '2013-08-25', '15:20:00', 1, 1),
+(50, 2, '2013-08-20', '20:40:00', 4, 1),
+(51, 2, '2013-09-25', '15:20:00', 2, 1),
+(52, 2, '2013-09-20', '20:40:00', 4, 1),
+(53, 2, '2013-10-25', '15:20:00', 2, 1),
+(54, 2, '2013-10-20', '20:40:00', 2, 1),
+(55, 2, '2013-11-25', '15:20:00', 1, 1),
+(56, 2, '2013-11-20', '20:40:00', 2, 1),
+(57, 2, '2013-12-25', '15:20:00', 3, 1),
+(58, 2, '2013-12-20', '20:40:00', 4, 1),
+(59, 3, '2013-06-25', '15:20:00', 2, 1),
+(60, 3, '2013-06-20', '20:40:00', 1, 1),
+(61, 3, '2013-07-25', '15:20:00', 3, 1),
+(62, 3, '2013-07-20', '20:40:00', 4, 1),
+(63, 3, '2013-08-25', '15:20:00', 3, 1),
+(64, 3, '2013-08-20', '20:40:00', 3, 1),
+(65, 3, '2013-09-25', '15:20:00', 1, 1),
+(66, 3, '2013-09-20', '20:40:00', 1, 1),
+(67, 3, '2013-10-25', '15:20:00', 2, 1),
+(68, 3, '2013-10-20', '20:40:00', 2, 1),
+(69, 3, '2013-11-25', '15:20:00', 1, 1),
+(70, 3, '2013-11-20', '20:40:00', 3, 1),
+(71, 3, '2013-12-25', '15:20:00', 4, 1),
+(72, 3, '2013-12-20', '20:40:00', 3, 1),
+(73, 4, '2013-06-25', '15:20:00', 1, 1),
+(74, 4, '2013-06-20', '20:40:00', 1, 1),
+(75, 4, '2013-07-25', '15:20:00', 1, 1),
+(76, 4, '2013-07-20', '20:40:00', 1, 1),
+(77, 4, '2013-08-25', '15:20:00', 1, 1),
+(78, 4, '2013-08-20', '20:40:00', 3, 1),
+(79, 4, '2013-09-25', '15:20:00', 4, 1),
+(80, 4, '2013-09-20', '20:40:00', 2, 1),
+(81, 4, '2013-10-25', '15:20:00', 3, 1),
+(82, 4, '2013-10-20', '20:40:00', 2, 1),
+(83, 4, '2013-11-25', '15:20:00', 1, 1),
+(84, 4, '2013-11-20', '20:40:00', 1, 1),
+(85, 4, '2013-12-25', '15:20:00', 3, 1),
+(86, 4, '2013-12-20', '20:40:00', 2, 1),
+(87, 5, '2013-06-25', '15:20:00', 2, 1),
+(88, 5, '2013-06-20', '20:40:00', 2, 1),
+(89, 5, '2013-07-25', '15:20:00', 1, 1),
+(90, 5, '2013-07-20', '20:40:00', 4, 1),
+(91, 5, '2013-08-25', '15:20:00', 2, 1),
+(92, 5, '2013-08-20', '20:40:00', 4, 1),
+(93, 5, '2013-09-25', '15:20:00', 4, 1),
+(94, 5, '2013-09-20', '20:40:00', 4, 1),
+(95, 5, '2013-10-25', '15:20:00', 2, 1),
+(96, 5, '2013-10-20', '20:40:00', 1, 1),
+(97, 5, '2013-11-25', '15:20:00', 1, 1),
+(98, 5, '2013-11-20', '20:40:00', 3, 1),
+(99, 5, '2013-12-25', '15:20:00', 3, 1),
+(100, 5, '2013-12-20', '20:40:00', 2, 1),
+(101, 6, '2013-06-25', '15:20:00', 2, 1),
+(102, 6, '2013-06-20', '20:40:00', 2, 1),
+(103, 6, '2013-07-25', '15:20:00', 4, 1),
+(104, 6, '2013-07-20', '20:40:00', 3, 1),
+(105, 6, '2013-08-25', '15:20:00', 2, 1),
+(106, 6, '2013-08-20', '20:40:00', 1, 1),
+(107, 6, '2013-09-25', '15:20:00', 4, 1),
+(108, 6, '2013-09-20', '20:40:00', 3, 1),
+(109, 6, '2013-10-25', '15:20:00', 4, 1),
+(110, 6, '2013-10-20', '20:40:00', 3, 1),
+(111, 6, '2013-11-25', '15:20:00', 1, 1),
+(112, 6, '2013-11-20', '20:40:00', 2, 1),
+(113, 6, '2013-12-25', '15:20:00', 1, 1),
+(114, 6, '2013-12-20', '20:40:00', 1, 1),
+(115, 7, '2013-06-25', '15:20:00', 3, 1),
+(116, 7, '2013-06-20', '20:40:00', 4, 1),
+(117, 7, '2013-07-25', '15:20:00', 3, 1),
+(118, 7, '2013-07-20', '20:40:00', 1, 1),
+(119, 7, '2013-08-25', '15:20:00', 1, 1),
+(120, 7, '2013-08-20', '20:40:00', 4, 1),
+(121, 7, '2013-09-25', '15:20:00', 4, 1),
+(122, 7, '2013-09-20', '20:40:00', 3, 1),
+(123, 7, '2013-10-25', '15:20:00', 3, 1),
+(124, 7, '2013-10-20', '20:40:00', 4, 1),
+(125, 7, '2013-11-25', '15:20:00', 2, 1),
+(126, 7, '2013-11-20', '20:40:00', 4, 1),
+(127, 7, '2013-12-25', '15:20:00', 4, 1),
+(128, 7, '2013-12-20', '20:40:00', 3, 1),
+(129, 8, '2013-06-25', '15:20:00', 3, 1),
+(130, 8, '2013-06-20', '20:40:00', 2, 1),
+(131, 8, '2013-07-25', '15:20:00', 4, 1),
+(132, 8, '2013-07-20', '20:40:00', 4, 1),
+(133, 8, '2013-08-25', '15:20:00', 3, 1),
+(134, 8, '2013-08-20', '20:40:00', 3, 1),
+(135, 8, '2013-09-25', '15:20:00', 2, 1),
+(136, 8, '2013-09-20', '20:40:00', 1, 1),
+(137, 8, '2013-10-25', '15:20:00', 4, 1),
+(138, 8, '2013-10-20', '20:40:00', 1, 1),
+(139, 8, '2013-11-25', '15:20:00', 4, 1),
+(140, 8, '2013-11-20', '20:40:00', 3, 1),
+(141, 8, '2013-12-25', '15:20:00', 4, 1),
+(142, 8, '2013-12-20', '20:40:00', 4, 1),
+(143, 9, '2013-06-25', '15:20:00', 1, 1),
+(144, 9, '2013-06-20', '20:40:00', 4, 1),
+(145, 9, '2013-07-25', '15:20:00', 1, 1),
+(146, 9, '2013-07-20', '20:40:00', 3, 1),
+(147, 9, '2013-08-25', '15:20:00', 3, 1),
+(148, 9, '2013-08-20', '20:40:00', 3, 1),
+(149, 9, '2013-09-25', '15:20:00', 3, 1),
+(150, 9, '2013-09-20', '20:40:00', 4, 1),
+(151, 9, '2013-10-25', '15:20:00', 2, 1),
+(152, 9, '2013-10-20', '20:40:00', 3, 1),
+(153, 9, '2013-11-25', '15:20:00', 2, 1),
+(154, 9, '2013-11-20', '20:40:00', 4, 1),
+(155, 9, '2013-12-25', '15:20:00', 2, 1),
+(156, 9, '2013-12-20', '20:40:00', 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pelicula`
+--
+
+CREATE TABLE `pelicula` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titol` varchar(70) NOT NULL,
+  `sinopsis` longtext NOT NULL,
+  `duracio` int(11) NOT NULL,
+  `director` varchar(200) NOT NULL,
+  `any` int(11) NOT NULL,
+  `ruta_imatge` varchar(400) NOT NULL,
+  `3d` tinyint(1) DEFAULT NULL,
+  `classificacio` enum('TP','+18','+12','+8') DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Volcar la base de datos para la tabla `pelicula`
+--
+
+INSERT INTO `pelicula` (`id`, `titol`, `sinopsis`, `duracio`, `director`, `any`, `ruta_imatge`, `3d`, `classificacio`) VALUES
+(1, 'E.T., el extraterrestre', 'El filme comienza en un bosque de California con un grupo de botánicos extraterrestres que reúnen muestras de la vegetación. Agentes del gobierno de EE.UU. aparecen y los extraterrestres huyen en su nave espacial, dejando atrás a uno de los suyos en sus prisas. La escena cambia a un hogar en los suburbios de California, donde un niño llamado Elliott (Henry Thomas) hace de sirviente de su hermano mayor, Michael (Robert MacNaughton), y sus amigos (K. C. Martel, Sean Frye y C. Thomas Howell). Cuando él va por la pizza, Elliott descubre al extraterrestre abandonado, quien huye con prontitud. A pesar de la incredulidad de su familia, Elliott deja dulces de Reese''s Pieces en el bosque para atraerlo a su dormitorio. Antes de que se vaya a la cama, Elliott le advierte al extraterrestre imitando sus movimientos.', 115, 'Steven Spielberg', 1982, 'et.jpg', 0, 'TP'),
+(2, 'Blade', 'Una mujer embarazada es tratada en un hospital después de ser mordida por un vampiro, pero los médicos piensan que la herida es una mordedura de un animal. Ellos tratan de revivirla, pero ella muere después de entregar a su bebé. El niño hereda la fuerza, la sed de sangre y los sentidos mejorados de los vampiros, pero no sufre sus debilidades, como el ajo o la luz del sol. Él crece hasta convertirse en Blade, el cazador de vampiros.Varios años después, Blade localiza un club delirante de vampiros y mata a la mayoría de los presentes, entre ellos el vampiro Quinn, a quien lo quema. Cuando la policía y los bomberos llegan, Blade escapa y la policía toma el cuerpo de Quinn y lo lleva al depósito de cadáveres. Cuando la Dra. Karen Jenson lleva a cabo una autopsia con un compañero de trabajo, Quinn vuelve a la vida y los ataca. Blade rescata a Jenson de Quinn y huye a su base con ella, mientras que Quinn se escapa. Allí, Blade y su mentor y técnico de armas, Abraham Whistler intentan evitar que Jenson se convierta en vampiro.', 120, 'Stephen Norrington', 1998, 'blade.jpg', 0, '+12'),
+(3, 'Torrente, el brazo tonto de la ley', 'La historia cuenta las aventuras de José Luis Torrente, un policía machista, racista, franquista, ultranacionalista, fascista, jingoísta, zafio, aficionado a las prostitutas, bebedor, consumidor de un poco de droga tomada con rigurosa mesura según él, fan de El Fary, y seguidor del equipo de fútbol Atlético de Madrid.La película comienza con el peculiar protagonista haciendo una ronda nocturna por el centro de Madrid hasta llegar a su casa, encontrándose con \\"Rafi\\" (Javier Cámara) en la escalera, que estaba bajando a ayudar a su madre (Chus Lampreave) en la pescadería. Torrente vive con su padre Felipe (Tony Leblanc), que está postrado en silla de ruedas, y que no es muy bien tratado por su hijo. Normalmente acude a tiendas a aprovecharse de las distracciones de los encargados y come en el restaurante de su amigo Antonio (Cañita Brava) hasta que le echa por tener Torrente una deuda de 6000 pesetas de whisky.', 90, 'Santiago Segura', 1998, 'torrente.jpg', 0, '+18'),
+(4, 'Star Wars episodio I: La amenaza fantasma', 'La Federación de Comercio ha impuesto nuevos y elevados impuestos sobre las rutas comerciales en la galaxia, y al negarse los habitantes del planeta Naboo, han iniciado un bloqueo comercial que amenaza con convertirse en ocupación militar. El Canciller Supremo de la República Galáctica, Valorum, envía a dos embajadores Jedi al centro de la Federación de Comercio, donde el Virrey Nate Gunray (líder de la Federación) los espera, sabiendo que los gobernantes de la Federación son cobardes y no se atreverán a iniciar una disputa contra el consejo Jedi. Al llegar, el androide TC-14, que les da la bienvenida, le comunica a Gunray que, al parecer, los embajadores son Caballeros Jedi, llamados Qui-Gon Jinn y Obi-Wan Kenobi, su padawan. Gunray se pone muy nervioso porque sabe que su bloqueo terminará en cuanto los Jedi se lo exijan, pero se contacta con un Lord Sith, Darth Sidious, quien les informa que lo que deben hacer es acabar con los Jedis', 133, 'George Lucas', 1999, 'starwars-1.jpg', 0, 'TP'),
+(5, 'Jumper', 'David (Hayden Christensen) es un jumper, una persona con la capacidad de teletransportarse. Desde entonces, y tras haber abandonado un hogar en el cual fue abandonado por su madre a los cinco años y maltratado por su padre desde entonces, vive en Nueva York robando cajas fuertes de bancos. Cuando una organización llamada los paladines -un grupo de personas que quieren matar a todos los jumper- empieza a buscar a David, éste entabla amistad con otro jumper llamado Griffin O''Conner (Jamie Bell) y juntos unirán sus fuerzas para salvar a Millie (Rachel Bilson), la novia de David.', 90, 'Doug Liman', 2008, 'jumper.jpg', 0, '+12'),
+(6, 'Regreso al futuro', 'Back to the Future (conocida como Regreso al futuro en España y como Volver al futuro en Hispanoamérica; también abreviada como BTTF, por sus siglas en inglés) es una película de ciencia ficción y comedia de 1985 dirigida y escrita por Robert Zemeckis —Bob Gale también fungió como guionista—, producida por Steven Spielberg y protagonizada por Michael J. Fox, Christopher Lloyd, Lea Thompson y Crispin Glover. La trama relata las aventuras de Marty McFly, un adolescente que es enviado accidentalmente de vuelta en el tiempo de 1985, su época, a 1955, esto es tres décadas atrás. Tras alterar los sucesos ocurridos en 1955, específicamente aquellos en los que sus padres se conocieron y enamoraron, Marty debe intentar reunir a sus padres de nuevo para asegurar su propia existencia.Una vez en la academia, Mahoney busca la oportunidad de librarse de la academia sin ir a la cárcel, para ello busca la manera de que lo expulsen, lo que no resulta fácil puesto que el comandante Lassard (George Gaynes) le desvela que le hizo la promesa al comisario Reed de que no lo expulsaría ni dejaría marchar.', 116, 'Robert Zemeckis', 1984, 'img1.jpg', 0, 'TP'),
+(7, 'Loca academia de policia I', 'Carey Mahoney (Steve Guttenberg), un delincuente reincidente es obligado a alistarse en la academia como alternativa a la cárcel por haber destrozado el coche de un cliente bastante grosero con él cuando trabajaba de aparcacoches. El motivo fue que no había sitio para aparcar, tras \\"aparcarlo\\" de mala manera es despedido y enviado a la comisaría donde el comisario Reed (Ted Ross), amigo de su padre le ofrece la oportunidad de aprender disciplina en la academia bajo una condición: no podrá irse por su propia voluntad o de lo contrario irá a la cárcel. En la comisaría conoce a Larvell Jones (Michael Winslow) detenido por gastar bromas pesadas con sus ruidos guturales, uno de ellos, simular una metralleta al dispararse', 90, 'Hugh Wilson', 123, 'policeacademy.jpg', 0, 'TP'),
+(8, 'Jurassic Park: el mundo perdido', 'Jurassic Park (Parque Jurásico, en su traducción) es una película de ciencia ficción estadounidense, dirigida por Steven Spielberg, estrenada en 1993 y basada en la novela homónima de Michael Crichton. Se ha convertido en una de las más exitosas películas de todos los tiempos —es una de las películas con mayores ganancias de la historia— y en un hito respecto al uso de los efectos digitales para la filmación de películas.4 5 Obtuvo tres premios Óscar.\\nEl guion fue adaptado por Crichton, a partir de la obra literaria original, junto a David Koepp y Malia Scotch Marmo. El reparto estuvo integrado por Richard Attenborough, Sam Neill, Jeff Goldblum y Laura Dern; los efectos especiales fueron creados por Phil Tippett e Industrial Light & Magic.', 127, 'Steven Spielberg', 1993, 'jurassicpark.jpg', 0, 'TP'),
+(9, 'Pulp Fiction', 'Jules y Vincent son dos asesinos a sueldo con muy pocas luces que trabajan para Marsellus Wallace. Antes de realizar un trabajo, Vincent le confiesa a Jules que Marsellus le ha pedido que cuide de Mia, su mujer. Jules le recomienda prudencia porque es muy peligroso sobrepasarse con la novia del jefe, pero llega la hora de trabajar y ambos deben ponerse manos a la obra. Su misión: recuperar un misterioso maletín.', 153, 'Quentin Tarantino', 1994, 'pulp-fiction.jpg', 0, '+18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pelicules_has_generos`
+--
+
+CREATE TABLE `pelicules_has_generos` (
+  `pelicules_id` int(11) NOT NULL,
+  `generos_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`pelicules_id`,`generos_id`),
+  KEY `fk_pelicules_has_generos_generos1` (`generos_id`),
+  KEY `fk_pelicules_has_generos_pelicules1` (`pelicules_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcar la base de datos para la tabla `pelicules_has_generos`
+--
+
+INSERT INTO `pelicules_has_generos` (`pelicules_id`, `generos_id`) VALUES
+(1, 2),
+(2, 2),
+(1, 4),
+(3, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sala`
+--
+
+CREATE TABLE `sala` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `files` int(11) NOT NULL,
+  `butaques` int(11) NOT NULL,
+  `nom` varchar(45) NOT NULL,
+  `tipus_sala` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Volcar la base de datos para la tabla `sala`
+--
+
+INSERT INTO `sala` (`id`, `files`, `butaques`, `nom`) VALUES
+(1, 15, 10, 'Sala 1'),
+(2, 3, 7, 'Sala 2'),
+(3, 30, 30, 'Sala 3'),
+(4, 20, 14, 'Sala 4');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tarifa`
+--
+
+CREATE TABLE `tarifa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo` enum('normal','3D','DIA_ESPECTADOR') DEFAULT NULL,
+  `precio` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Volcar la base de datos para la tabla `tarifa`
+--
+
+INSERT INTO `tarifa` (`id`, `tipo`, `precio`) VALUES
+(1, 'normal', 5.34),
+(2, '3D', 7.9),
+(3, 'DIA_ESPECTADOR', 4.5);
+
+--
+-- Filtros para las tablas descargadas (dump)
+--
+
+--
+-- Filtros para la tabla `entrada`
+--
+ALTER TABLE `entrada`
+  ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`id_pase`) REFERENCES `pase` (`id_pase`),
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`id_tarifa`) REFERENCES `tarifa` (`id`);
+
+--
+-- Filtros para la tabla `pase`
+--
+ALTER TABLE `pase`
+  ADD CONSTRAINT `pase_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `pelicula` (`id`),
+  ADD CONSTRAINT `pase_ibfk_2` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id`);
+
+--
+-- Filtros para la tabla `pelicules_has_generos`
+--
+ALTER TABLE `pelicules_has_generos`
+  ADD CONSTRAINT `pelicules_has_generos_ibfk_1` FOREIGN KEY (`pelicules_id`) REFERENCES `pelicula` (`id`),
+  ADD CONSTRAINT `pelicules_has_generos_ibfk_2` FOREIGN KEY (`generos_id`) REFERENCES `genere` (`id`);
