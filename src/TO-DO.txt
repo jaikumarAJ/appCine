@@ -1,3 +1,5 @@
+fer enllaç simbolic amb la base de dades
+canviar el nom de sala3, per sala1 (també a la base de dades!!!)
 recuperar reports quan compren l'entrada
 MOSTRAR LES DATES EN FORMAT NORMAL (DD-MM-YYYY)
 fer que funcioni reservar l'entrada desde la fitxa de la pel·lícula
