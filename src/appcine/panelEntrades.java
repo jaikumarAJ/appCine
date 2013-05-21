@@ -9,7 +9,9 @@ import entitats.Pelicula;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -326,8 +328,6 @@ public class panelEntrades extends javax.swing.JPanel {
     }
     private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
 
-        System.out.println("inici llistatPeliculesActionPerformed");
-
         this.borrarSeients();
         this.etiqSala.setText("");
         this.diasDisponibles.removeAllItems();//buidam tota la llista
@@ -337,11 +337,12 @@ public class panelEntrades extends javax.swing.JPanel {
             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
             recursosBD rBD = new recursosBD();
 
-            for (String dia : rBD.getDiasPelicula(idSeleccionat)) {
-                this.diasDisponibles.addItem(dia);
+            for(Date dies : rBD.getDiasPelicula(idSeleccionat)){
+                //System.out.print();
+                this.diasDisponibles.addItem(dies.toString());
             }
+           
         }
-        System.out.println("inici llistatPeliculesActionPerformed");
 
     }//GEN-LAST:event_llistatPeliculesActionPerformed
 
@@ -356,10 +357,10 @@ public class panelEntrades extends javax.swing.JPanel {
             this.dia = (String) this.diasDisponibles.getSelectedItem();
             recursosBD rBD = new recursosBD();
 
-            for (String hora : rBD.getHoresPelicula(dia, this.idSeleccionat)) {
-
-                this.llistatHores.addItem(hora);
+            for(Time hora : rBD.getHoresPelicula(dia, this.idSeleccionat)){
+                 this.llistatHores.addItem(hora.toString());
             }
+           
 
         }
     }//GEN-LAST:event_diasDisponiblesActionPerformed

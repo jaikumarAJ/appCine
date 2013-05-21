@@ -1,5 +1,6 @@
 package appcine;
 
+import entitats.Entrada;
 import entitats.Pase;
 import entitats.Pelicula;
 import entitats.Sala;
@@ -8,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,6 +64,7 @@ public class recursosBD {
     public ArrayList<String> getGeneres(int id_pelicula) {
         ArrayList<String> generes = new ArrayList<String>();
 
+        
         String cSQL = "Select titol from generos g, pelicules_has_generos phg where g.id=phg.generos_id and phg.pelicules_id=" + id_pelicula;
 
         try {
@@ -82,24 +85,11 @@ public class recursosBD {
 
     }
 
-    public ArrayList<String> getDiasPelicula(int idPelicula) {
-
-
-        String cSQL = "Select distinct(dia) from pases where id_pelicula='" + idPelicula + "'";
-        ArrayList<String> dies = new ArrayList<String>();
-        Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
-
-            while (rs.next()) {
-                dies.add(rs.getString("dia"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return dies;
+    public ArrayList<java.sql.Date> getDiasPelicula(int idPelicula) {
+        
+        String hql = "SELECT distinct pa.dia from Pase pa where pa.pelicules.id='2'";
+        
+        return (ArrayList)this.getSelect(hql);
 
     }
 
@@ -126,23 +116,10 @@ public class recursosBD {
         return 0;
     }
 
-    public ArrayList<String> getHoresPelicula(String dia, int idPelicula) {
+    public ArrayList<Time> getHoresPelicula(String dia, int idPelicula) {
 
-        String cSQL = "Select distinct(hora) from pases where id_pelicula='" + idPelicula + "' and dia='" + dia + "'";
-        ArrayList<String> hores = new ArrayList<String>();
-        Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
-
-            while (rs.next()) {
-                hores.add(rs.getString("hora"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return hores;
+        String cSQL = "Select distinct pa.hora from Pase pa where pa.pelicules.id='" + idPelicula + "' and pa.dia='" + dia + "'";
+        return (ArrayList<Time>) this.getSelect(cSQL);
     }
     
     public Pase getPase(int id, String dia, String hora) {
@@ -157,8 +134,6 @@ public class recursosBD {
     }
 
     public DefaultTableModel getPases(DefaultTableModel modelo) {
-
-        System.out.println("som al get pases");
 
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
@@ -204,6 +179,7 @@ public class recursosBD {
          */
     }
 
+    /*
     public Sala getSalaByPase(int idPase) {
 
         String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
@@ -227,11 +203,19 @@ public class recursosBD {
 
         return null;
     }
-
+*/
     public HashMap<String, Integer> getEntrades(int idPase) {
         HashMap<String, Integer> entrades = new HashMap<String, Integer>();
-
-
+ 
+       String hql ="from Entrada en where en.pases.idPase="+idPase;
+       
+       for (Object o : (ArrayList)this.getSelect(hql)) {
+            Entrada ent = (Entrada) o;
+            System.out.println(ent);
+            entrades.put(ent.getFila()+"-"+ent.getButaca(), ent.getIdEntrada());
+         
+        }
+        /**
         String cSQL = "Select id_entrada, fila, butaca from entrades where id_pase='" + idPase + "'";
         Statement st;
         try {
@@ -244,7 +228,7 @@ public class recursosBD {
         } catch (SQLException ex) {
             Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        */
         return entrades;
     }
 

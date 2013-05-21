@@ -1,9 +1,8 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 20-may-2013 20:04:39 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="entitats.Pase" table="pases" catalog="cinema_antiga">
+  <class catalog="cinema_antiga" name="entitats.Pase" table="pases">
     <id name="idPase" type="java.lang.Integer">
       <column name="id_pase"/>
       <generator class="identity"/>
@@ -27,7 +26,7 @@
       <key>
         <column name="id_pase" not-null="true"/>
       </key>
-      <one-to-many class="entitats.Entrades"/>
+      <one-to-many class="entitats.Entrada"/>
     </set>
   </class>
 </hibernate-mapping>

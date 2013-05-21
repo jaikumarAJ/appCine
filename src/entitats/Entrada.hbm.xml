@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="cinema_antiga" name="entitats.Entrades" table="entrades">
+  <class catalog="cinema_antiga" name="entitats.Entrada" table="entrades">
     <id name="idEntrada" type="java.lang.Integer">
       <column name="id_entrada"/>
       <generator class="identity"/>
