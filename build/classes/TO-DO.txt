@@ -1,5 +1,5 @@
 recuperar reports quan compren l'entrada
-triar paleta de colors
+MOSTRAR LES DATES EN FORMAT NORMAL (DD-MM-YYYY)
 fer que funcioni reservar l'entrada desde la fitxa de la pel·lícula
 tarifes dia espectador ??
 a la pantalla d'entrades, al desplegable de dia ordenar per data

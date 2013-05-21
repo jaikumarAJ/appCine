@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
+// Generated 21-may-2013 14:29:12 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -20,8 +20,8 @@ public class Pelicula  implements java.io.Serializable {
      private String rutaImatge;
      private Boolean tresd;
      private String classificacio;
-     private Set generoses = new HashSet(0);
-     private Set paseses = new HashSet(0);
+     private Set generes = new HashSet(0);
+     private Set pases = new HashSet(0);
 
     public Pelicula() {
     }
@@ -35,7 +35,7 @@ public class Pelicula  implements java.io.Serializable {
         this.any = any;
         this.rutaImatge = rutaImatge;
     }
-    public Pelicula(String titol, String sinopsis, int duracio, String director, int any, String rutaImatge, Boolean tresd, String classificacio, Set generoses, Set paseses) {
+    public Pelicula(String titol, String sinopsis, int duracio, String director, int any, String rutaImatge, Boolean tresd, String classificacio, Set generes, Set pases) {
        this.titol = titol;
        this.sinopsis = sinopsis;
        this.duracio = duracio;
@@ -44,8 +44,8 @@ public class Pelicula  implements java.io.Serializable {
        this.rutaImatge = rutaImatge;
        this.tresd = tresd;
        this.classificacio = classificacio;
-       this.generoses = generoses;
-       this.paseses = paseses;
+       this.generes = generes;
+       this.pases = pases;
     }
    
     public Integer getId() {
@@ -97,11 +97,11 @@ public class Pelicula  implements java.io.Serializable {
     public void setRutaImatge(String rutaImatge) {
         this.rutaImatge = rutaImatge;
     }
-    public Boolean get3d() {
+    public Boolean getTresd() {
         return this.tresd;
     }
     
-    public void set3d(Boolean tresd) {
+    public void setTresd(Boolean tresd) {
         this.tresd = tresd;
     }
     public String getClassificacio() {
@@ -111,24 +111,19 @@ public class Pelicula  implements java.io.Serializable {
     public void setClassificacio(String classificacio) {
         this.classificacio = classificacio;
     }
-    public Set getGeneroses() {
-        return this.generoses;
+    public Set getGeneres() {
+        return this.generes;
     }
     
-    public void setGeneroses(Set generoses) {
-        this.generoses = generoses;
+    public void setGeneres(Set generes) {
+        this.generes = generes;
     }
-    public Set getPaseses() {
-        return this.paseses;
+    public Set getPases() {
+        return this.pases;
     }
     
-    public void setPaseses(Set paseses) {
-        this.paseses = paseses;
-    }
-
-    @Override
-    public String toString() {
-        return "Pelicula{" + "id=" + id + ", titol=" + titol + ", sinopsis=" + sinopsis + ", duracio=" + duracio + ", director=" + director + ", any=" + any + ", rutaImatge=" + rutaImatge + ", tresd=" + tresd + ", classificacio=" + classificacio + ", generoses=" + generoses + ", paseses=" + paseses + '}';
+    public void setPases(Set pases) {
+        this.pases = pases;
     }
 
 

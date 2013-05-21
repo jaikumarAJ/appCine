@@ -88,7 +88,7 @@ public class recursosBD {
      * @return ArrayList de java.sql.Date amb les dates en format yyyy-mm-dd
      */
     public ArrayList<java.sql.Date> getDiasPelicula(int idPelicula) {
-        String hql = "SELECT distinct pa.dia from Pase pa where pa.pelicules.id='2'";
+        String hql = "SELECT distinct pa.dia from Pase pa where pa.pelicula.id='2'";
         return (ArrayList) this.getSelect(hql);
 
     }
@@ -101,7 +101,7 @@ public class recursosBD {
      */
     public ArrayList<Time> getHoresPelicula(String dia, int idPelicula) {
 
-        String cSQL = "Select distinct pa.hora from Pase pa where pa.pelicules.id='" + idPelicula + "' and pa.dia='" + dia + "'";
+        String cSQL = "Select distinct pa.hora from Pase pa where pa.pelicula.id='" + idPelicula + "' and pa.dia='" + dia + "'";
         return (ArrayList<Time>) this.getSelect(cSQL);
     }
 
@@ -114,7 +114,7 @@ public class recursosBD {
      * @return objecte Pase complet
      */
     public Pase getPase(int id, String dia, String hora) {
-        String cSQL = "from Pase pa where pa.dia='" + dia + "' and hora='" + hora + "' and pa.pelicules.id=" + id;
+        String cSQL = "from Pase pa where pa.dia='" + dia + "' and hora='" + hora + "' and pa.pelicula.id=" + id;
         ArrayList<Pase> pases = (ArrayList) this.getSelect(cSQL);
         for (Pase p : pases) {
             return p;
@@ -142,8 +142,8 @@ public class recursosBD {
             modelo.addRow(new Object[]{
                         p.getDia(),
                         p.getHora(),
-                        p.getPelicules().getTitol(),
-                        p.getPelicules().get3d(),
+                        p.getPelicula().getTitol(),
+                        p.getPelicula().getTresd(),
                         disponibilitat
                     });
 
@@ -184,11 +184,12 @@ public class recursosBD {
     public HashMap<String, Integer> getEntrades(int idPase) {
         HashMap<String, Integer> entrades = new HashMap<String, Integer>();
 
-        String hql = "from Entrada en where en.pases.idPase=" + idPase;
+        String hql = "from Entrada en where en.pase.idPase=" + idPase;
 
         for (Object o : (ArrayList) this.getSelect(hql)) {
             Entrada ent = (Entrada) o;
-            entrades.put(ent.getFila() + "-" + ent.getButaca(), ent.getIdEntrada());
+            System.out.println("el id de la butaca es:NULL-" + ent.getButaca().getId());
+            entrades.put("NULL-" + ent.getButaca().getId(), ent.getIdEntrada());
 
         }
         /**
@@ -300,13 +301,15 @@ public class recursosBD {
 
         String vSQL = "";
 
-        vSQL = "INSERT INTO entrades(id_pase , butaca, id_tarifa) VALUES (? , ?, 1)";
+        // TODO: fer que la tarifa sigui la que toca
+        vSQL = "INSERT INTO entrada(id_pase , idButaca, id_tarifa) VALUES (? , ?, 1)";
         PreparedStatement pst = null;
 
         pst = cn.prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS);
         pst.setString(1, String.valueOf(p.getIdPase()));
         pst.setString(2, String.valueOf(butaca));
 
+        System.out.println(pst);
         int n = 0;
         try {
 
@@ -314,10 +317,13 @@ public class recursosBD {
             ResultSet keys = pst.getGeneratedKeys();
             keys.next();
             System.out.println("entrada:" + keys.getInt(1));
-            this.session.getTransaction().commit();
+            this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 
+            this.session.beginTransaction();
+             
             return keys.getInt(1);
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.out.println("Error al introduir" + ex);
         }
 

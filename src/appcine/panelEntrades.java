@@ -61,7 +61,7 @@ public class panelEntrades extends javax.swing.JPanel {
             initComponents();
             this.rBD.selectPelicules(pelicules);
             this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
-            this.etiqSala.setText(p.getSales().getNom());
+            this.etiqSala.setText(p.getSala().getNom());
 
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
@@ -369,7 +369,7 @@ public class panelEntrades extends javax.swing.JPanel {
        // recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
-            this.etiqSala.setText(p.getSales().getNom());
+            this.etiqSala.setText(p.getSala().getNom());
             this.mostrarSala(p);
 
         }
@@ -409,7 +409,7 @@ public class panelEntrades extends javax.swing.JPanel {
       
 
         try {
-            Class c = Class.forName("sales." + p.getSales().getTipusSala());
+            Class c = Class.forName("sales." + p.getSala().getTipusSala().getNom());
             Constructor constructor = c.getDeclaredConstructor(Integer.class);
             DibuixSala sala = (DibuixSala) constructor.newInstance(p.getIdPase());
             sala.setPanel(this);

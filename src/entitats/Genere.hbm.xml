@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 21-may-2013 14:29:13 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="entitats.Generos" table="generos" catalog="cinema_antiga">
+    <class name="entitats.Genere" table="genere" catalog="cinema_antiga">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
@@ -11,7 +11,7 @@
         <property name="titol" type="string">
             <column name="titol" length="45" />
         </property>
-        <set name="peliculeses" inverse="false" table="pelicules_has_generos">
+        <set name="peliculas" inverse="false" table="pelicules_has_generos">
             <key>
                 <column name="generos_id" not-null="true" />
             </key>

@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
+// Generated 21-may-2013 14:29:12 by Hibernate Tools 3.2.1.GA
 
 
 
@@ -10,25 +10,17 @@ public class Entrada  implements java.io.Serializable {
 
 
      private Integer idEntrada;
-     private Tarifas tarifas;
-     private Pase pases;
-     private Integer fila;
-     private String butaca;
+     private Butaca butaca;
+     private Tarifa tarifa;
+     private Pase pase;
 
     public Entrada() {
     }
 
-	
-    public Entrada(Tarifas tarifas, Pase pases, String butaca) {
-        this.tarifas = tarifas;
-        this.pases = pases;
-        this.butaca = butaca;
-    }
-    public Entrada(Tarifas tarifas, Pase pases, Integer fila, String butaca) {
-       this.tarifas = tarifas;
-       this.pases = pases;
-       this.fila = fila;
+    public Entrada(Butaca butaca, Tarifa tarifa, Pase pase) {
        this.butaca = butaca;
+       this.tarifa = tarifa;
+       this.pase = pase;
     }
    
     public Integer getIdEntrada() {
@@ -38,39 +30,29 @@ public class Entrada  implements java.io.Serializable {
     public void setIdEntrada(Integer idEntrada) {
         this.idEntrada = idEntrada;
     }
-    public Tarifas getTarifas() {
-        return this.tarifas;
-    }
-    
-    public void setTarifas(Tarifas tarifas) {
-        this.tarifas = tarifas;
-    }
-    public Pase getPases() {
-        return this.pases;
-    }
-    
-    public void setPases(Pase pases) {
-        this.pases = pases;
-    }
-    public Integer getFila() {
-        return this.fila;
-    }
-    
-    public void setFila(Integer fila) {
-        this.fila = fila;
-    }
-    public String getButaca() {
+    public Butaca getButaca() {
         return this.butaca;
     }
     
-    public void setButaca(String butaca) {
+    public void setButaca(Butaca butaca) {
         this.butaca = butaca;
     }
-
-    @Override
-    public String toString() {
-        return "Entrada{" + "idEntrada=" + idEntrada + ", FILA="+ fila + ", butaca=" + butaca + '}';
+    public Tarifa getTarifa() {
+        return this.tarifa;
     }
+    
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
+    }
+    public Pase getPase() {
+        return this.pase;
+    }
+    
+    public void setPase(Pase pase) {
+        this.pase = pase;
+    }
+
+
 
 
 }

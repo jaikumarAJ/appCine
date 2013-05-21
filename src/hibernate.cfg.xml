@@ -9,12 +9,13 @@
     <property name="hibernate.connection.password">root</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="entitats/Generos.hbm.xml"/>
     <mapping resource="entitats/Pase.hbm.xml"/>
-    <mapping resource="entitats/Sala.hbm.xml"/>
-    <mapping resource="entitats/Entrada.hbm.xml"/>
     <mapping resource="entitats/Pelicula.hbm.xml"/>
-    <mapping resource="entitats/Tarifas.hbm.xml"/>
-    <mapping resource="entitats/Butaques.hbm.xml"/>
+    <mapping resource="entitats/Sala.hbm.xml"/>
+    <mapping resource="entitats/TipusSala.hbm.xml"/>
+    <mapping resource="entitats/Genere.hbm.xml"/>
+    <mapping resource="entitats/Tarifa.hbm.xml"/>
+    <mapping resource="entitats/Entrada.hbm.xml"/>
+    <mapping resource="entitats/Butaca.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

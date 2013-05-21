@@ -44,13 +44,12 @@ public class DibuixSala extends javax.swing.JPanel {
         this.entrades = rb.getEntrades(this.idPase);
 
         for (int i = 0; i < fields.length; i++) {
-
             final int pos = i;
 
             try {
                 javax.swing.JButton cadira = (javax.swing.JButton) getClass().getDeclaredField(fields[i].getName()).get(this);
                 try {
-                    if (entrades.containsKey("null-" + fields[i].getName())) {
+                    if (entrades.containsKey("NULL-" + fields[i].getName())) {
                         cadira.setBackground(Color.RED);
                         cadira.setBorderPainted(false);
 
@@ -63,7 +62,6 @@ public class DibuixSala extends javax.swing.JPanel {
                 cadira.setOpaque(true);
                 cadira.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        System.out.println(idPase);
                         panel.comprarEntrada(evt, fields[pos].getName(), idPase);
                     }
                 });

@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
+// Generated 21-may-2013 14:29:12 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -13,31 +13,28 @@ public class Pase  implements java.io.Serializable {
 
 
      private Integer idPase;
-     private Sala sales;
-     private Pelicula pelicules;
+     private Sala sala;
+     private Pelicula pelicula;
      private Date dia;
      private Date hora;
-     private int idTarifa;
-     private Set entradeses = new HashSet(0);
+     private Set entradas = new HashSet(0);
 
     public Pase() {
     }
 
 	
-    public Pase(Sala sales, Pelicula pelicules, Date dia, Date hora, int idTarifa) {
-        this.sales = sales;
-        this.pelicules = pelicules;
+    public Pase(Sala sala, Pelicula pelicula, Date dia, Date hora) {
+        this.sala = sala;
+        this.pelicula = pelicula;
         this.dia = dia;
         this.hora = hora;
-        this.idTarifa = idTarifa;
     }
-    public Pase(Sala sales, Pelicula pelicules, Date dia, Date hora, int idTarifa, Set entradeses) {
-       this.sales = sales;
-       this.pelicules = pelicules;
+    public Pase(Sala sala, Pelicula pelicula, Date dia, Date hora, Set entradas) {
+       this.sala = sala;
+       this.pelicula = pelicula;
        this.dia = dia;
        this.hora = hora;
-       this.idTarifa = idTarifa;
-       this.entradeses = entradeses;
+       this.entradas = entradas;
     }
    
     public Integer getIdPase() {
@@ -47,19 +44,19 @@ public class Pase  implements java.io.Serializable {
     public void setIdPase(Integer idPase) {
         this.idPase = idPase;
     }
-    public Sala getSales() {
-        return this.sales;
+    public Sala getSala() {
+        return this.sala;
     }
     
-    public void setSales(Sala sales) {
-        this.sales = sales;
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
-    public Pelicula getPelicules() {
-        return this.pelicules;
+    public Pelicula getPelicula() {
+        return this.pelicula;
     }
     
-    public void setPelicules(Pelicula pelicules) {
-        this.pelicules = pelicules;
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
     }
     public Date getDia() {
         return this.dia;
@@ -75,24 +72,12 @@ public class Pase  implements java.io.Serializable {
     public void setHora(Date hora) {
         this.hora = hora;
     }
-    public int getIdTarifa() {
-        return this.idTarifa;
+    public Set getEntradas() {
+        return this.entradas;
     }
     
-    public void setIdTarifa(int idTarifa) {
-        this.idTarifa = idTarifa;
-    }
-    public Set getEntradeses() {
-        return this.entradeses;
-    }
-    
-    public void setEntradeses(Set entradeses) {
-        this.entradeses = entradeses;
-    }
-
-    @Override
-    public String toString() {
-        return "Pase{" + "idPase=" + idPase + ", sales=" + sales + ", pelicules=" + pelicules + ", dia=" + dia + ", hora=" + hora + ", idTarifa=" + idTarifa + ", entradeses=" + entradeses + '}';
+    public void setEntradas(Set entradas) {
+        this.entradas = entradas;
     }
 
 

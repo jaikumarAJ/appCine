@@ -14,6 +14,7 @@ import java.util.Random;
 public class AppCine {
 
     /**
+     * TODO: borrar tots els métodes generats per els botons (mirar llistes pendents de TODO)
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {

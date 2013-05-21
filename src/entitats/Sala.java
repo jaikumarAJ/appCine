@@ -1,5 +1,5 @@
 package entitats;
-// Generated 20-may-2013 19:21:44 by Hibernate Tools 3.2.1.GA
+// Generated 21-may-2013 14:29:12 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -12,28 +12,22 @@ public class Sala  implements java.io.Serializable {
 
 
      private Integer id;
-     private int files;
-     private int butaques;
+     private TipusSala tipusSala;
      private String nom;
-     private String tipusSala;
-     private Set paseses = new HashSet(0);
+     private Set pases = new HashSet(0);
 
     public Sala() {
     }
 
 	
-    public Sala(int files, int butaques, String nom, String tipusSala) {
-        this.files = files;
-        this.butaques = butaques;
-        this.nom = nom;
+    public Sala(TipusSala tipusSala, String nom) {
         this.tipusSala = tipusSala;
+        this.nom = nom;
     }
-    public Sala(int files, int butaques, String nom, String tipusSala, Set paseses) {
-       this.files = files;
-       this.butaques = butaques;
-       this.nom = nom;
+    public Sala(TipusSala tipusSala, String nom, Set pases) {
        this.tipusSala = tipusSala;
-       this.paseses = paseses;
+       this.nom = nom;
+       this.pases = pases;
     }
    
     public Integer getId() {
@@ -43,19 +37,12 @@ public class Sala  implements java.io.Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    public int getFiles() {
-        return this.files;
+    public TipusSala getTipusSala() {
+        return this.tipusSala;
     }
     
-    public void setFiles(int files) {
-        this.files = files;
-    }
-    public int getButaques() {
-        return this.butaques;
-    }
-    
-    public void setButaques(int butaques) {
-        this.butaques = butaques;
+    public void setTipusSala(TipusSala tipusSala) {
+        this.tipusSala = tipusSala;
     }
     public String getNom() {
         return this.nom;
@@ -64,24 +51,12 @@ public class Sala  implements java.io.Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public String getTipusSala() {
-        return this.tipusSala;
+    public Set getPases() {
+        return this.pases;
     }
     
-    public void setTipusSala(String tipusSala) {
-        this.tipusSala = tipusSala;
-    }
-    public Set getPaseses() {
-        return this.paseses;
-    }
-    
-    public void setPaseses(Set paseses) {
-        this.paseses = paseses;
-    }
-
-    @Override
-    public String toString() {
-        return "Sala{" + "id=" + id + ", files=" + files + ", butaques=" + butaques + ", nom=" + nom + ", tipusSala=" + tipusSala + ", paseses=" + paseses + '}';
+    public void setPases(Set pases) {
+        this.pases = pases;
     }
 
 

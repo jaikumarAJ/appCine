@@ -95,7 +95,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         try {
             ConexionMySQL mysql = new ConexionMySQL();
             Connection cn = mysql.conectar();
-            String cSQL = "Select p.*, s.nom from pases p, sales s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
+            String cSQL = "Select p.*, s.nom from pase p, sala s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
 
             Statement st = cn.createStatement();
 
@@ -109,7 +109,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
                 p.setHora(rs.getDate("hora"));
                 Sala s = new Sala();
                 s.setNom(rs.getString("nom"));
-                p.setSales(s);
+                p.setSala(s);
                
                 this.pases.add(p);
                 System.out.println(p.toString());
@@ -163,7 +163,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
 
         for (Pase p : pases) {
          
-            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSales().getNom()});
+            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSala().getNom()});
         }
 
     }

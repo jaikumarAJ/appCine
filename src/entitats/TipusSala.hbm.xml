@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-may-2013 14:29:13 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="entitats.TipusSala" table="tipus_sala" catalog="cinema_antiga">
+        <id name="idtipusSales" type="java.lang.Integer">
+            <column name="idtipus_sales" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="45" />
+        </property>
+        <set name="butacas" inverse="true">
+            <key>
+                <column name="tipus_sales_idtipus_sales" not-null="true" />
+            </key>
+            <one-to-many class="entitats.Butaca" />
+        </set>
+        <set name="salas" inverse="true">
+            <key>
+                <column name="id_tipusSala" not-null="true" />
+            </key>
+            <one-to-many class="entitats.Sala" />
+        </set>
+    </class>
+</hibernate-mapping>
