@@ -51,11 +51,9 @@ public class panelEntrades extends javax.swing.JPanel {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("FINAL CONSTRUCTOR 1");
     }
 
     public panelEntrades(pInicial pi, Pase p) {
-        System.out.println("INICI constructor 2");
         this.pi = pi;
         try {
             initComponents();
@@ -66,7 +64,6 @@ public class panelEntrades extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("FINAL CONSTRUCTOR 2");
     }
 
     private void omplirLlistatPelicules() {
