@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,8 +52,11 @@ public class recursosBD {
         session.beginTransaction();
 
     }
+
     /**
-     * Métode generic al que se l'hi passa la sentencia HQL i retorna un ArrayList dels resultats
+     * Métode generic al que se l'hi passa la sentencia HQL i retorna un
+     * ArrayList dels resultats
+     *
      * @param hql : Sentencia hql que s'ha d'executar
      * @return ArrayList amb els resultats de la consulta
      */
@@ -67,6 +71,7 @@ public class recursosBD {
         }
         return null;
     }
+
     /**
      * Selecciona totes les pelicules i les fica dins un arraylist
      *
@@ -84,6 +89,7 @@ public class recursosBD {
 
     /**
      * Selecciona els diferents dies que es pasa una pel·lícula.
+     *
      * @param idPelicula : el nom ho dui tot
      * @return ArrayList de java.sql.Date amb les dates en format yyyy-mm-dd
      */
@@ -92,7 +98,8 @@ public class recursosBD {
         return (ArrayList) this.getSelect(hql);
 
     }
-/**
+
+    /**
      * Retorna les hores en que es mostra la pel·lícula en un dia en concret
      *
      * @param dia
@@ -123,7 +130,8 @@ public class recursosBD {
     }
 
     /**
-     * Ompleix el modelo passat per paràmetre 
+     * Ompleix el modelo passat per paràmetre
+     *
      * @param modelo
      * @return
      */
@@ -136,9 +144,9 @@ public class recursosBD {
         System.out.println(sql);
         ArrayList<Pase> pases = (ArrayList) this.getSelect(sql);
         for (Pase p : pases) {
-             int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
+            int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
             System.out.println("----xxxxxxxx  ----");
-           
+
             modelo.addRow(new Object[]{
                         p.getDia(),
                         p.getHora(),
@@ -174,10 +182,10 @@ public class recursosBD {
          * ex); } *
          */
     }
-    
-     
+
     /**
      * Retorna totes les Entrades venudes per un pase determinat
+     *
      * @param idPase
      * @return HashMap tipus <fila-butaca, idEntrada>
      */
@@ -205,8 +213,7 @@ public class recursosBD {
          */
         return entrades;
     }
-    
-    
+
     public ArrayList<String> getGeneres(int id_pelicula) {
         ArrayList<String> generes = new ArrayList<String>();
 
@@ -229,42 +236,18 @@ public class recursosBD {
         return generes;
 
     }
-    
+
     public int getDisponibilitatByPase(int idPase) {
-        System.out.println("Som al getDisponibilitatBYpASE");
+        String hql = "from Pase pa where pa.idPase=" + idPase;
         
-        String hql="from Entrada ent where ent.pases.idPase="+idPase;
-         hql = "Select s.files*s.butaques as capacitat,"
-                + " (files*butaques-(Select count(idEntrada) from Entrada ent )) as restants "
-                + "from Sala s, Pase p, Entrada e where s.id=p.sales.id and p.idPase=" + idPase ;
-           
-         // TODO: arreglar aquest select
-        /*+ " group by p.id_pase order by p.id_pase"   for(Object o : this.getSelect(sql)){
-            Entrada ent= (Entrada) o;
-            System.out.println(ent);
-            * 
-            * select count(id) as capacitat from butaca group by `tipus_sales_idtipus_sales
-            * Select count(idbutaca) from entrada where id_pase=45 group by id_pase
-        }* */
-         String sql = "Select files*butaques as capacitat,"
-                + " (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants "
-                + "from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase=" + idPase + " group by p.id_pase order by p.id_pase";
-      Statement st;
-        try {
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                int capacitat = rs.getInt("capacitat");
-                int restants = rs.getInt("restants");
-                if (restants == 1) {
-                }
-                return rs.getInt("restants");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
+        for(Pase p : (ArrayList<Pase>)this.getSelect(hql)){
+            int butaques=p.getSala().getTipusSala().getButacas().size();
+            
+            int entradesVenudes=p.getEntradas().size();
+            
+            return butaques - entradesVenudes;
         }
-
+       
         return 0;
     }
 
@@ -293,8 +276,6 @@ public class recursosBD {
      return null;
      }
      */
-   
-
     /**
      * Fica l'entrada dins la base de dades
      */
@@ -319,7 +300,7 @@ public class recursosBD {
             keys.next();
             this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 
             this.session.beginTransaction();
-             
+
             return keys.getInt(1);
 
         } catch (SQLException ex) {
@@ -329,5 +310,4 @@ public class recursosBD {
 
         return 0;
     }
-    
 }
