@@ -238,17 +238,18 @@ public class recursosBD {
                 + " (files*butaques-(Select count(idEntrada) from Entrada ent )) as restants "
                 + "from Sala s, Pase p, Entrada e where s.id=p.sales.id and p.idPase=" + idPase ;
            
+         // TODO: arreglar aquest select
         /*+ " group by p.id_pase order by p.id_pase"   for(Object o : this.getSelect(sql)){
             Entrada ent= (Entrada) o;
             System.out.println(ent);
+            * 
+            * select count(id) as capacitat from butaca group by `tipus_sales_idtipus_sales
+            * Select count(idbutaca) from entrada where id_pase=45 group by id_pase
         }* */
          String sql = "Select files*butaques as capacitat,"
                 + " (files*butaques-(Select count(id_entrada) from entrades where id_pase=p.id_pase)) as restants "
                 + "from sales s, pases p, entrades e where s.id=p.id_sala and p.id_pase=" + idPase + " group by p.id_pase order by p.id_pase";
-              
-       
-       
-        Statement st;
+      Statement st;
         try {
             st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -316,7 +317,6 @@ public class recursosBD {
             n = pst.executeUpdate();
             ResultSet keys = pst.getGeneratedKeys();
             keys.next();
-            System.out.println("entrada:" + keys.getInt(1));
             this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 
             this.session.beginTransaction();
              

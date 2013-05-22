@@ -13,7 +13,7 @@ public class Genere  implements java.io.Serializable {
 
      private Integer id;
      private String titol;
-     private Set peliculas = new HashSet(0);
+     private Set<Pelicula> peliculas = new HashSet<Pelicula>(0);
 
     public Genere() {
     }

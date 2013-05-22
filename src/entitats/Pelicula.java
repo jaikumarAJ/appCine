@@ -20,7 +20,7 @@ public class Pelicula  implements java.io.Serializable {
      private String rutaImatge;
      private Boolean tresd;
      private String classificacio;
-     private Set generes = new HashSet(0);
+     private Set<Genere> generes = new HashSet<Genere>(0);
      private Set pases = new HashSet(0);
 
     public Pelicula() {

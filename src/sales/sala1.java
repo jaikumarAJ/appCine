@@ -9,16 +9,16 @@ package sales;
  *
  * @author torandell9
  */
-public class sala3 extends DibuixSala {
+public class sala1 extends DibuixSala {
 
     /**
      * Creates new form sala2
      */
-    public sala3 (Integer idPase) {
+    public sala1 (Integer idPase) {
        super(idPase);
        initComponents();
        //tamare
-       super.pintarCadires(sala3.class.getDeclaredFields());
+       super.pintarCadires(sala1.class.getDeclaredFields());
     }
 
     /**
@@ -2068,7 +2068,7 @@ public class sala3 extends DibuixSala {
     public javax.swing.JButton jButton89;
     public javax.swing.JButton jButton9;
     public javax.swing.JButton jButton90;
-    public javax.swing.JButton jButton91;
+    public javax.swing.JButton jButton91;   
     public javax.swing.JButton jButton92;
     public javax.swing.JButton jButton93;
     public javax.swing.JButton jButton94;
