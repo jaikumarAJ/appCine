@@ -4,6 +4,7 @@
  */
 package appcine;
 
+import entitats.Butaca;
 import entitats.Pase;
 import entitats.Pelicula;
 import java.awt.Color;
@@ -39,7 +40,6 @@ public class panelEntrades extends javax.swing.JPanel {
     private String seient;
     private recursosBD rBD;
     public panelEntrades(pInicial pi) {
-        System.out.println("Inici constructor 1");
         this.pi = pi;
         try {
             initComponents();
@@ -68,7 +68,6 @@ public class panelEntrades extends javax.swing.JPanel {
 
     private void omplirLlistatPelicules() {
 
-        System.out.println(this.pelicules.size());
         for (Pelicula p : this.pelicules) {
             this.llistatPelicules.addItem(p.getTitol());
         }
@@ -334,7 +333,6 @@ public class panelEntrades extends javax.swing.JPanel {
            
 
             for(Date dies : this.rBD.getDiasPelicula(idSeleccionat)){
-                //System.out.print();
                 this.diasDisponibles.addItem(dies.toString());
             }
            
@@ -378,7 +376,10 @@ public class panelEntrades extends javax.swing.JPanel {
         //String[] seients = this.seient.split("-");
         //Map<String, Object> params = new HashMap<String, Object>();
         try {
-            this.rBD.insertarEntrada(this.p, seient);
+            Butaca b= new Butaca();
+            b.setId(seient);
+                   
+            this.rBD.insertarEntrada(this.p, b);
             //  params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
         } catch (SQLException ex) {
             Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
@@ -397,7 +398,6 @@ public class panelEntrades extends javax.swing.JPanel {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        System.out.println("han cancel·lat");
         this.dialogConfirm.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseClicked
 

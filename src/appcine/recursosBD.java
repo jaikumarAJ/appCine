@@ -1,9 +1,11 @@
 package appcine;
 
+import entitats.Butaca;
 import entitats.Entrada;
 import entitats.Pase;
 import entitats.Pelicula;
 import entitats.Sala;
+import entitats.Tarifa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -140,46 +142,22 @@ public class recursosBD {
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
         String avui = dataAvui.format(date);
-        String sql = "from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
-        System.out.println(sql);
-        ArrayList<Pase> pases = (ArrayList) this.getSelect(sql);
+        String hql = "from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
+      
+        ArrayList<Pase> pases = (ArrayList) this.getSelect(hql);
         for (Pase p : pases) {
-            int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
-
+         
             modelo.addRow(new Object[]{
                         p.getDia(),
                         p.getHora(),
                         p.getPelicula().getTitol(),
                         p.getPelicula().getTresd(),
-                        disponibilitat
+                         p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size()
                     });
-
         }
 
         return modelo;
-        /**
-         *
-         * String cSQL = "Select p.dia, p.hora, pe.titol, p.id_pase as idP,
-         * pe.3d from pases p, pelicules pe, sales s where p.id_pelicula=pe.id
-         * and s.id=p.id_sala and p.dia>='" + avui + "' order by dia, hora asc";
-         * Statement st; try { st = this.cn.createStatement(); ResultSet rs =
-         * st.executeQuery(cSQL);
-         *
-         * while (rs.next()) { String tresd = null; if (rs.getBoolean("3d")) {
-         * tresd = "si"; } else { tresd = "no"; } //Select pi.titol, p.id_pase
-         * as idP, count(id_entrada) from entrades e, pases p, pelicules pi
-         * where pi.id=p.id_pelicula and p.id_pase=e.id_pase and e.id_pase=15
-         * group by id_pase
-         *
-         * int disponibilitat = this.getDisponibilitatByPase(rs.getInt("idP"));
-         * modelo.addRow(new Object[]{ rs.getString("dia"),
-         * rs.getString("hora"), rs.getString("titol"), tresd, disponibilitat
-         * }); }
-         *
-         * return modelo; } catch (SQLException ex) {
-         * Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null,
-         * ex); } *
-         */
+       
     }
 
     /**
@@ -195,120 +173,30 @@ public class recursosBD {
 
         for (Object o : (ArrayList) this.getSelect(hql)) {
             Entrada ent = (Entrada) o;
-            System.out.println("el id de la butaca es:NULL-" + ent.getButaca().getId());
             entrades.put("NULL-" + ent.getButaca().getId(), ent.getIdEntrada());
 
         }
-        /**
-         * String cSQL = "Select id_entrada, fila, butaca from entrades where
-         * id_pase='" + idPase + "'"; Statement st; try { st =
-         * this.cn.createStatement(); ResultSet rs = st.executeQuery(cSQL);
-         *
-         * while (rs.next()) { entrades.put(rs.getString("fila") + "-" +
-         * rs.getString("butaca"), rs.getInt("id_entrada")); } } catch
-         * (SQLException ex) {
-         * Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null,
-         * ex); }
-         */
+        
         return entrades;
     }
 
-    /**
-    public ArrayList<String> getGeneres(int id_pelicula) {
-        ArrayList<String> generes = new ArrayList<String>();
+    
+    public int insertarEntrada(Pase p, Butaca b) throws SQLException {
 
-        String cSQL = "Select titol from generos g, pelicules_has_generos phg where g.id=phg.generos_id and phg.pelicules_id=" + id_pelicula;
-
-        try {
-
-            Statement st;
-            st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(cSQL);
-            while (rs.next()) {
-
-                generes.add(rs.getString("titol"));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return generes;
-
-    }
-
-* */
-    /**
-     * Calcula la disponibilitat (butaques lliures) per cada pase
-     * @param idPase
-     * @return Retorna la disponibilitat
-     */
-    public int getDisponibilitatByPase(int idPase) {
-        String hql = "from Pase pa where pa.idPase=" + idPase;
-        
-        for(Pase p : (ArrayList<Pase>)this.getSelect(hql)){            
-            return p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size();
-        }
-       
-        return 0;
-    }
-
-    /*
-     public Sala getSalaByPase(int idPase) {
-
-     String cSQL = "Select s.* from sales s, pases p where p.id_pase=" + idPase + " and p.id_sala=s.id";
-
-     Statement st;
-     try {
-     st = this.cn.createStatement();
-     ResultSet rs = st.executeQuery(cSQL);
-     Sala s = new Sala();
-     while (rs.next()) {
-     s.setButaques(rs.getInt("butaques"));
-     s.setFiles(rs.getInt("files"));
-     s.setTipusSala(rs.getString("tipus_sala"));
-     s.setId(rs.getInt("id"));
-     s.setNom(rs.getString("nom"));
-     }
-     return s;
-     } catch (SQLException ex) {
-     Logger.getLogger(recursosBD.class.getName()).log(Level.SEVERE, null, ex);
-     }
-
-     return null;
-     }
-     */
-    /**
-     * Fica l'entrada dins la base de dades
-     */
-    public int insertarEntrada(Pase p, String butaca) throws SQLException {
-
-        String vSQL = "";
-
-        // TODO: fer que la tarifa sigui la que toca
-        vSQL = "INSERT INTO entrada(id_pase , idButaca, id_tarifa) VALUES (? , ?, 1)";
-        PreparedStatement pst = null;
-
-        pst = cn.prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS);
-        pst.setString(1, String.valueOf(p.getIdPase()));
-        pst.setString(2, String.valueOf(butaca));
-
-        int n = 0;
-        try {
-
-            n = pst.executeUpdate();
-            ResultSet keys = pst.getGeneratedKeys();
-            keys.next();
+        try{            
+            Tarifa t=new Tarifa();
+            t.setId(1);
+            // TODO: assignar la tarifa corresponent
+            Entrada en=new Entrada(b,t, p);           
+            this.session.save(en);
             this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 
             this.session.beginTransaction();
 
-            return keys.getInt(1);
-
-        } catch (SQLException ex) {
+            return en.getIdEntrada();
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error al introduir" + ex);
         }
-
         return 0;
     }
 }

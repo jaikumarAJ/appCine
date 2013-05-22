@@ -50,9 +50,11 @@ public class DibuixSala extends javax.swing.JPanel {
                 javax.swing.JButton cadira = (javax.swing.JButton) getClass().getDeclaredField(fields[i].getName()).get(this);
                 try {
                     if (entrades.containsKey("NULL-" + fields[i].getName())) {
+                       
                         cadira.setBackground(Color.RED);
                         cadira.setBorderPainted(false);
-
+                        System.out.println("Desactivam el botó"+fields[i].getName());
+                        cadira.setEnabled(false);   
                     } else {
                         cadira.setBorderPainted(true);
                     }
