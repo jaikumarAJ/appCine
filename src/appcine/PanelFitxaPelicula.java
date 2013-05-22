@@ -6,13 +6,8 @@ package appcine;
 
 import entitats.Pase;
 import entitats.Pelicula;
-import entitats.Sala;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,36 +85,36 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
 
         System.out.println("ja hem carregat les pelicules");
     }
-*/
+
     public void loadPases(ArrayList<Pase> pases) {
         try {
-            ConexionMySQL mysql = new ConexionMySQL();
+            
+            recursosBD rBD= new recursosBD();
+            
+            
             Connection cn = mysql.conectar();
             String cSQL = "Select p.*, s.nom from pase p, sala s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
 
             Statement st = cn.createStatement();
-
+            this.pases=rBD.
             ResultSet rs = st.executeQuery(cSQL);
             while (rs.next()) {
                 Pase p = new Pase();
                 p.setIdPase(rs.getInt("id_pase"));
-                p.setDia(rs.getDate("dia"));
-                // TODO: canviar per id real de la pelicula;
-                
+                p.setDia(rs.getDate("dia"));                
                 p.setHora(rs.getDate("hora"));
                 Sala s = new Sala();
                 s.setNom(rs.getString("nom"));
                 p.setSala(s);
                
                 this.pases.add(p);
-                System.out.println(p.toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
+*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,7 +135,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         //String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(index).getRuta_imatge();
         String ruta_img = "http://localhost/portades/" + this.pelicules.get(index).getRutaImatge();
         try {
-            System.out.println(ruta_img);
+            //System.out.println(ruta_img);
 
             this.labelPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
         } catch (MalformedURLException ex) {
@@ -153,15 +148,16 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
         
         //BUIDAM LA TAULA D'HORARIS
-        DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();// TODO add your handling code here:    
+        DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();  
         modelo.setRowCount(0);
         this.pases.removeAll(pases);
 
         //omplim la taula d'horaris
-        this.loadPases(pases);
-
+        recursosBD rBD= new recursosBD();
+//        rBD.loadPases(pases, this.id_pelicula);
+        this.pases=rBD.getPasesPerPelicula(this.id_pelicula);
         for (Pase p : pases) {
-         
+           // System.out.println(p);
             modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSala().getNom()});
         }
 
@@ -356,12 +352,14 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
+    /**
+     * Carrega la pantalla d'entrades per la pel·lícula al dia i hora seleccionades.
+     * @param evt 
+     */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int filaSel = this.taulaHorari.getSelectedRow();        // TODO add your handling code here:
+        int filaSel = this.taulaHorari.getSelectedRow();    
         this.principal.pe = new panelEntrades(this.principal, this.pases.get(filaSel));
-
         this.principal.mostrarPanell(this.principal.pe);
-        System.out.println("final jMenuItem1MouseClicked");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

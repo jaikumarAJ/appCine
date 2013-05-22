@@ -5,7 +5,6 @@
 package appcine;
 
 import entitats.Pase;
-import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -37,7 +36,7 @@ public class panelHoraris extends javax.swing.JPanel {
     public void carregarHorari() {
         recursosBD rbd = new recursosBD();
 
-        DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();// TODO add your handling code here:    
+        DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();
 
         DefaultTableModel modelo2 = new DefaultTableModel(new Object[][]{}, new String[]{"Dia", "Hora", "Pel·lícula", "3D", "Places lliures"});
 

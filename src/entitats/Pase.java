@@ -2,6 +2,7 @@ package entitats;
 // Generated 21-may-2013 14:29:12 by Hibernate Tools 3.2.1.GA
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,14 +59,17 @@ public class Pase  implements java.io.Serializable {
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
     }
-    public Date getDia() {
-        return this.dia;
+    public String getDia() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(this.dia);
+        //return this.dia;
     }
     
     public void setDia(Date dia) {
         this.dia = dia;
     }
     public Date getHora() {
+        
         return this.hora;
     }
     

@@ -7,19 +7,16 @@ package appcine;
 import java.awt.Image;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import recursos.Colors;
-
-
 
 /**
  *
@@ -30,51 +27,48 @@ public class pInicial extends javax.swing.JFrame {
     //llistat de 
     public panelPelicules pp = new panelPelicules(this);
     public PanelFitxaPelicula pfp = new PanelFitxaPelicula(this);
-    public panelEntrades pe= new panelEntrades(this);
+    public panelEntrades pe = new panelEntrades(this);
     public panelHoraris ph = new panelHoraris(this);
 
-   //COLORS
-    
-   
     /*
-     * Creates new form pInicial
+     * Constructor buid
      */
-    public pInicial() throws SQLException {
+    public pInicial() {
 
         Image i;
         try {
             i = ImageIO.read(getClass().getResource("/recursos/icono_cine.jpg"));
             setIconImage(i);
         } catch (IOException ex) {
-            System.out.println("no s'ha pogut posar l'icona");
             ex.printStackTrace();
             Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-      
+
         initComponents();
-      
-        System.out.println("FINAL CONSTRUCTOR PINICIAL");
     }
-    
-    public void setVisible(boolean aFlag){
-        
-        if(aFlag){
-            System.out.println("se mostra la pantalla Inicial");
-              this.mostrarPanell(this.pp);
+
+    /**
+     * Mostra o oculta la pantalla. Si la fa visible, coloca el subpanell
+     * devall.
+     *
+     * @param aFlag
+     */
+    public void setVisible(boolean aFlag) {
+        if (aFlag) {
+            this.mostrarPanell(this.pp);
         }
         super.setVisible(aFlag);
     }
-    /*
-     * Amaga la finestra
+
+    /**
+     * Amaga tots els panels visibles
      */
-    public void ocultarTot(){
+    public void ocultarTot() {
         this.pp.setVisible(false);
         this.pe.setVisible(false);
         this.pfp.setVisible(false);
         this.ph.setVisible(false);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,11 +124,6 @@ public class pInicial extends javax.swing.JFrame {
                 btnPeliculesMouseClicked(evt);
             }
         });
-        btnPelicules.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPeliculesActionPerformed(evt);
-            }
-        });
         jToolBar1.add(btnPelicules);
 
         btnEntrades.setBackground(Colors.colorBotonera);
@@ -152,11 +141,6 @@ public class pInicial extends javax.swing.JFrame {
                 btnEntradesMouseClicked(evt);
             }
         });
-        btnEntrades.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntradesActionPerformed(evt);
-            }
-        });
         jToolBar1.add(btnEntrades);
 
         btnComprar.setBackground(Colors.colorBotonera);
@@ -171,11 +155,6 @@ public class pInicial extends javax.swing.JFrame {
         btnComprar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnComprarMouseClicked(evt);
-            }
-        });
-        btnComprar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnComprarActionPerformed(evt);
             }
         });
         jToolBar1.add(btnComprar);
@@ -203,63 +182,46 @@ public class pInicial extends javax.swing.JFrame {
         setBounds((screenSize.width-1120)/2, (screenSize.height-631)/2, 1120, 631);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPeliculesActionPerformed
-
-    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnComprarActionPerformed
-
-    private void btnEntradesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEntradesActionPerformed
-
-    public void mostrarPanell(javax.swing.JPanel pnl){
+    public void mostrarPanell(javax.swing.JPanel pnl) {
         this.ocultarTot();
         //this.panelContingut.add(pnl,java.awt.BorderLayout.CENTER);
         pnl.setVisible(true);
         getContentPane().add(pnl, java.awt.BorderLayout.CENTER);
-       // pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
-        System.out.println("final de mostrarPanel");
+        // pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
     }
-    
+
     private void btnPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculesMouseClicked
-       
+
         this.mostrarPanell(this.pp);
-        
+
     }//GEN-LAST:event_btnPeliculesMouseClicked
 
-    public void mostrarStats(){
-        ConexionMySQL cm = new ConexionMySQL();
-            
-            Connection connexio = cm.conectar();
-
-            JasperReport reporte;
-        try {
-            reporte = JasperCompileManager.compileReport("src/appCine/report_grafiques.jrxml");
-            JasperPrint print = JasperFillManager.fillReport(reporte, null, connexio);
-
-            JasperViewer.viewReport(print, false);
-            
-        } catch (JRException ex) {
-            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("error llegint l'informe report_grafiques");
-        }
-        
-    }
     private void btnEntradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntradesMouseClicked
         this.mostrarPanell(this.pe);
     }//GEN-LAST:event_btnEntradesMouseClicked
 
     private void btnComprarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComprarMouseClicked
 
-        this.mostrarPanell(this.ph);// TODO add your handling code here:
+        this.mostrarPanell(this.ph);
     }//GEN-LAST:event_btnComprarMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
-        this.mostrarStats();
+        try {
+
+            Class.forName("org.gjt.mm.mysql.Driver");
+            Connection link = DriverManager.getConnection("cinema_antiga", "root", "root");
+            JasperReport reporte;
+
+            reporte = JasperCompileManager.compileReport("src/appCine/report_grafiques.jrxml");
+            JasperPrint print = JasperFillManager.fillReport(reporte, null, link);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception ex) {
+            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("error llegint l'informe report_grafiques");
+        }
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
@@ -292,11 +254,8 @@ public class pInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new pInicial().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new pInicial().setVisible(true);
+
             }
         });
     }

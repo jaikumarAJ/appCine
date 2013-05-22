@@ -4,13 +4,7 @@ import entitats.Butaca;
 import entitats.Entrada;
 import entitats.Pase;
 import entitats.Pelicula;
-import entitats.Sala;
 import entitats.Tarifa;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,41 +12,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author torandell9
  */
-// TODO : COMENTAR AQUESTA CLASE
 public class recursosBD {
-
-    ConexionMySQL mysql = new ConexionMySQL();
-    public Connection cn;
-    /**
-     * HIBERNATE
-     */
+ 
     Session session;
 
-    /**
-     * Constructor buid.
+    /*
+     * Constructor buid
      */
     public recursosBD() {
-        this.cn = this.mysql.conectar(); //TODO: borrar aquesta linea quan estigui tot amb hibernate
         this.session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-
     }
 
     /**
@@ -64,7 +42,6 @@ public class recursosBD {
      */
     private List getSelect(String hql) {
         try {
-
             Query q = session.createQuery(hql);
             ArrayList resultList = (ArrayList) q.list();
             return resultList;
@@ -78,9 +55,8 @@ public class recursosBD {
      * Selecciona totes les pelicules i les fica dins un arraylist
      *
      * @param pelicules
-     * @throws SQLException
      */
-    public void selectPelicules(ArrayList<Pelicula> pelicules) throws SQLException {
+    public void selectPelicules(ArrayList<Pelicula> pelicules){
 
         for (Object o : this.getSelect("from Pelicula")) {
             Pelicula peli = (Pelicula) o;
@@ -138,15 +114,12 @@ public class recursosBD {
      * @return
      */
     public DefaultTableModel getPases(DefaultTableModel modelo) {
-
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
         String avui = dataAvui.format(date);
         String hql = "from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
-      
         ArrayList<Pase> pases = (ArrayList) this.getSelect(hql);
         for (Pase p : pases) {
-         
             modelo.addRow(new Object[]{
                         p.getDia(),
                         p.getHora(),
@@ -155,11 +128,19 @@ public class recursosBD {
                          p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size()
                     });
         }
-
         return modelo;
        
     }
-
+    
+    /**
+     * Retorna un arraylist dels pases disponibles per cada pel·lícula
+     * @param idPeli
+     * @return 
+     */
+    public ArrayList<Pase> getPasesPerPelicula(int idPeli) {
+        
+        return ((ArrayList<Pase>) this.getSelect("from Pase pa where pa.pelicula.id="+idPeli));
+    }
     /**
      * Retorna totes les Entrades venudes per un pase determinat
      *
@@ -174,14 +155,18 @@ public class recursosBD {
         for (Object o : (ArrayList) this.getSelect(hql)) {
             Entrada ent = (Entrada) o;
             entrades.put("NULL-" + ent.getButaca().getId(), ent.getIdEntrada());
-
         }
         
         return entrades;
     }
 
-    
-    public int insertarEntrada(Pase p, Butaca b) throws SQLException {
+    /**
+     * Fica l'entrada dins la base de dades
+     * @param p : Objecte Pase al que correspon l'entrada
+     * @param b : Objecte Butaca que s'assigna
+     * @return retorna la ID de la entrada insertada
+     */
+    public int insertarEntrada(Pase p, Butaca b) {
 
         try{            
             Tarifa t=new Tarifa();

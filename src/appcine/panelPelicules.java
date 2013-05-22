@@ -37,7 +37,7 @@ public class panelPelicules extends javax.swing.JPanel {
     /**
      * Creates new form panelPelicules
      */
-    public panelPelicules(pInicial principal) throws SQLException {
+    public panelPelicules(pInicial principal)  {
         initComponents();
         this.principal = principal;
         recursosBD rBD = new recursosBD();
@@ -51,8 +51,6 @@ public class panelPelicules extends javax.swing.JPanel {
         if (aFlag) {
             this.jScrollPane1.setVisible(true);
             this.jPanel1.setVisible(true);
-
-            System.out.println("mostram el panell de pelicules");
         }
         super.setVisible(aFlag);
     }
@@ -117,8 +115,6 @@ public class panelPelicules extends javax.swing.JPanel {
            String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
            // String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
             try {
-                System.out.println(ruta_img);
-
                 lblPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
             } catch (MalformedURLException ex) {
                 Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);

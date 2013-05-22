@@ -7,12 +7,11 @@ package appcine;
 import entitats.Butaca;
 import entitats.Pase;
 import entitats.Pelicula;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -39,31 +38,22 @@ public class panelEntrades extends javax.swing.JPanel {
     private Pase p;
     private String seient;
     private recursosBD rBD;
+
     public panelEntrades(pInicial pi) {
         this.pi = pi;
-        try {
-            initComponents();
-            this.rBD= new recursosBD();
-            rBD.selectPelicules(pelicules);
-            this.omplirLlistatPelicules();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        initComponents();
+        this.rBD = new recursosBD();
+        rBD.selectPelicules(pelicules);
+        this.omplirLlistatPelicules();
     }
 
     public panelEntrades(pInicial pi, Pase p) {
         this.pi = pi;
-        try {
-            initComponents();
-            this.rBD.selectPelicules(pelicules);
-            this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
-            this.etiqSala.setText(p.getSala().getNom());
+        initComponents();
+        this.rBD.selectPelicules(pelicules);
+        this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
+        this.etiqSala.setText(p.getSala().getNom());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void omplirLlistatPelicules() {
@@ -127,11 +117,6 @@ public class panelEntrades extends javax.swing.JPanel {
         btnConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConfirmarMouseClicked(evt);
-            }
-        });
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarActionPerformed(evt);
             }
         });
 
@@ -330,12 +315,12 @@ public class panelEntrades extends javax.swing.JPanel {
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
-           
 
-            for(Date dies : this.rBD.getDiasPelicula(idSeleccionat)){
-                this.diasDisponibles.addItem(dies.toString());
+            for (Date dies : this.rBD.getDiasPelicula(idSeleccionat)) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                this.diasDisponibles.addItem(sdf.format(dies));
             }
-           
+
         }
 
     }//GEN-LAST:event_llistatPeliculesActionPerformed
@@ -348,20 +333,24 @@ public class panelEntrades extends javax.swing.JPanel {
         this.llistatHores.addItem("---Selecciona una--");
 
         if (this.diasDisponibles.getSelectedIndex() > 0) {
-            this.dia = (String) this.diasDisponibles.getSelectedItem();
 
-            for(Time hora : this.rBD.getHoresPelicula(dia, this.idSeleccionat)){
-                 this.llistatHores.addItem(hora.toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                this.dia = sdf.format(new SimpleDateFormat("dd-MM-yyyy").parse((String)this.diasDisponibles.getSelectedItem()));
+            } catch (ParseException ex) {
+                Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
+            System.out.println(dia);
+            for (Time hora : this.rBD.getHoresPelicula(this.dia, this.idSeleccionat)) {
+                this.llistatHores.addItem(hora.toString());
+            }
 
         }
     }//GEN-LAST:event_diasDisponiblesActionPerformed
 
-    
     private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
 
-       // recursosBD rBD = new recursosBD();
+        // recursosBD rBD = new recursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
             this.etiqSala.setText(p.getSala().getNom());
@@ -370,32 +359,28 @@ public class panelEntrades extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_llistatHoresActionPerformed
 
+    /**
+     * Envia a introduir la entrada dins la base de dades pasant-li els
+     * paràmetres adequats. Mostra un pop-up de confirmació
+     *
+     * @param evt
+     */
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
 
-       // recursosBD rBD = new recursosBD();
-        //String[] seients = this.seient.split("-");
-        //Map<String, Object> params = new HashMap<String, Object>();
-        try {
-            Butaca b= new Butaca();
-            b.setId(seient);
-                   
-            this.rBD.insertarEntrada(this.p, b);
-            //  params.put("idEntrada", rBD.insertarEntrada(this.p, Integer.parseInt(seients[0]), Integer.parseInt(seients[1])));
-        } catch (SQLException ex) {
-            Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Butaca b = new Butaca();
+        b.setId(seient);
+        this.rBD.insertarEntrada(this.p, b);
 
+        //mostram el popup
         this.dialogConfirm.setVisible(false);
+        //TODO: recuperar que mostri la entrada per jasperReports
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
         this.dialogConfirm.dispose();
+        // TODO: se pot fer que posi la butaca en vermell en lloc de que recarregui tota la sala? Amb la id de la butaca??
         this.mostrarSala(this.p);
 
     }//GEN-LAST:event_btnConfirmarMouseClicked
-
-    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dialogConfirm.dispose();// TODO add your handling code here:
@@ -403,7 +388,6 @@ public class panelEntrades extends javax.swing.JPanel {
 
     public void mostrarSala(Pase p) {
         this.borrarSeients();
-      
 
         try {
             Class c = Class.forName("sales." + p.getSala().getTipusSala().getNom());
@@ -416,71 +400,53 @@ public class panelEntrades extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
-/**
-    public void mostrarSala2(final int idPase) {
-        this.borrarSeients();
 
-        recursosBD rBD = new recursosBD();
-     
-        Sala s = rBD.getSalaByPase(idPase);
-
-        int files = s.getFiles();
-        int columnes = s.getButaques();
-        this.entrades = rBD.getEntrades(idPase);
-        this.labelSelectPelicula.setVisible(true);
-        int itemsAmple = 10;
-        int itemsAlt;
-        int espaiat = 2;
-        int ample = 25;
-        int alt = ample;
-
-        //calculam quin es l'inici per centrar els seient
-        int tamEspais = espaiat * (columnes - 1);
-        int ampladaTotesColumnes = tamEspais + (ample * columnes);
-
-        float iniciX = (float) (this.contenedorSeients.getBounds().getWidth() / 2) - (ampladaTotesColumnes / 2);
-
-        System.out.println("les butaques s'han de començar a dibuixar al punt" + iniciX + "(" + columnes + ")");
-        int iniciY = 0;
-
-        //pintam tots els botons 
-        for (int i = 0; i < columnes; i++) {
-            for (int b = 0; b < files; b++) {
-                final String seient = b + "-" + i;
-                java.awt.Color color = Color.GREEN;
-                javax.swing.JButton etiq = new javax.swing.JButton();
-
-                //Miram si esta ocupat o no
-                if (entrades.containsKey(b + "-" + i)) {
-                    color = Color.RED;
-                }
-                //donam 
-                etiq.addMouseListener(new java.awt.event.MouseAdapter() {
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        comprarEntrada(evt, seient, idPase);
-                    }
-                });
-                int colX = (int) iniciX + (i * (ample + espaiat));
-                int colY = iniciY + (b * (alt + espaiat));
-                //
-                etiq.setOpaque(true);
-                etiq.setBorderPainted(false);
-                etiq.setBackground(color);
-
-                this.contenedorSeients.add(etiq);
-                etiq.setBounds(colX, colY, ample, alt);
-
-            }
-        }
-
-        this.contenedorSeients.setPreferredSize(
-                new Dimension(
-                (int) this.contenedorSeients.getPreferredSize().getWidth(),
-                (files * (alt + espaiat))));
-    }
-    * */
+    /**
+     * public void mostrarSala2(final int idPase) { this.borrarSeients();
+     *
+     * recursosBD rBD = new recursosBD();
+     *
+     * Sala s = rBD.getSalaByPase(idPase);
+     *
+     * int files = s.getFiles(); int columnes = s.getButaques(); this.entrades =
+     * rBD.getEntrades(idPase); this.labelSelectPelicula.setVisible(true); int
+     * itemsAmple = 10; int itemsAlt; int espaiat = 2; int ample = 25; int alt =
+     * ample;
+     *
+     * //calculam quin es l'inici per centrar els seient int tamEspais =
+     * espaiat * (columnes - 1); int ampladaTotesColumnes = tamEspais + (ample *
+     * columnes);
+     *
+     * float iniciX = (float) (this.contenedorSeients.getBounds().getWidth() /
+     * 2) - (ampladaTotesColumnes / 2);
+     *
+     * System.out.println("les butaques s'han de començar a dibuixar al punt" +
+     * iniciX + "(" + columnes + ")"); int iniciY = 0;
+     *
+     * //pintam tots els botons for (int i = 0; i < columnes; i++) { for (int b
+     * = 0; b < files; b++) { final String seient = b + "-" + i; java.awt.Color
+     * color = Color.GREEN; javax.swing.JButton etiq = new
+     * javax.swing.JButton();
+     *
+     * //Miram si esta ocupat o no if (entrades.containsKey(b + "-" + i)) {
+     * color = Color.RED; } //donam etiq.addMouseListener(new
+     * java.awt.event.MouseAdapter() { public void
+     * mouseClicked(java.awt.event.MouseEvent evt) { comprarEntrada(evt, seient,
+     * idPase); } }); int colX = (int) iniciX + (i * (ample + espaiat)); int
+     * colY = iniciY + (b * (alt + espaiat)); // etiq.setOpaque(true);
+     * etiq.setBorderPainted(false); etiq.setBackground(color);
+     *
+     * this.contenedorSeients.add(etiq); etiq.setBounds(colX, colY, ample, alt);
+     *
+     * }
+     * }
+     *
+     * this.contenedorSeients.setPreferredSize( new Dimension( (int)
+     * this.contenedorSeients.getPreferredSize().getWidth(), (files * (alt +
+     * espaiat)))); }
+     *
+     */
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-//        recursosBD rbd = new recursosBD();
         this.entrades = this.rBD.getEntrades(idPase);
 
         if (!this.entrades.containsKey(seient)) {
@@ -497,7 +463,6 @@ public class panelEntrades extends javax.swing.JPanel {
             this.dialogConfirm.setVisible(true);
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
