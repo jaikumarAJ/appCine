@@ -145,7 +145,6 @@ public class recursosBD {
         ArrayList<Pase> pases = (ArrayList) this.getSelect(sql);
         for (Pase p : pases) {
             int disponibilitat = this.getDisponibilitatByPase(p.getIdPase());
-            System.out.println("----xxxxxxxx  ----");
 
             modelo.addRow(new Object[]{
                         p.getDia(),
@@ -214,6 +213,7 @@ public class recursosBD {
         return entrades;
     }
 
+    /**
     public ArrayList<String> getGeneres(int id_pelicula) {
         ArrayList<String> generes = new ArrayList<String>();
 
@@ -237,15 +237,17 @@ public class recursosBD {
 
     }
 
+* */
+    /**
+     * Calcula la disponibilitat (butaques lliures) per cada pase
+     * @param idPase
+     * @return Retorna la disponibilitat
+     */
     public int getDisponibilitatByPase(int idPase) {
         String hql = "from Pase pa where pa.idPase=" + idPase;
         
-        for(Pase p : (ArrayList<Pase>)this.getSelect(hql)){
-            int butaques=p.getSala().getTipusSala().getButacas().size();
-            
-            int entradesVenudes=p.getEntradas().size();
-            
-            return butaques - entradesVenudes;
+        for(Pase p : (ArrayList<Pase>)this.getSelect(hql)){            
+            return p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size();
         }
        
         return 0;
@@ -291,7 +293,6 @@ public class recursosBD {
         pst.setString(1, String.valueOf(p.getIdPase()));
         pst.setString(2, String.valueOf(butaca));
 
-        System.out.println(pst);
         int n = 0;
         try {
 

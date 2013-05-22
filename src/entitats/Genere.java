@@ -45,7 +45,12 @@ public class Genere  implements java.io.Serializable {
         this.peliculas = peliculas;
     }
 
+    @Override
+    public String toString() {
+       return this.titol;
+    }
 
+    
 
 
 }

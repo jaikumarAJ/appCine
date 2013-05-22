@@ -150,8 +150,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.id_pelicula = this.pelicules.get(index).getId();
         this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
         // TODO: reomplir la llista de generes
-        //this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
-        this.labelgenere.setText("pensa a arreglarme!!!");
+        this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
         
         //BUIDAM LA TAULA D'HORARIS
         DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();// TODO add your handling code here:    
