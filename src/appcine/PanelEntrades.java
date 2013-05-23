@@ -379,7 +379,6 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         //mostram el popup
         this.dialogConfirm.setVisible(false);
-        //TODO: recuperar que mostri la entrada per jasperReports
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
         this.dialogConfirm.dispose();

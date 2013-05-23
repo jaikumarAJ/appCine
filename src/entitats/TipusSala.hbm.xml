@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 21-may-2013 14:29:13 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="entitats.TipusSala" table="tipus_sala" catalog="cinema_antiga">
+    <class name="entitats.TipusSala" table="tipus_sala" catalog="mitobo_cinema">
         <id name="idtipusSales" type="java.lang.Integer">
             <column name="idtipus_sales" />
             <generator class="identity" />
