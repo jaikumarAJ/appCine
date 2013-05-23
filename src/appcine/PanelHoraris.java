@@ -15,11 +15,11 @@ import recursos.Colors;
  *
  * @author torandell9
  */
-public class panelHoraris extends javax.swing.JPanel {
-    public pInicial pi;
+public class PanelHoraris extends javax.swing.JPanel {
+    public PantallaInicial pi;
     public ArrayList<Pase> pases = new ArrayList<Pase>();
 
-    public panelHoraris(pInicial pi) {
+    public PanelHoraris(PantallaInicial pi) {
         initComponents();
         this.pi = pi;
 
@@ -34,7 +34,7 @@ public class panelHoraris extends javax.swing.JPanel {
     }
 
     public void carregarHorari() {
-        recursosBD rbd = new recursosBD();
+        RecursosBD rbd = new RecursosBD();
 
         DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();
 

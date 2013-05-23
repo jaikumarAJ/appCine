@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="600" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f4326034-4d50-4b88-9d45-2b6bd54b4bbe">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="182"/>
-	<property name="ireport.y" value="193"/>
+	<property name="ireport.x" value="129"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/Users/torandell9/Dropbox/DAM2/DI/appCine/src/appcine/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/Users/torandell9/Dropbox/DAM2/DI/appCine/src/reports/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select month(dia) as data,count(id_entrada) as quantitat, titol from entrades ed, pases p, pelicules pe where pe.id=p.id_pelicula and p.id_pase=ed.id_pase group by month(dia), p.id_pelicula;]]>
+		<![CDATA[Select month(dia) as data,count(id_entrada) as quantitat, titol from entrada ed, pase p, pelicula pe where pe.id=p.id_pelicula and p.id_pase=ed.id_pase group by month(dia), p.id_pelicula;]]>
 	</queryString>
 	<field name="data" class="java.lang.Integer"/>
 	<field name="quantitat" class="java.lang.Long"/>

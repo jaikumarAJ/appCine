@@ -21,14 +21,14 @@ import org.hibernate.classic.Session;
  *
  * @author torandell9
  */
-public class recursosBD {
+public class RecursosBD {
  
     Session session;
 
     /*
      * Constructor buid
      */
-    public recursosBD() {
+    public RecursosBD() {
         this.session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
     }
@@ -53,7 +53,7 @@ public class recursosBD {
 
     /**
      * Selecciona totes les pelicules i les fica dins un arraylist
-     *
+  
      * @param pelicules
      */
     public void selectPelicules(ArrayList<Pelicula> pelicules){

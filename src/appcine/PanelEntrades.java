@@ -24,30 +24,30 @@ import sales.DibuixSala;
  *
  * @author torandell9
  */
-public class panelEntrades extends javax.swing.JPanel {
+public class PanelEntrades extends javax.swing.JPanel {
 
     /**
-     * Creates new form panelEntrades
+     * Creates new form PanelEntrades
      */
     public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     private ArrayList<Pase> pases = new ArrayList<Pase>();
     private int idSeleccionat;
     private String dia;
     private HashMap<String, Integer> entrades;
-    private pInicial pi;
+    private PantallaInicial pi;
     private Pase p;
     private String seient;
-    private recursosBD rBD;
+    private RecursosBD rBD;
 
-    public panelEntrades(pInicial pi) {
+    public PanelEntrades(PantallaInicial pi) {
         this.pi = pi;
         initComponents();
-        this.rBD = new recursosBD();
+        this.rBD = new RecursosBD();
         rBD.selectPelicules(pelicules);
         this.omplirLlistatPelicules();
     }
 
-    public panelEntrades(pInicial pi, Pase p) {
+    public PanelEntrades(PantallaInicial pi, Pase p) {
         this.pi = pi;
         initComponents();
         this.rBD.selectPelicules(pelicules);
@@ -338,7 +338,7 @@ public class panelEntrades extends javax.swing.JPanel {
             try {
                 this.dia = sdf.format(new SimpleDateFormat("dd-MM-yyyy").parse((String)this.diasDisponibles.getSelectedItem()));
             } catch (ParseException ex) {
-                Logger.getLogger(panelEntrades.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PanelEntrades.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println(dia);
             for (Time hora : this.rBD.getHoresPelicula(this.dia, this.idSeleccionat)) {
@@ -350,7 +350,7 @@ public class panelEntrades extends javax.swing.JPanel {
 
     private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
 
-        // recursosBD rBD = new recursosBD();
+        // RecursosBD rBD = new RecursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
             this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
             this.etiqSala.setText(p.getSala().getNom());
@@ -379,7 +379,7 @@ public class panelEntrades extends javax.swing.JPanel {
         this.dialogConfirm.dispose();
         // TODO: se pot fer que posi la butaca en vermell en lloc de que recarregui tota la sala? Amb la id de la butaca??
         this.mostrarSala(this.p);
-
+        
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
@@ -404,7 +404,7 @@ public class panelEntrades extends javax.swing.JPanel {
     /**
      * public void mostrarSala2(final int idPase) { this.borrarSeients();
      *
-     * recursosBD rBD = new recursosBD();
+     * RecursosBD rBD = new RecursosBD();
      *
      * Sala s = rBD.getSalaByPase(idPase);
      *

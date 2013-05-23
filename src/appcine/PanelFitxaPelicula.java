@@ -23,12 +23,12 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
     private ArrayList<Pase> pases = new ArrayList<Pase>();
     private int id_pelicula;
     private Pelicula peli;
-    pInicial principal;
+    PantallaInicial principal;
 
     /**
      * Creates new form panelFitxaPelicula
      */
-    public PanelFitxaPelicula(pInicial principal) {
+    public PanelFitxaPelicula(PantallaInicial principal) {
         initComponents();
         this.principal = principal;
         this.jPanel1.setVisible(false);
@@ -89,7 +89,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
     public void loadPases(ArrayList<Pase> pases) {
         try {
             
-            recursosBD rBD= new recursosBD();
+            RecursosBD rBD= new RecursosBD();
             
             
             Connection cn = mysql.conectar();
@@ -110,7 +110,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
                 this.pases.add(p);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -139,12 +139,11 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
 
             this.labelPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
         } catch (MalformedURLException ex) {
-            Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.id_pelicula = this.pelicules.get(index).getId();
         this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
-        // TODO: reomplir la llista de generes
         this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
         
         //BUIDAM LA TAULA D'HORARIS
@@ -153,7 +152,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.pases.removeAll(pases);
 
         //omplim la taula d'horaris
-        recursosBD rBD= new recursosBD();
+        RecursosBD rBD= new RecursosBD();
 //        rBD.loadPases(pases, this.id_pelicula);
         this.pases=rBD.getPasesPerPelicula(this.id_pelicula);
         for (Pase p : pases) {
@@ -358,7 +357,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
      */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int filaSel = this.taulaHorari.getSelectedRow();    
-        this.principal.pe = new panelEntrades(this.principal, this.pases.get(filaSel));
+        this.principal.pe = new PanelEntrades(this.principal, this.pases.get(filaSel));
         this.principal.mostrarPanell(this.principal.pe);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

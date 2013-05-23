@@ -4,11 +4,11 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[Select count(id_entrada) as quantitat,  round(sum(precio),2) as facturacio,round( 
+		<![CDATA[Select count(en.id_entrada) as quantitat,  round(sum(precio),2) as facturacio,round( 
 ((round(sum(precio),2)*100)/(
-(Select round(sum(precio),2) from tarifas ta, pases pas where pas.id_tarifa=ta.id) ))
+(Select round(sum(precio),2) from tarifa ta, pase pas, entrada en where pas.id_pase=en.id_pase and en.id_tarifa=ta.id) ))
 ,2)
-as porcentaje, titol from entrades ed, tarifas t, pases p, pelicules pe where p.id_pase=ed.id_pase and p.id_pelicula=pe.id and t.id=p.id_tarifa group by p.id_pelicula]]>
+as porcentaje, titol from entrada ed, tarifa t, pase p, pelicula pe, entrada en where p.id_pase=ed.id_pase and p.id_pelicula=pe.id and t.id=en.id_tarifa group by p.id_pelicula]]>
 	</queryString>
 	<field name="quantitat" class="java.lang.Long"/>
 	<field name="facturacio" class="java.lang.Double"/>

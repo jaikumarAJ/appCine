@@ -22,18 +22,18 @@ import recursos.Colors;
  *
  * @author torandell9
  */
-public class pInicial extends javax.swing.JFrame {
+public class PantallaInicial extends javax.swing.JFrame {
 
     //llistat de 
-    public panelPelicules pp = new panelPelicules(this);
+    public PanelPelicules pp = new PanelPelicules(this);
     public PanelFitxaPelicula pfp = new PanelFitxaPelicula(this);
-    public panelEntrades pe = new panelEntrades(this);
-    public panelHoraris ph = new panelHoraris(this);
+    public PanelEntrades pe = new PanelEntrades(this);
+    public PanelHoraris ph = new PanelHoraris(this);
 
     /*
      * Constructor buid
      */
-    public pInicial() {
+    public PantallaInicial() {
 
         Image i;
         try {
@@ -41,7 +41,7 @@ public class pInicial extends javax.swing.JFrame {
             setIconImage(i);
         } catch (IOException ex) {
             ex.printStackTrace();
-            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         initComponents();
@@ -207,18 +207,18 @@ public class pInicial extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         try {
-
+            // TODO: arreglar les consultes dels reports per la nova base de dades
             Class.forName("org.gjt.mm.mysql.Driver");
-            Connection link = DriverManager.getConnection("cinema_antiga", "root", "root");
+            Connection link = DriverManager.getConnection("jdbc:mysql://localhost/cinema_antiga", "root", "root");
             JasperReport reporte;
 
-            reporte = JasperCompileManager.compileReport("src/appCine/report_grafiques.jrxml");
+            reporte = JasperCompileManager.compileReport("src/reports/report_grafiques.jrxml");
             JasperPrint print = JasperFillManager.fillReport(reporte, null, link);
 
             JasperViewer.viewReport(print, false);
 
         } catch (Exception ex) {
-            Logger.getLogger(pInicial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("error llegint l'informe report_grafiques");
         }
 
@@ -241,20 +241,20 @@ public class pInicial extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(pInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(pInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(pInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(pInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new pInicial().setVisible(true);
+                new PantallaInicial().setVisible(true);
 
             }
         });

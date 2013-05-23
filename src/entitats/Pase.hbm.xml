@@ -14,7 +14,8 @@
         <many-to-one name="pelicula" class="entitats.Pelicula" fetch="select">
             <column name="id_pelicula" not-null="true" />
         </many-to-one>
-        <property name="dia" type="date">
+      <property name="dia" type="date">
+          <!--<property name="dia" type="string">-->
             <column name="dia" length="10" not-null="true" />
         </property>
         <property name="hora" type="time">

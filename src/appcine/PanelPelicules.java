@@ -23,7 +23,7 @@ import recursos.Colors;
  *
  * @author torandell9
  */
-public class panelPelicules extends javax.swing.JPanel {
+public class PanelPelicules extends javax.swing.JPanel {
     /**
     static Color colorFonsPrincipal = new Color(Integer.parseInt("228751", 16));
     static Color colorFonsPelicules1 = new Color(Integer.parseInt("36DA82", 16));
@@ -32,15 +32,15 @@ public class panelPelicules extends javax.swing.JPanel {
     * */
     //ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
-    pInicial principal;
+    PantallaInicial principal;
 
     /**
-     * Creates new form panelPelicules
+     * Creates new form PanelPelicules
      */
-    public panelPelicules(pInicial principal)  {
+    public PanelPelicules(PantallaInicial principal)  {
         initComponents();
         this.principal = principal;
-        recursosBD rBD = new recursosBD();
+        RecursosBD rBD = new RecursosBD();
         rBD.selectPelicules(pelicules);
         this.mostrarPelicules();
         this.setVisible(true);
@@ -117,7 +117,7 @@ public class panelPelicules extends javax.swing.JPanel {
             try {
                 lblPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
             } catch (MalformedURLException ex) {
-                Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
             }
 
 
@@ -126,7 +126,7 @@ public class panelPelicules extends javax.swing.JPanel {
                     try {
                         mostrarFitxaPelicula(id_pelicula);
                     } catch (SQLException ex) {
-                        Logger.getLogger(panelPelicules.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             });

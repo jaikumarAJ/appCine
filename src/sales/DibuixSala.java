@@ -4,8 +4,8 @@
  */
 package sales;
 
-import appcine.panelEntrades;
-import appcine.recursosBD;
+import appcine.PanelEntrades;
+import appcine.RecursosBD;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -19,18 +19,18 @@ import java.util.logging.Logger;
 public class DibuixSala extends javax.swing.JPanel {
 
     private int idPase;
-    private panelEntrades panel;
+    private PanelEntrades panel;
     private HashMap<String, Integer> entrades;
 
     public DibuixSala(int idPase) {
         this.idPase = idPase;
     }
 
-    public panelEntrades getPanel() {
+    public PanelEntrades getPanel() {
         return panel;
     }
 
-    public void setPanel(panelEntrades panel) {
+    public void setPanel(PanelEntrades panel) {
         this.panel = panel;
     }
 
@@ -39,7 +39,7 @@ public class DibuixSala extends javax.swing.JPanel {
     }
 
     public void pintarCadires(final Field[] fields) {
-        recursosBD rb = new recursosBD();
+        RecursosBD rb = new RecursosBD();
 
         this.entrades = rb.getEntrades(this.idPase);
 
