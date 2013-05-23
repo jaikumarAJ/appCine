@@ -8,7 +8,9 @@ import entitats.Butaca;
 import entitats.Pase;
 import entitats.Pelicula;
 import java.lang.reflect.Constructor;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,11 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import recursos.Colors;
 import sales.DibuixSala;
 
@@ -315,7 +322,6 @@ public class PanelEntrades extends javax.swing.JPanel {
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
-
             for (Date dies : this.rBD.getDiasPelicula(idSeleccionat)) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 this.diasDisponibles.addItem(sdf.format(dies));
@@ -336,7 +342,7 @@ public class PanelEntrades extends javax.swing.JPanel {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                this.dia = sdf.format(new SimpleDateFormat("dd-MM-yyyy").parse((String)this.diasDisponibles.getSelectedItem()));
+                this.dia = sdf.format(new SimpleDateFormat("dd-MM-yyyy").parse((String) this.diasDisponibles.getSelectedItem()));
             } catch (ParseException ex) {
                 Logger.getLogger(PanelEntrades.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -369,7 +375,7 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         Butaca b = new Butaca();
         b.setId(seient);
-        this.rBD.insertarEntrada(this.p, b);
+        int idEntrada = this.rBD.insertarEntrada(this.p, b);
 
         //mostram el popup
         this.dialogConfirm.setVisible(false);
@@ -377,13 +383,41 @@ public class PanelEntrades extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
         this.dialogConfirm.dispose();
+
+        this.mostrarEntrada(idEntrada);
+
         // TODO: se pot fer que posi la butaca en vermell en lloc de que recarregui tota la sala? Amb la id de la butaca??
         this.mostrarSala(this.p);
-        
+
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
+    /**
+     * Mostra un pdf amb la entrada
+     * @param idEntrada 
+     */
+    private void mostrarEntrada(int idEntrada) {
+        try {
+           ConexionMySQL con = new ConexionMySQL();
+            
+            Connection link = con.conectar();
+            JasperReport reporte;
+
+            reporte = JasperCompileManager.compileReport("src/reports/entrada.jrxml");
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            params.put("idEntrada", idEntrada);
+            System.out.println("entrada:"+idEntrada);
+            JasperPrint print = JasperFillManager.fillReport(reporte, params, link);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception ex) {
+            Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("error llegint l'informe report_grafiques");
+        }
+
+    }
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        this.dialogConfirm.dispose();// TODO add your handling code here:
+        this.dialogConfirm.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     public void mostrarSala(Pase p) {

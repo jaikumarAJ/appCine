@@ -1,4 +1,4 @@
-
+//TODO: perque la darrera pelicula se veu descolocada?
 fer que funcioni reservar l'entrada desde la fitxa de la pel·lícula
 tarifes dia espectador ??
 arxiu configuració

@@ -53,7 +53,6 @@ public class DibuixSala extends javax.swing.JPanel {
                        
                         cadira.setBackground(Color.RED);
                         cadira.setBorderPainted(false);
-                        System.out.println("Desactivam el botó"+fields[i].getName());
                         cadira.setEnabled(false);   
                     } else {
                         cadira.setBorderPainted(true);

@@ -1,34 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="339e2cc8-66e5-4277-81cf-6c6c51fa54d7">
-	<queryString language="SQL">
-		<![CDATA[Select titol from pelicula pe, pase pa, entrada en where en.id_pase=pa.id_pase and pa.id_pelicula=pe.id]]>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="600" pageHeight="360" orientation="Landscape" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="339e2cc8-66e5-4277-81cf-6c6c51fa54d7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEntrada" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ta.precio, pe.titol, pa.dia, pa.hora, sa.nom from sala sa, tarifa ta,pelicula pe, pase pa, entrada en where ta.id=en.id_tarifa and en.id_pase=pa.id_pase and pe.id=pa.id_pelicula and en.id_entrada=$P{idEntrada} and sa.id=pa.id_sala]]>
 	</queryString>
+	<field name="precio" class="java.lang.Float"/>
 	<field name="titol" class="java.lang.String"/>
+	<field name="dia" class="java.sql.Date"/>
+	<field name="hora" class="java.sql.Time"/>
+	<field name="nom" class="java.lang.String"/>
 	<group name="titol">
 		<groupExpression><![CDATA[$F{titol}]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="79" splitType="Stretch"/>
-	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="137" splitType="Stretch">
+			<image>
+				<reportElement uuid="d1e4e56b-bdce-488e-8530-75ce126f1f27" x="0" y="0" width="560" height="137"/>
+				<imageExpression><![CDATA["/Users/torandell9/Desktop/DAM2/DI/appCine/src/recursos/logo.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="144" splitType="Stretch">
+			<textField>
+				<reportElement uuid="1fbdbf3d-2768-4ea5-9236-20e6027e3c30" x="113" y="14" width="447" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titol}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="13ffc33c-f97d-4591-8b68-c5ce3065ee09" x="20" y="64" width="69" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13ffc33c-f97d-4591-8b68-c5ce3065ee09" x="20" y="38" width="69" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Día:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ee51ac41-b126-4ec6-b428-8369de1c1c07" x="113" y="64" width="162" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="13ffc33c-f97d-4591-8b68-c5ce3065ee09" x="20" y="14" width="69" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Pel·lícula:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13ffc33c-f97d-4591-8b68-c5ce3065ee09" x="-170" y="61" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="33cc1540-d0e5-4200-8ced-cdd241324f58" x="20" y="90" width="69" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sala:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="15eac42d-c16b-48f8-99ac-d895d4e870da" x="113" y="90" width="162" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3458f1d5-a066-4f25-a257-f3959751263d" x="113" y="38" width="162" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3b6bdd9f-082d-481c-8eec-939ad26e7d5b" x="0" y="0" width="560" height="35"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(C) AppCine 2012-2013 - Duis auctor felis sed metus iaculis vehicula. Cras vehicula, nulla quis sollicitudin hendrerit, nulla justo consectetur mi, non volutpat mauris libero eget lectus. Morbi feugiat bibendum nunc, a pretium est rutrum et. Maecenas egestas augue ut est pulvinar feugiat. Aliquam eros odio, elementum sit amet accumsan vel, varius ut velit. ]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

@@ -207,12 +207,17 @@ public class PantallaInicial extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         try {
-            // TODO: arreglar les consultes dels reports per la nova base de dades
+            /**
             Class.forName("org.gjt.mm.mysql.Driver");
             Connection link = DriverManager.getConnection("jdbc:mysql://localhost/cinema_antiga", "root", "root");
+            * */
+            ConexionMySQL con = new ConexionMySQL();
+            
+            Connection link = con.conectar();
             JasperReport reporte;
 
             reporte = JasperCompileManager.compileReport("src/reports/report_grafiques.jrxml");
+            
             JasperPrint print = JasperFillManager.fillReport(reporte, null, link);
 
             JasperViewer.viewReport(print, false);
