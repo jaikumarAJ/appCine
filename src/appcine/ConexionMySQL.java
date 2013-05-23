@@ -13,14 +13,13 @@ import javax.swing.JOptionPane;
  */
 public class ConexionMySQL {
     
-    public String bd = "cinema";
+    public String bd = "mitobo_cinema";
     public String login = "root";
     public String password = "esteucoo";
  
     public String url = "jdbc:mysql://62.43.78.64/" + bd;
         /**
 
-    public String bd = "cinema_antiga";
     public String login = "root";
     public String password = "root";    
     public String url = "jdbc:mysql://localhost/" + bd;

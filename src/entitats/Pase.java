@@ -63,16 +63,23 @@ public class Pase implements java.io.Serializable {
         this.pelicula = pelicula;
     }
 
-    public Date getDia() {
-
-        try {
+    public String getDiaString(){
+         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            return sdf.parse(sdf.format(this.dia));
+            return sdf.format(sdf.parse(sdf.format(this.dia)));
+            //return sdf.sdf.parse((String)this.dia);
+            
 
         } catch (ParseException ex) {
             Logger.getLogger(Pase.class.getName()).log(Level.SEVERE, null, ex);
         }
+         
+         return "";
 
+    }
+    public Date getDia() {
+        // TOOD: PERQUE TORNA EL resultat malament?
+       
         return this.dia;
     }
 

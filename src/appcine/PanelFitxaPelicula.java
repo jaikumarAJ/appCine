@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -157,7 +157,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.pases=rBD.getPasesPerPelicula(this.id_pelicula);
         for (Pase p : pases) {
            // System.out.println(p);
-            modelo.addRow(new Object[]{p.getDia(), p.getHora(), p.getSala().getNom()});
+            modelo.addRow(new Object[]{p.getDiaString(), p.getHora(), p.getSala().getNom()});
         }
 
     }

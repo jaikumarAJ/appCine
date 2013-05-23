@@ -120,8 +120,9 @@ public class RecursosBD {
         String hql = "from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
         ArrayList<Pase> pases = (ArrayList) this.getSelect(hql);
         for (Pase p : pases) {
+           
             modelo.addRow(new Object[]{
-                        p.getDia(),
+                        p.getDiaString(),
                         p.getHora(),
                         p.getPelicula().getTitol(),
                         p.getPelicula().getTresd(),
@@ -159,7 +160,30 @@ public class RecursosBD {
         
         return entrades;
     }
-
+    /**
+     * Retorna el preu de la tarifa que li pasam per parametre
+     * @param tipus (1=normal, 2=3d, 3=dia del espectador)
+     * @return 
+     */
+    public Tarifa getTarifa(int tipus){
+        
+        for(Tarifa t : (ArrayList<Tarifa>)this.getSelect("from Tarifa ta where ta.id="+tipus)){
+            return t;
+        }
+        return null;
+    }
+    
+    /**
+     * Retorna un objecte Pase per la ID
+     * @param idPase
+     * @return 
+     */
+    public Pase getPaseById(int idPase){
+        for(Pase p : (ArrayList<Pase>) this.getSelect("from Pase pa where pa.idPase="+idPase)){
+        return p;
+    }
+        return null;
+    }
     /**
      * Fica l'entrada dins la base de dades
      * @param p : Objecte Pase al que correspon l'entrada
@@ -168,10 +192,10 @@ public class RecursosBD {
      */
     public int insertarEntrada(Pase p, Butaca b) {
 
-        try{            
+        try{              // TODO: assignar la tarifa corresponent
+          
             Tarifa t=new Tarifa();
             t.setId(1);
-            // TODO: assignar la tarifa corresponent
             Entrada en=new Entrada(b,t, p);           
             this.session.save(en);
             this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 
