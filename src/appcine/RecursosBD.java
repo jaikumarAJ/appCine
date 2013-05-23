@@ -15,7 +15,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
 
 /**
  *
@@ -29,7 +29,7 @@ public class RecursosBD {
      * Constructor buid
      */
     public RecursosBD() {
-        this.session = HibernateUtil.getSessionFactory().openSession();
+        this.session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
     }
 
