@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -46,6 +47,7 @@ public class PanelEntrades extends javax.swing.JPanel {
     private String seient;
     private RecursosBD rBD;
     public Tarifa tarifa;
+    private ArrayList<java.util.Date> datesDisponibles = new ArrayList<java.util.Date>();
 
     public PanelEntrades(PantallaInicial pi) {
         this.pi = pi;
@@ -339,10 +341,27 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
-            this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
-            for (Date dies : this.rBD.getDiasPelicula(idSeleccionat)) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                this.diasDisponibles.addItem(sdf.format(dies));
+            /*
+             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
+             for (P dies : this.rBD.getDiasPelicula(idSeleccionat)) {
+             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+             this.diasDisponibles.addItem(sdf.format(dies));
+             }
+             * */
+
+            Set<Pase> setPases = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getPases();
+
+
+            ArrayList<java.util.Date> dates = new ArrayList<java.util.Date>();
+            for (Pase p : setPases) {
+                if (!dates.contains(p.getDia())) {
+                    dates.add(p.getDia());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+                    this.diasDisponibles.addItem(sdf.format(p.getDia()));
+
+                    this.datesDisponibles.add(p.getDia());
+                }
             }
 
         }
@@ -364,19 +383,42 @@ public class PanelEntrades extends javax.swing.JPanel {
             } catch (ParseException ex) {
                 Logger.getLogger(PanelEntrades.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println(dia);
-            for (Time hora : this.rBD.getHoresPelicula(this.dia, this.idSeleccionat)) {
-                this.llistatHores.addItem(hora.toString());
-            }
 
+            Set<Pase> setPases = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getPases();
+            ArrayList<java.util.Date> hores = new ArrayList<java.util.Date>();
+
+            System.out.println(this.datesDisponibles);
+            this.pases.clear();
+            for (Pase p : setPases) {
+                System.out.println(p.getDia() +"-----" + this.dia);
+                if (p.getDia().toString().equals(this.dia)) {
+                    System.out.println("som al primer bucle");
+                    if (!hores.contains(p.getHora())) {
+                        System.out.println("no ho conté, anam a ficar-ho");
+                        hores.add(p.getHora());
+                        this.pases.add(p);
+                        this.llistatHores.addItem(p.getHora().toString());
+                    }
+
+                }
+                
+                System.out.println("l'arraylist (1), té "+this.pases.size());
+            }
+            /**
+             * for (Time hora : this.rBD.getHoresPelicula(this.dia,
+             * this.idSeleccionat)) {
+             * this.llistatHores.addItem(hora.toString()); }
+             */
         }
     }//GEN-LAST:event_diasDisponiblesActionPerformed
 
     private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
 
-        // RecursosBD rBD = new RecursosBD();
         if (this.llistatHores.getSelectedIndex() > 0) {
-            this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
+            // si han seleccionat una hora
+            //this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
+            System.out.println("l'arraylist té"+this.pases.size());
+            this.p=this.pases.get(this.llistatHores.getSelectedIndex()-1);
             this.etiqSala.setText(p.getSala().getNom());
             this.mostrarSala(p);
 
