@@ -190,12 +190,10 @@ public class RecursosBD {
      * @param b : Objecte Butaca que s'assigna
      * @return retorna la ID de la entrada insertada
      */
-    public int insertarEntrada(Pase p, Butaca b) {
+    public int insertarEntrada(Pase p, Butaca b, Tarifa t) {
 
-        try{              // TODO: assignar la tarifa corresponent
-          
-            Tarifa t=new Tarifa();
-            t.setId(1);
+        try{                       
+           
             Entrada en=new Entrada(b,t, p);           
             this.session.save(en);
             this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 

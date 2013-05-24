@@ -10,8 +10,6 @@ import entitats.Pelicula;
 import entitats.Tarifa;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -341,25 +339,15 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
-            /*
-             this.idSeleccionat = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getId();
-             for (P dies : this.rBD.getDiasPelicula(idSeleccionat)) {
-             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-             this.diasDisponibles.addItem(sdf.format(dies));
-             }
-             * */
-
+           
             Set<Pase> setPases = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getPases();
-
 
             ArrayList<java.util.Date> dates = new ArrayList<java.util.Date>();
             for (Pase p : setPases) {
                 if (!dates.contains(p.getDia())) {
                     dates.add(p.getDia());
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
                     this.diasDisponibles.addItem(sdf.format(p.getDia()));
-
                     this.datesDisponibles.add(p.getDia());
                 }
             }
@@ -390,11 +378,8 @@ public class PanelEntrades extends javax.swing.JPanel {
             System.out.println(this.datesDisponibles);
             this.pases.clear();
             for (Pase p : setPases) {
-                System.out.println(p.getDia() +"-----" + this.dia);
                 if (p.getDia().toString().equals(this.dia)) {
-                    System.out.println("som al primer bucle");
                     if (!hores.contains(p.getHora())) {
-                        System.out.println("no ho conté, anam a ficar-ho");
                         hores.add(p.getHora());
                         this.pases.add(p);
                         this.llistatHores.addItem(p.getHora().toString());
@@ -402,7 +387,6 @@ public class PanelEntrades extends javax.swing.JPanel {
 
                 }
                 
-                System.out.println("l'arraylist (1), té "+this.pases.size());
             }
             /**
              * for (Time hora : this.rBD.getHoresPelicula(this.dia,
@@ -416,8 +400,6 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         if (this.llistatHores.getSelectedIndex() > 0) {
             // si han seleccionat una hora
-            //this.p = this.rBD.getPase(this.idSeleccionat, this.dia, (String) this.llistatHores.getSelectedItem());
-            System.out.println("l'arraylist té"+this.pases.size());
             this.p=this.pases.get(this.llistatHores.getSelectedIndex()-1);
             this.etiqSala.setText(p.getSala().getNom());
             this.mostrarSala(p);
@@ -435,7 +417,8 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         Butaca b = new Butaca();
         b.setId(seient);
-        int idEntrada = this.rBD.insertarEntrada(this.p, b);
+        
+        int idEntrada = this.rBD.insertarEntrada(this.p, b, this.tarifa);
         //mostram el popup
         this.dialogConfirm.setVisible(false);
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
@@ -464,14 +447,12 @@ public class PanelEntrades extends javax.swing.JPanel {
             reporte = JasperCompileManager.compileReport("src/reports/entrada.jrxml");
             HashMap<String, Object> params = new HashMap<String, Object>();
             params.put("idEntrada", idEntrada);
-            System.out.println("entrada:" + idEntrada);
             JasperPrint print = JasperFillManager.fillReport(reporte, params, link);
 
             JasperViewer.viewReport(print, false);
 
         } catch (Exception ex) {
             Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("error llegint l'informe report_grafiques");
         }
 
     }
@@ -493,52 +474,6 @@ public class PanelEntrades extends javax.swing.JPanel {
             ex.printStackTrace();
         }
     }
-
-    /**
-     * public void mostrarSala2(final int idPase) { this.borrarSeients();
-     *
-     * RecursosBD rBD = new RecursosBD();
-     *
-     * Sala s = rBD.getSalaByPase(idPase);
-     *
-     * int files = s.getFiles(); int columnes = s.getButaques(); this.entrades =
-     * rBD.getEntrades(idPase); this.labelSelectPelicula.setVisible(true); int
-     * itemsAmple = 10; int itemsAlt; int espaiat = 2; int ample = 25; int alt =
-     * ample;
-     *
-     * //calculam quin es l'inici per centrar els seient int tamEspais =
-     * espaiat * (columnes - 1); int ampladaTotesColumnes = tamEspais + (ample *
-     * columnes);
-     *
-     * float iniciX = (float) (this.contenedorSeients.getBounds().getWidth() /
-     * 2) - (ampladaTotesColumnes / 2);
-     *
-     * System.out.println("les butaques s'han de començar a dibuixar al punt" +
-     * iniciX + "(" + columnes + ")"); int iniciY = 0;
-     *
-     * //pintam tots els botons for (int i = 0; i < columnes; i++) { for (int b
-     * = 0; b < files; b++) { final String seient = b + "-" + i; java.awt.Color
-     * color = Color.GREEN; javax.swing.JButton etiq = new
-     * javax.swing.JButton();
-     *
-     * //Miram si esta ocupat o no if (entrades.containsKey(b + "-" + i)) {
-     * color = Color.RED; } //donam etiq.addMouseListener(new
-     * java.awt.event.MouseAdapter() { public void
-     * mouseClicked(java.awt.event.MouseEvent evt) { comprarEntrada(evt, seient,
-     * idPase); } }); int colX = (int) iniciX + (i * (ample + espaiat)); int
-     * colY = iniciY + (b * (alt + espaiat)); // etiq.setOpaque(true);
-     * etiq.setBorderPainted(false); etiq.setBackground(color);
-     *
-     * this.contenedorSeients.add(etiq); etiq.setBounds(colX, colY, ample, alt);
-     *
-     * }
-     * }
-     *
-     * this.contenedorSeients.setPreferredSize( new Dimension( (int)
-     * this.contenedorSeients.getPreferredSize().getWidth(), (files * (alt +
-     * espaiat)))); }
-     *
-     */
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
         // TODO: REVISAR AQUEST CODI
         this.entrades = this.rBD.getEntrades(idPase);
