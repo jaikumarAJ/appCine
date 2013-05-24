@@ -16,6 +16,7 @@ import recursos.Colors;
  * @author torandell9
  */
 public class PanelHoraris extends javax.swing.JPanel {
+
     public PantallaInicial pi;
     public ArrayList<Pase> pases = new ArrayList<Pase>();
 
@@ -27,8 +28,23 @@ public class PanelHoraris extends javax.swing.JPanel {
 
     @Override
     public void setVisible(boolean aFlag) {
-        if (aFlag) {
-            this.carregarHorari();
+        if (aFlag && this.taulaHorari.getRowCount() == 0) {
+
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                }
+            });
+            jDialog1.setLocationRelativeTo(null);
+            jDialog1.setSize(300, 62);
+            jDialog1.setVisible(true);
+
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    carregarHorari();
+
+                }
+            });
+
         }
         super.setVisible(aFlag);
     }
@@ -46,6 +62,7 @@ public class PanelHoraris extends javax.swing.JPanel {
 
         this.taulaHorari.setRowSorter(sorter);
 
+        this.jDialog1.dispose();
     }
 
     /**
@@ -57,20 +74,34 @@ public class PanelHoraris extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
         scrollTaula = new javax.swing.JScrollPane();
         taulaHorari = new javax.swing.JTable();
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/loading_bar.gif"))); // NOI18N
+        jLabel1.setText(" Loading ...");
+
+        org.jdesktop.layout.GroupLayout jDialog1Layout = new org.jdesktop.layout.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jDialog1Layout.createSequentialGroup()
+                .addContainerGap(7, Short.MAX_VALUE)
+                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 274, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        );
 
         setBackground(Colors.colorFonsPrincipal);
 
         taulaHorari.setBackground(Colors.colorFonsPelicules1);
         taulaHorari.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Dia", "Hora", "Pel·lícula", "3D", "Places lliures"
@@ -95,6 +126,8 @@ public class PanelHoraris extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane scrollTaula;
     private javax.swing.JTable taulaHorari;
     // End of variables declaration//GEN-END:variables
