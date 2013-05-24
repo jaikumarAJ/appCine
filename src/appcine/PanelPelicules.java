@@ -17,19 +17,21 @@ import javax.swing.JPanel;
 import recursos.Colors;
 
 //COLORS
-
-
 /**
  *
  * @author torandell9
  */
 public class PanelPelicules extends javax.swing.JPanel {
+
     /**
-    static Color colorFonsPrincipal = new Color(Integer.parseInt("228751", 16));
-    static Color colorFonsPelicules1 = new Color(Integer.parseInt("36DA82", 16));
-  
-    static Color colorTitolPelicules = new Color(Integer.parseInt("333333",16));
-    * */
+     * static Color colorFonsPrincipal = new Color(Integer.parseInt("228751",
+     * 16)); static Color colorFonsPelicules1 = new
+     * Color(Integer.parseInt("36DA82", 16));
+     *
+     * static Color colorTitolPelicules = new
+     * Color(Integer.parseInt("333333",16));
+    *
+     */
     //ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
     PantallaInicial principal;
@@ -37,7 +39,7 @@ public class PanelPelicules extends javax.swing.JPanel {
     /**
      * Creates new form PanelPelicules
      */
-    public PanelPelicules(PantallaInicial principal)  {
+    public PanelPelicules(PantallaInicial principal) {
         initComponents();
         this.principal = principal;
         RecursosBD rBD = new RecursosBD();
@@ -55,24 +57,30 @@ public class PanelPelicules extends javax.swing.JPanel {
         super.setVisible(aFlag);
     }
 
-    
+    /**
+     * Els contenedors son fileres de pel·lícules (2 pelicules per filera)
+     * @param quantPelicules
+     * @return 
+     */
     public ArrayList<JPanel> pintarContenedors(int quantPelicules) {
         double quantContenedors = Math.ceil((double) quantPelicules / (double) 2);
         ArrayList<JPanel> alContenedors = new ArrayList<JPanel>();
         for (int i = 0; i < quantContenedors; i++) {
             JPanel panelCont = new JPanel();
-           
+
             panelCont.setBackground(Colors.colorFonsPelicules1);
             alContenedors.add(panelCont);
             alContenedors.get(i).setAlignmentX(Component.CENTER_ALIGNMENT);
-            alContenedors.get(i).setAlignmentY((400 * i)+440);
+            alContenedors.get(i).setAlignmentY((400 * i) + 440);
             alContenedors.get(i).setMaximumSize(new java.awt.Dimension(650, 500));
             this.jPanel1.add(alContenedors.get(i));
         }
         return alContenedors;
     }
 
-    
+    /**
+     * De totes les pel·lícules les agafa, i fica cadascuna dins el seu contenedor (fila)
+     */
     public void mostrarPelicules() {
 
         int i = 0;
@@ -84,8 +92,12 @@ public class PanelPelicules extends javax.swing.JPanel {
         int colX;
         int colY;
         javax.swing.ImageIcon icn;
+
+
         ArrayList<JPanel> alContenedors = this.pintarContenedors(this.pelicules.size());
+
         int contenedor = 0;
+
         for (Pelicula peli : this.pelicules) {
             javax.swing.JPanel panelPelicula = new javax.swing.JPanel();
             panelPelicula.setBackground(Colors.colorFonsPelicules1);
@@ -107,13 +119,13 @@ public class PanelPelicules extends javax.swing.JPanel {
 
             //IMATGES DESDE LOCAL
             /**
-              String ruta_img = "/recursos/portades/" +
-             this.pelicules.get(i).getRuta_imatge(); lblPortada.setIcon(new
-             javax.swing.ImageIcon(getClass().getResource(ruta_img)));
-            
+             * String ruta_img = "/recursos/portades/" +
+             * this.pelicules.get(i).getRuta_imatge(); lblPortada.setIcon(new
+             * javax.swing.ImageIcon(getClass().getResource(ruta_img)));
+             *
              */
-           String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
-           // String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
+            String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
+            // String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
             try {
                 lblPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
             } catch (MalformedURLException ex) {
@@ -134,19 +146,23 @@ public class PanelPelicules extends javax.swing.JPanel {
             int altImg = lblPortada.getIcon().getIconHeight();
             int PosXPortada = (ample - ampleImg) / 2;
             lblPortada.setBounds(PosXPortada, 40, 200, 220);
+
+            System.out.println("El títol está a:" + panelPelicula.getBounds());
+
             panelPelicula.add(lblPortada);
             panelPelicula.setLayout(null);
             alContenedors.get(contenedor).add(panelPelicula);
-          
+
             i++;
 
             if (i % 2 == 0) {
+                //si es imparell, posam una nova línea de pel·lícules
                 contenedor++;
             }
         }
 
         int quantFiles = (int) Math.ceil(this.pelicules.size() / 2);
-        int altJpanel = quantFiles * (altura + 10);
+        int altJpanel = quantFiles * (altura + 60);
 
         this.jPanel1.setPreferredSize(new java.awt.Dimension((ample * 2) + 10, altJpanel));
 

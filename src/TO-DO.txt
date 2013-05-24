@@ -1,11 +1,5 @@
-// TODO: carregar la taula d'horaris asincronament (fils)
-//TODO: fer que la pantalla de les entrades sigui mes gran perque hi capi el dibuix de la sala
-//TODO: perque la darrera pelicula se veu descolocada?
-// TODO: FER un jar de prova
+jtable horaris dins la fitxa de la pel·lícula (que se vegi de tot l'ample)
 fer que funcioni reservar l'entrada desde la fitxa de la pel·lícula
-arxiu configuració
-jtable horaris dins la fitxa de la pel·lícula
-mostrar precarrega quan trien una opció del menú o fer que es carregui tot antes de començar el programa
+
+//TODO: perque la darrera pelicula se veu descolocada?
 3. Poder fer click a un horari a la fitxa de la pelicula
-5. Assignar sales als passes  (bd)
-7. Assignar generes (bd)

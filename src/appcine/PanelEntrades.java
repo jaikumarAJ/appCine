@@ -475,7 +475,6 @@ public class PanelEntrades extends javax.swing.JPanel {
         }
     }
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-        // TODO: REVISAR AQUEST CODI
         this.entrades = this.rBD.getEntrades(idPase);
         //TREIM EL PREU DE LA BASE DE DADES
         int tipusTarifa = 1;

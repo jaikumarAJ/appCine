@@ -97,11 +97,11 @@ public class PantallaInicial extends javax.swing.JFrame {
         panelContingut.setLayout(panelContingutLayout);
         panelContingutLayout.setHorizontalGroup(
             panelContingutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 1120, Short.MAX_VALUE)
+            .add(0, 1027, Short.MAX_VALUE)
         );
         panelContingutLayout.setVerticalGroup(
             panelContingutLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 483, Short.MAX_VALUE)
+            .add(0, 539, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelContingut, java.awt.BorderLayout.CENTER);
@@ -179,7 +179,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-1120)/2, (screenSize.height-631)/2, 1120, 631);
+        setBounds((screenSize.width-1027)/2, (screenSize.height-687)/2, 1027, 687);
     }// </editor-fold>//GEN-END:initComponents
 
     public void mostrarPanell(javax.swing.JPanel pnl) {
