@@ -1,5 +1,1 @@
-jtable horaris dins la fitxa de la pel·lícula (que se vegi de tot l'ample)
-fer que funcioni reservar l'entrada desde la fitxa de la pel·lícula
-
 //TODO: perque la darrera pelicula se veu descolocada?
-3. Poder fer click a un horari a la fitxa de la pelicula

@@ -22,7 +22,7 @@ import org.hibernate.Session;
  * @author torandell9
  */
 public class RecursosBD {
- 
+
     Session session;
 
     /*
@@ -53,10 +53,10 @@ public class RecursosBD {
 
     /**
      * Selecciona totes les pelicules i les fica dins un arraylist
-  
+     *
      * @param pelicules
      */
-    public void selectPelicules(ArrayList<Pelicula> pelicules){
+    public void selectPelicules(ArrayList<Pelicula> pelicules) {
 
         for (Object o : this.getSelect("from Pelicula")) {
             Pelicula peli = (Pelicula) o;
@@ -107,41 +107,27 @@ public class RecursosBD {
         return null;
     }
 
-    /**
-     * Ompleix el modelo passat per paràmetre
-     *
-     * @param modelo
-     * @return
-     */
-    public DefaultTableModel getPases(DefaultTableModel modelo) {
+    public ArrayList<Pase> getPases() {
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
         String avui = dataAvui.format(date);
         String hql = "from Pase p where p.dia>='" + avui + "' order by dia, hora asc";
         ArrayList<Pase> pases = (ArrayList) this.getSelect(hql);
-        for (Pase p : pases) {
-           
-            modelo.addRow(new Object[]{
-                        p.getDiaString(),
-                        p.getHora(),
-                        p.getPelicula().getTitol(),
-                        p.getPelicula().getTresd(),
-                         p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size()
-                    });
-        }
-        return modelo;
-       
+        return pases;
+
     }
-    
+
     /**
      * Retorna un arraylist dels pases disponibles per cada pel·lícula
+     *
      * @param idPeli
-     * @return 
+     * @return
      */
     public ArrayList<Pase> getPasesPerPelicula(int idPeli) {
-        
-        return ((ArrayList<Pase>) this.getSelect("from Pase pa where pa.pelicula.id="+idPeli));
+
+        return ((ArrayList<Pase>) this.getSelect("from Pase pa where pa.pelicula.id=" + idPeli));
     }
+
     /**
      * Retorna totes les Entrades venudes per un pase determinat
      *
@@ -157,44 +143,49 @@ public class RecursosBD {
             Entrada ent = (Entrada) o;
             entrades.put("NULL-" + ent.getButaca().getId(), ent.getIdEntrada());
         }
-        
+
         return entrades;
     }
+
     /**
      * Retorna el preu de la tarifa que li pasam per parametre
+     *
      * @param tipus (1=normal, 2=3d, 3=dia del espectador)
-     * @return 
+     * @return
      */
-    public Tarifa getTarifa(int tipus){
-        
-        for(Tarifa t : (ArrayList<Tarifa>)this.getSelect("from Tarifa ta where ta.id="+tipus)){
+    public Tarifa getTarifa(int tipus) {
+
+        for (Tarifa t : (ArrayList<Tarifa>) this.getSelect("from Tarifa ta where ta.id=" + tipus)) {
             return t;
         }
         return null;
     }
-    
+
     /**
      * Retorna un objecte Pase per la ID
+     *
      * @param idPase
-     * @return 
+     * @return
      */
-    public Pase getPaseById(int idPase){
-        for(Pase p : (ArrayList<Pase>) this.getSelect("from Pase pa where pa.idPase="+idPase)){
-        return p;
-    }
+    public Pase getPaseById(int idPase) {
+        for (Pase p : (ArrayList<Pase>) this.getSelect("from Pase pa where pa.idPase=" + idPase)) {
+            return p;
+        }
         return null;
     }
+
     /**
      * Fica l'entrada dins la base de dades
+     *
      * @param p : Objecte Pase al que correspon l'entrada
      * @param b : Objecte Butaca que s'assigna
      * @return retorna la ID de la entrada insertada
      */
     public int insertarEntrada(Pase p, Butaca b, Tarifa t) {
 
-        try{                       
-           
-            Entrada en=new Entrada(b,t, p);           
+        try {
+
+            Entrada en = new Entrada(b, t, p);
             this.session.save(en);
             this.session.getTransaction().commit(); //tanca la sessió perque fagi el commit. 
             this.session.beginTransaction();

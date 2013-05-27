@@ -24,6 +24,12 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
     private int id_pelicula;
     private Pelicula peli;
     PantallaInicial principal;
+    DefaultTableModel myModel = new DefaultTableModel(new Object[][]{}, new String[]{"Dia", "Hora", "Sala"}) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     /**
      * Creates new form panelFitxaPelicula
@@ -237,17 +243,16 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         labelSinopsis.setAutoscrolls(false);
         labelSinopsis.setOpaque(false);
 
-        taulaHorari.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Dia", "Hora", "Sala"
-            }
-        ));
+        taulaHorari.setModel(myModel);
         taulaHorari.setComponentPopupMenu(jPopupMenu1);
         taulaHorari.setGridColor(new java.awt.Color(0, 0, 0));
+        taulaHorari.setRowSelectionAllowed(true);
         taulaHorari.setShowGrid(true);
+        taulaHorari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                taulaHorariMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(taulaHorari);
 
         jLabel7.setText("<html><b>Classificació:</b></html>");
@@ -337,8 +342,8 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(labelSinopsis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 146, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 164, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         scrollContainer.setViewportView(jPanel1);
@@ -360,6 +365,15 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.principal.pe = new PanelEntrades(this.principal, this.pases.get(filaSel));
         this.principal.mostrarPanell(this.principal.pe);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void taulaHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taulaHorariMouseClicked
+
+        if (evt.getClickCount() == 2) {
+            int row = this.taulaHorari.rowAtPoint(evt.getPoint());
+            this.principal.pe = new PanelEntrades(this.principal, this.pases.get(row));
+            this.principal.mostrarPanell(this.principal.pe);
+        }
+    }//GEN-LAST:event_taulaHorariMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
