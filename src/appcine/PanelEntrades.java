@@ -10,6 +10,7 @@ import entitats.Pelicula;
 import entitats.Tarifa;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import sales.DibuixSala;
  *
  * @author torandell9
  */
-public class PanelEntrades extends javax.swing.JPanel {
+public final class PanelEntrades extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelEntrades
@@ -53,14 +54,23 @@ public class PanelEntrades extends javax.swing.JPanel {
         this.rBD = new RecursosBD();
         rBD.selectPelicules(pelicules);
         this.omplirLlistatPelicules();
+
     }
 
     public PanelEntrades(PantallaInicial pi, Pase p) {
         this(pi);
-
         this.rBD.selectPelicules(pelicules);
         this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
-        this.etiqSala.setText(p.getSala().getNom());
+        this.llistatPelicules.setSelectedItem(p.getPelicula().getTitol());
+        this.mostrarDies();
+        System.out.println(p.getDia());
+        this.diasDisponibles.setSelectedItem(this.transformarData(p.getDia()));
+        
+        this.mostrarHores();
+        System.out.println(p.getHora());
+        this.llistatHores.setSelectedItem(p.getHora().toString());
+        this.etiqSala.setText(p.getSala().getNom()); // posam el nom de la sala
+        this.mostrarSala(p);
 
     }
 
@@ -68,6 +78,90 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         for (Pelicula p : this.pelicules) {
             this.llistatPelicules.addItem(p.getTitol());
+        }
+    }
+
+    public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
+        this.entrades = this.rBD.getEntrades(idPase);
+        //TREIM EL PREU DE LA BASE DE DADES
+        int tipusTarifa = 1;
+        if (new SimpleDateFormat("EEEE").format(this.p.getDia()).equalsIgnoreCase("martes")) {
+            //dia del espectador
+            tipusTarifa = 3;
+        }
+
+        this.tarifa = rBD.getTarifa(tipusTarifa);
+        if (!this.entrades.containsKey("NULL-" + seient)) {
+            this.seient = seient;
+            //esta lliure
+            this.labelTitol.setText((String) this.llistatPelicules.getSelectedItem());
+            this.labelDia.setText((String) this.diasDisponibles.getSelectedItem());
+            this.labelHora.setText((String) this.llistatHores.getSelectedItem());
+
+            //this.labelSeient.setText(seient);
+            this.labelTarifa.setText(this.tarifa.getPrecio().toString() + " €");
+            this.labelSala.setText(this.etiqSala.getText());
+            //Mostram el dialog que demana confirmació
+            this.mostrarDialog();
+        }
+    }
+
+    private void mostrarDialog() {
+        //POSA ELS COLORS
+        this.dialogConfirm.setBackground(Colors.colorTitolPelicules);
+        this.labelDia.setForeground(Colors.colorFonsPelicules1);
+        this.labelHora.setForeground(Colors.colorFonsPelicules1);
+        this.labelSala.setForeground(Colors.colorFonsPelicules1);
+        this.labelTarifa.setForeground(Colors.colorFonsPelicules1);
+        this.labelTitol.setForeground(Colors.colorFonsPelicules1);
+        this.jLabel6.setForeground(Colors.colorFonsPelicules1);
+        this.jLabel7.setForeground(Colors.colorFonsPelicules1);
+        this.jLabel8.setForeground(Colors.colorFonsPelicules1);
+        this.jLabel10.setForeground(Colors.colorFonsPelicules1);
+        this.jLabel11.setForeground(Colors.colorFonsPelicules1);
+        this.dialogConfirm.setLocationRelativeTo(null);
+        this.dialogConfirm.setSize(380, 310);
+        this.dialogConfirm.setVisible(true);
+    }
+
+    /**
+     * Mostra un pdf amb la entrada
+     *
+     * @param idEntrada
+     */
+    private void mostrarEntrada(int idEntrada) {
+        try {
+            ConexionMySQL con = new ConexionMySQL();
+
+            Connection link = con.conectar();
+            JasperReport reporte;
+
+            reporte = JasperCompileManager.compileReport("src/reports/entrada.jrxml");
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            params.put("idEntrada", idEntrada);
+            JasperPrint print = JasperFillManager.fillReport(reporte, params, link);
+
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception ex) {
+            Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void mostrarSala(Pase p) {
+        this.borrarSeients();
+
+        try {
+
+            Class c = Class.forName("sales." + p.getSala().getTipusSala().getNom());
+            Constructor constructor = c.getDeclaredConstructor(Integer.class);
+            DibuixSala sala = (DibuixSala) constructor.newInstance(p.getIdPase());
+            sala.setPanel(this);
+            sala.setBounds(this.contenedorSeients.getBounds());
+            this.contenedorSeients.add(sala);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -264,7 +358,7 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         contenedorSeients.setBackground(new java.awt.Color(255, 255, 255));
         contenedorSeients.setOpaque(false);
-        contenedorSeients.setLayout(null);
+        contenedorSeients.setLayout(new java.awt.BorderLayout());
         jScrollPane1.setViewportView(contenedorSeients);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -326,40 +420,48 @@ public class PanelEntrades extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void borrarSeients() {
+
         this.contenedorSeients.removeAll();
+
         this.contenedorSeients.setVisible(false);
         this.contenedorSeients.setVisible(true);
 
     }
-    private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
-
-        this.borrarSeients();
-        this.etiqSala.setText("");
-        this.diasDisponibles.removeAllItems();//buidam tota la llista
+    public String transformarData(java.util.Date d){
+         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+         return sdf.format(d);
+    }
+    
+    
+    public void mostrarDies(){
+         this.diasDisponibles.removeAllItems();//buidam tota la llista
 
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
-           
+
             Set<Pase> setPases = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getPases();
 
             ArrayList<java.util.Date> dates = new ArrayList<java.util.Date>();
             for (Pase p : setPases) {
                 if (!dates.contains(p.getDia())) {
                     dates.add(p.getDia());
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                    this.diasDisponibles.addItem(sdf.format(p.getDia()));
+                   
+                    this.diasDisponibles.addItem(this.transformarData(p.getDia()));
                     this.datesDisponibles.add(p.getDia());
                 }
             }
 
         }
-
-    }//GEN-LAST:event_llistatPeliculesActionPerformed
-
-    private void diasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasDisponiblesActionPerformed
+    }
+    private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
 
         this.borrarSeients();
         this.etiqSala.setText("");
+        this.mostrarDies();
+
+    }//GEN-LAST:event_llistatPeliculesActionPerformed
+
+    public void mostrarHores(){
         this.llistatHores.removeAllItems();
         this.llistatHores.addItem("---Selecciona una--");
 
@@ -375,7 +477,6 @@ public class PanelEntrades extends javax.swing.JPanel {
             Set<Pase> setPases = this.pelicules.get(this.llistatPelicules.getSelectedIndex() - 1).getPases();
             ArrayList<java.util.Date> hores = new ArrayList<java.util.Date>();
 
-            System.out.println(this.datesDisponibles);
             this.pases.clear();
             for (Pase p : setPases) {
                 if (p.getDia().toString().equals(this.dia)) {
@@ -386,21 +487,23 @@ public class PanelEntrades extends javax.swing.JPanel {
                     }
 
                 }
-                
+
             }
-            /**
-             * for (Time hora : this.rBD.getHoresPelicula(this.dia,
-             * this.idSeleccionat)) {
-             * this.llistatHores.addItem(hora.toString()); }
-             */
+
         }
+    }
+    private void diasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diasDisponiblesActionPerformed
+
+        this.borrarSeients();
+        this.etiqSala.setText("");
+        this.mostrarHores();
     }//GEN-LAST:event_diasDisponiblesActionPerformed
 
     private void llistatHoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatHoresActionPerformed
 
         if (this.llistatHores.getSelectedIndex() > 0) {
             // si han seleccionat una hora
-            this.p=this.pases.get(this.llistatHores.getSelectedIndex()-1);
+            this.p = this.pases.get(this.llistatHores.getSelectedIndex() - 1);
             this.etiqSala.setText(p.getSala().getNom());
             this.mostrarSala(p);
 
@@ -417,106 +520,26 @@ public class PanelEntrades extends javax.swing.JPanel {
 
         Butaca b = new Butaca();
         b.setId(seient);
-        
+
         int idEntrada = this.rBD.insertarEntrada(this.p, b, this.tarifa);
         //mostram el popup
         this.dialogConfirm.setVisible(false);
+
+        this.mostrarEntrada(idEntrada);
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
         this.dialogConfirm.dispose();
 
-        this.mostrarEntrada(idEntrada);
+
 
         // TODO: se pot fer que posi la butaca en vermell en lloc de que recarregui tota la sala? Amb la id de la butaca??
         this.mostrarSala(this.p);
 
     }//GEN-LAST:event_btnConfirmarMouseClicked
 
-    /**
-     * Mostra un pdf amb la entrada
-     *
-     * @param idEntrada
-     */
-    private void mostrarEntrada(int idEntrada) {
-        try {
-            ConexionMySQL con = new ConexionMySQL();
-
-            Connection link = con.conectar();
-            JasperReport reporte;
-
-            reporte = JasperCompileManager.compileReport("src/reports/entrada.jrxml");
-            HashMap<String, Object> params = new HashMap<String, Object>();
-            params.put("idEntrada", idEntrada);
-            JasperPrint print = JasperFillManager.fillReport(reporte, params, link);
-
-            JasperViewer.viewReport(print, false);
-
-        } catch (Exception ex) {
-            Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dialogConfirm.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
-
-    public void mostrarSala(Pase p) {
-        this.borrarSeients();
-
-        try {
-            Class c = Class.forName("sales." + p.getSala().getTipusSala().getNom());
-            Constructor constructor = c.getDeclaredConstructor(Integer.class);
-            DibuixSala sala = (DibuixSala) constructor.newInstance(p.getIdPase());
-            sala.setPanel(this);
-            sala.setBounds(this.contenedorSeients.getBounds());
-            this.contenedorSeients.add(sala);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
-        this.entrades = this.rBD.getEntrades(idPase);
-        //TREIM EL PREU DE LA BASE DE DADES
-        int tipusTarifa = 1;
-        if (new SimpleDateFormat("EEEE").format(this.p.getDia()).equalsIgnoreCase("martes")) {
-            //dia del espectador
-            tipusTarifa = 3;
-        }
-        this.tarifa = rBD.getTarifa(tipusTarifa);
-
-
-        if (!this.entrades.containsKey("NULL-" + seient)) {
-            this.seient = seient;
-            //esta lliure
-            this.labelTitol.setText((String) this.llistatPelicules.getSelectedItem());
-            this.labelDia.setText((String) this.diasDisponibles.getSelectedItem());
-            this.labelHora.setText((String) this.llistatHores.getSelectedItem());
-
-            //this.labelSeient.setText(seient);
-            this.labelTarifa.setText(this.tarifa.getPrecio().toString() + " €");
-            this.labelSala.setText(this.etiqSala.getText());
-            //Mostram el dialog que demana confirmació
-            this.mostrarDialog();
-        }
-    }
-
-    private void mostrarDialog() {
-        //POSA ELS COLORS
-        this.dialogConfirm.setBackground(Colors.colorTitolPelicules);
-        this.labelDia.setForeground(Colors.colorFonsPelicules1);
-        this.labelHora.setForeground(Colors.colorFonsPelicules1);
-        this.labelSala.setForeground(Colors.colorFonsPelicules1);
-        this.labelTarifa.setForeground(Colors.colorFonsPelicules1);
-        this.labelTitol.setForeground(Colors.colorFonsPelicules1);
-        this.jLabel6.setForeground(Colors.colorFonsPelicules1);
-        this.jLabel7.setForeground(Colors.colorFonsPelicules1);
-        this.jLabel8.setForeground(Colors.colorFonsPelicules1);
-        this.jLabel10.setForeground(Colors.colorFonsPelicules1);
-        this.jLabel11.setForeground(Colors.colorFonsPelicules1);
-        this.dialogConfirm.setLocationRelativeTo(null);
-        this.dialogConfirm.setSize(380, 310);
-        this.dialogConfirm.setVisible(true);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;

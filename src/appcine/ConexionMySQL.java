@@ -15,9 +15,9 @@ public class ConexionMySQL {
     
     public String bd = "mitobo_cinema";
     public String login = "root";
-    public String password = "esteucoo";
+    public String password = "root";
  
-    public String url = "jdbc:mysql://62.43.78.64/" + bd;
+    public String url = "jdbc:mysql://localhost/" + bd;
         /**
 
     public String login = "root";

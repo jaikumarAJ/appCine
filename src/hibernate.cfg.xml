@@ -3,27 +3,27 @@
 <hibernate-configuration>
   <session-factory>
       <!--- QUAN CANVIEM LES DADES AQUI, TAMBE CANVIAR A conexionmysql.java -->     
-     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mitobo_cinema?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
-  <!-- -->  <!--
+  <!--
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://mysql.letter-example.com:3306/mitobo_cinema?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">mitobo_letter</property>
     <property name="hibernate.connection.password">letter</property>  
   
-     
-
+      --> 
+<!--
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://62.43.78.64:3306/mitobo_cinema?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">esteucoo</property>
-   
-     --> 
+     -->
+    
     <property name="hibernate.show_sql">true</property>
       <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
     <mapping resource="entitats/Pase.hbm.xml"/>

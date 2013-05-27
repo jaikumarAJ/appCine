@@ -61,60 +61,60 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
     }
 
     /*
-    public void loadPelicules(javax.swing.JComboBox llistat) throws SQLException {
-        ConexionMySQL mysql = new ConexionMySQL();
-        Connection cn = mysql.conectar();
-        String cSQL = "Select * from pelicules";
+     public void loadPelicules(javax.swing.JComboBox llistat) throws SQLException {
+     ConexionMySQL mysql = new ConexionMySQL();
+     Connection cn = mysql.conectar();
+     String cSQL = "Select * from pelicules";
 
-        Statement st = cn.createStatement();
+     Statement st = cn.createStatement();
 
-        ResultSet rs = st.executeQuery(cSQL);
-        while (rs.next()) {
-            Pelicula p = new Pelicula();
+     ResultSet rs = st.executeQuery(cSQL);
+     while (rs.next()) {
+     Pelicula p = new Pelicula();
 
-            p.setAny(rs.getInt("any"));
-            p.setDirector(rs.getString("director"));
-            p.setDuracio(rs.getInt("duracio"));
-            p.setId(rs.getInt("id"));
-            p.setRutaImatge(rs.getString("ruta_imatge"));
-            p.setSinopsis(rs.getString("sinopsis"));
-            p.setTitol(rs.getString("titol"));
-            llistat.addItem(p.getTitol());
-            this.pelicules.add(p);
-        }
+     p.setAny(rs.getInt("any"));
+     p.setDirector(rs.getString("director"));
+     p.setDuracio(rs.getInt("duracio"));
+     p.setId(rs.getInt("id"));
+     p.setRutaImatge(rs.getString("ruta_imatge"));
+     p.setSinopsis(rs.getString("sinopsis"));
+     p.setTitol(rs.getString("titol"));
+     llistat.addItem(p.getTitol());
+     this.pelicules.add(p);
+     }
 
-        System.out.println("ja hem carregat les pelicules");
-    }
+     System.out.println("ja hem carregat les pelicules");
+     }
 
-    public void loadPases(ArrayList<Pase> pases) {
-        try {
+     public void loadPases(ArrayList<Pase> pases) {
+     try {
             
-            RecursosBD rBD= new RecursosBD();
+     RecursosBD rBD= new RecursosBD();
             
             
-            Connection cn = mysql.conectar();
-            String cSQL = "Select p.*, s.nom from pase p, sala s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
+     Connection cn = mysql.conectar();
+     String cSQL = "Select p.*, s.nom from pase p, sala s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
 
-            Statement st = cn.createStatement();
-            this.pases=rBD.
-            ResultSet rs = st.executeQuery(cSQL);
-            while (rs.next()) {
-                Pase p = new Pase();
-                p.setIdPase(rs.getInt("id_pase"));
-                p.setDia(rs.getDate("dia"));                
-                p.setHora(rs.getDate("hora"));
-                Sala s = new Sala();
-                s.setNom(rs.getString("nom"));
-                p.setSala(s);
+     Statement st = cn.createStatement();
+     this.pases=rBD.
+     ResultSet rs = st.executeQuery(cSQL);
+     while (rs.next()) {
+     Pase p = new Pase();
+     p.setIdPase(rs.getInt("id_pase"));
+     p.setDia(rs.getDate("dia"));                
+     p.setHora(rs.getDate("hora"));
+     Sala s = new Sala();
+     s.setNom(rs.getString("nom"));
+     p.setSala(s);
                
-                this.pases.add(p);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     this.pases.add(p);
+     }
+     } catch (SQLException ex) {
+     Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
+     }
 
-    }
-*/
+     }
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,18 +145,16 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.id_pelicula = this.pelicules.get(index).getId();
         this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
         this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
-        
+
         //BUIDAM LA TAULA D'HORARIS
-        DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();  
+        DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();
         modelo.setRowCount(0);
         this.pases.removeAll(pases);
 
         //omplim la taula d'horaris
-        RecursosBD rBD= new RecursosBD();
-//        rBD.loadPases(pases, this.id_pelicula);
-        this.pases=rBD.getPasesPerPelicula(this.id_pelicula);
+        RecursosBD rBD = new RecursosBD();
+        this.pases = rBD.getPasesPerPelicula(this.id_pelicula);
         for (Pase p : pases) {
-           // System.out.println(p);
             modelo.addRow(new Object[]{p.getDiaString(), p.getHora(), p.getSala().getNom()});
         }
 
@@ -352,11 +350,13 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
     /**
-     * Carrega la pantalla d'entrades per la pel·lícula al dia i hora seleccionades.
-     * @param evt 
+     * Carrega la pantalla d'entrades per la pel·lícula al dia i hora
+     * seleccionades.
+     *
+     * @param evt
      */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        int filaSel = this.taulaHorari.getSelectedRow();    
+        int filaSel = this.taulaHorari.getSelectedRow();
         this.principal.pe = new PanelEntrades(this.principal, this.pases.get(filaSel));
         this.principal.mostrarPanell(this.principal.pe);
     }//GEN-LAST:event_jMenuItem1ActionPerformed

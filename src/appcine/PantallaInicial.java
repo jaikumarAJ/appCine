@@ -185,6 +185,7 @@ public class PantallaInicial extends javax.swing.JFrame {
     public void mostrarPanell(javax.swing.JPanel pnl) {
         this.ocultarTot();
         //this.panelContingut.add(pnl,java.awt.BorderLayout.CENTER);
+     
         pnl.setVisible(true);
         getContentPane().add(pnl, java.awt.BorderLayout.CENTER);
         // pnl.setBounds(0, 0, this.panelContingut.getWidth(), this.panelContingut.getHeight());
