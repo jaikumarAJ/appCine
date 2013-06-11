@@ -1,1 +1,10 @@
-//TODO: perque la darrera pelicula se veu descolocada?
+CLIENT:
+ - Comentar codi
+ - Fix imports
+ - col·locar arxius
+ - borrar arxius inncecesaris
+
+
+ADMIN:
+ - Passar els reports del client aquí?
+ - DEMANAR CONFIRMACIÓ PER BORRAR LA PELICULA

@@ -66,61 +66,7 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         super.setVisible(aFlag);
     }
 
-    /*
-     public void loadPelicules(javax.swing.JComboBox llistat) throws SQLException {
-     ConexionMySQL mysql = new ConexionMySQL();
-     Connection cn = mysql.conectar();
-     String cSQL = "Select * from pelicules";
-
-     Statement st = cn.createStatement();
-
-     ResultSet rs = st.executeQuery(cSQL);
-     while (rs.next()) {
-     Pelicula p = new Pelicula();
-
-     p.setAny(rs.getInt("any"));
-     p.setDirector(rs.getString("director"));
-     p.setDuracio(rs.getInt("duracio"));
-     p.setId(rs.getInt("id"));
-     p.setRutaImatge(rs.getString("ruta_imatge"));
-     p.setSinopsis(rs.getString("sinopsis"));
-     p.setTitol(rs.getString("titol"));
-     llistat.addItem(p.getTitol());
-     this.pelicules.add(p);
-     }
-
-     System.out.println("ja hem carregat les pelicules");
-     }
-
-     public void loadPases(ArrayList<Pase> pases) {
-     try {
-            
-     RecursosBD rBD= new RecursosBD();
-            
-            
-     Connection cn = mysql.conectar();
-     String cSQL = "Select p.*, s.nom from pase p, sala s where s.id=p.id_sala and p.id_pelicula=" + this.id_pelicula;
-
-     Statement st = cn.createStatement();
-     this.pases=rBD.
-     ResultSet rs = st.executeQuery(cSQL);
-     while (rs.next()) {
-     Pase p = new Pase();
-     p.setIdPase(rs.getInt("id_pase"));
-     p.setDia(rs.getDate("dia"));                
-     p.setHora(rs.getDate("hora"));
-     Sala s = new Sala();
-     s.setNom(rs.getString("nom"));
-     p.setSala(s);
-               
-     this.pases.add(p);
-     }
-     } catch (SQLException ex) {
-     Logger.getLogger(PanelPelicules.class.getName()).log(Level.SEVERE, null, ex);
-     }
-
-     }
-     */
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,12 +97,10 @@ public class PanelFitxaPelicula extends javax.swing.JPanel {
         this.id_pelicula = this.pelicules.get(index).getId();
         this.labelClassif.setText(this.pelicules.get(index).getClassificacio());
         this.labelgenere.setText(this.pelicules.get(index).getStringGeneres());
-
         //BUIDAM LA TAULA D'HORARIS
         DefaultTableModel modelo = (DefaultTableModel) this.taulaHorari.getModel();
         modelo.setRowCount(0);
         this.pases.removeAll(pases);
-
         //omplim la taula d'horaris
         RecursosBD rBD = new RecursosBD();
         this.pases = rBD.getPasesPerPelicula(this.id_pelicula);
