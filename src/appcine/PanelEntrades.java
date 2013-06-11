@@ -130,6 +130,7 @@ public final class PanelEntrades extends javax.swing.JPanel {
      * @param idEntrada
      */
     private void mostrarEntrada(int idEntrada) {
+        //TODO: mostra l'entrada amb les dates i hores malament
         try {
             ConexionMySQL con = new ConexionMySQL();
 

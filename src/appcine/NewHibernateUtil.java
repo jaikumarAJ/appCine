@@ -19,12 +19,13 @@ import org.hibernate.service.ServiceRegistryBuilder;
 public class NewHibernateUtil {
 
     private static final SessionFactory sessionFactory;
+    public static Configuration cfg;
 
     static {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            Configuration cfg;
+
             cfg = new Configuration().addURL(new URL("http://www.cartasmodelos.com/hibernate.cfg.xml"));
             cfg.configure();
 

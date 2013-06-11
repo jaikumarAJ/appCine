@@ -62,6 +62,7 @@ public class PanelHoraris extends javax.swing.JPanel {
         
          for (Pase p : this.pases) {
             String es3d="no";
+       
            if(p.getPelicula().getTresd()){
                es3d="si";
            }

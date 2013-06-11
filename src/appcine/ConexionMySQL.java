@@ -26,6 +26,11 @@ public class ConexionMySQL {
    **/
     public Connection conectar() {
         Connection link = null;
+       NewHibernateUtil nhu = new NewHibernateUtil();
+        //this.bd=nhu.cfg.getProperty(login);
+        this.login=nhu.cfg.getProperty("hibernate.connection.username");
+        this.password=nhu.cfg.getProperty("hibernate.connection.password");
+        this.url=nhu.cfg.getProperty("hibernate.connection.url");
 
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
