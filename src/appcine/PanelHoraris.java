@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import entitats.Pase;
@@ -12,14 +8,16 @@ import javax.swing.table.TableRowSorter;
 import recursos.Colors;
 
 /**
+ * Class que mostra el Panel amb tots els pases disponibles (no mostra els
+ * passes antics).
  *
  * @author torandell9
  */
 public class PanelHoraris extends javax.swing.JPanel {
 
-    public PantallaInicial pi;
-    public ArrayList<Pase> pases = new ArrayList<Pase>();
-    DefaultTableModel myModel = new DefaultTableModel(new Object[][]{}, new String[]{"Día", "Hora", "Pel·lícula", "3D", "Places lliures"}) {
+    private PantallaInicial pi;
+    private ArrayList<Pase> pases = new ArrayList<Pase>();
+    private DefaultTableModel myModel = new DefaultTableModel(new Object[][]{}, new String[]{"Día", "Hora", "Pel·lícula", "3D", "Places lliures"}) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -27,8 +25,9 @@ public class PanelHoraris extends javax.swing.JPanel {
     };
 
     /**
-     * Constructor buid
-     * @param pi 
+     * Constructor bàsic
+     *
+     * @param pi : instancia de la PantallaInicial pare del Programa
      */
     public PanelHoraris(PantallaInicial pi) {
         initComponents();

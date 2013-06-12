@@ -17,15 +17,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
+ * Class per fer les peticions a la Base de dades a travès d'Hibernate.
  *
  * @author torandell9
  */
 public class RecursosBD {
 
-    Session session;
+    private Session session;
 
-    /*
-     * Constructor buid
+    /**
+     * Consturctor buid. Obri una sessió d'hibernate nova.
      */
     public RecursosBD() {
         this.session = NewHibernateUtil.getSessionFactory().openSession();
@@ -37,7 +38,7 @@ public class RecursosBD {
      * ArrayList dels resultats
      *
      * @param hql : Sentencia hql que s'ha d'executar
-     * @return ArrayList amb els resultats de la consulta
+     * @return : ArrayList amb els resultats de la consulta
      */
     private List getSelect(String hql) {
         try {
@@ -53,7 +54,7 @@ public class RecursosBD {
     /**
      * Selecciona totes les pelicules i les fica dins un arraylist
      *
-     * @param pelicules
+     * @param pelicules : ArrayList on s'han de ficar les pel·lícules.
      */
     public void selectPelicules(ArrayList<Pelicula> pelicules) {
 
@@ -65,23 +66,9 @@ public class RecursosBD {
     }
 
     /**
-     * Selecciona els diferents dies que es pasa una pel·lícula.
-     *
-     * @param idPelicula : el nom ho dui tot
-     * @return ArrayList de java.sql.Date amb les dates en format yyyy-mm-dd
-     *
-     *
-     * public ArrayList<java.sql.Date> getDiasPelicula(int idPelicula) { String
-     * hql = "SELECT distinct pa.dia from Pase pa where pa.pelicula.id='2'";
-     * return (ArrayList) this.getSelect(hql);
-     *
-     * }
-     */
-    /**
      * Retorna les hores en que es mostra la pel·lícula en un dia en concret
-     *
-     * @param dia
-     * @param idPelicula
+     * @param dia : día (en format String) per al que es volen obtenir les hores disponibles
+     * @param idPelicula : identificador de la pel·lícula.
      * @return ArrayList d'hores que es mostra la pel·lícula
      */
     public ArrayList<Time> getHoresPelicula(String dia, int idPelicula) {
@@ -92,10 +79,9 @@ public class RecursosBD {
 
     /**
      * Retorna un objecte Pase per la pel·lícula al dia i hora donades
-     *
      * @param id : id de la pel·lícula
-     * @param dia
-     * @param hora
+     * @param dia : data en format String del que es vol sel·leccionar el Pase
+     * @param hora : hora en format String per el que es vol sel·leccionar el Pase.
      * @return objecte Pase complet
      */
     public Pase getPase(int id, String dia, String hora) {
@@ -107,6 +93,10 @@ public class RecursosBD {
         return null;
     }
 
+    /**
+     * Treu tots els pases disponibles a partir d'avui.
+     * @return : ArrayList amb tots els pases trobats.
+     */
     public ArrayList<Pase> getPases() {
         Date date = (Date) Calendar.getInstance().getTime();
         SimpleDateFormat dataAvui = new SimpleDateFormat("yyyy-MM-dd");
@@ -119,9 +109,8 @@ public class RecursosBD {
 
     /**
      * Retorna un arraylist dels pases disponibles per cada pel·lícula
-     *
-     * @param idPeli
-     * @return
+     * @param idPeli : identificador de la pel·lícula del que es volen treure els Pases.
+     * @return : ArrayList amb tots els pases trobats.
      */
     public ArrayList<Pase> getPasesPerPelicula(int idPeli) {
 
@@ -130,8 +119,7 @@ public class RecursosBD {
 
     /**
      * Retorna totes les Entrades venudes per un pase determinat
-     *
-     * @param idPase
+     * @param idPase : identificador del Pase del que es volen treure les entrades.
      * @return HashMap tipus <fila-butaca, idEntrada>
      */
     public HashMap<String, Integer> getEntrades(int idPase) {
@@ -149,9 +137,8 @@ public class RecursosBD {
 
     /**
      * Retorna el preu de la tarifa que li pasam per parametre
-     *
      * @param tipus (1=normal, 2=3d, 3=dia del espectador)
-     * @return
+     * @return objecte Tarifa per el tipus de tarifa passat per paràmetre
      */
     public Tarifa getTarifa(int tipus) {
 
@@ -163,9 +150,8 @@ public class RecursosBD {
 
     /**
      * Retorna un objecte Pase per la ID
-     *
-     * @param idPase
-     * @return
+     * @param idPase : identificador del Pase.
+     * @return : objecte Pase de la ID pasada per paràmetre.
      */
     public Pase getPaseById(int idPase) {
         for (Pase p : (ArrayList<Pase>) this.getSelect("from Pase pa where pa.idPase=" + idPase)) {
@@ -176,7 +162,6 @@ public class RecursosBD {
 
     /**
      * Fica l'entrada dins la base de dades
-     *
      * @param p : Objecte Pase al que correspon l'entrada
      * @param b : Objecte Butaca que s'assigna
      * @return retorna la ID de la entrada insertada
@@ -192,7 +177,7 @@ public class RecursosBD {
 
             return en.getIdEntrada();
         } catch (Exception ex) {
-           
+
             System.out.println("Error al introduir" + ex);
         }
         return 0;

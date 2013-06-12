@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import java.net.URL;
@@ -13,7 +9,6 @@ import org.hibernate.service.ServiceRegistryBuilder;
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
  * object.
- *
  * @author torandell9
  */
 public class NewHibernateUtil {
@@ -23,10 +18,8 @@ public class NewHibernateUtil {
 
     static {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
-
-            cfg = new Configuration().addURL(new URL("http://www.cartasmodelos.com/hibernate.cfg.xml"));
+           
+            cfg = new Configuration().addURL(new URL("http://www.cartasmodelos.com/hibernate.cfg.xml")); // l'arxiu s'ha mogut al servidor perque l'app d'usuari i d'administrador puguin utilitzar sempre els mateixos settings.
             cfg.configure();
 
             ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(cfg.getProperties()).buildServiceRegistry();
@@ -39,6 +32,10 @@ public class NewHibernateUtil {
         }
     }
 
+    /**
+     * Crea un sessionFactory a partir del arxiu de configuració xml al servidor.
+     * @return objecte SessionFactory amb la configuració adequada.
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }

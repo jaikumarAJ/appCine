@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import java.sql.SQLException;
-import java.util.Random;
 
 /**
- *
+ * Clase principal que construeix les pantalles
  * @author torandell9
  */
 public class AppCine {

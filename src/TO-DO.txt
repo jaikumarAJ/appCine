@@ -1,14 +1,9 @@
 Javadocs.
 Presentacions.
+Fer jars.
 CLIENT:
  - Comentar codi
- - Fix imports
- - col·locar arxius
- - borrar arxius inncecesaris
-
 
 ADMIN:
- - VALIDAR ELS GENERES NO FUNCIONA.
  - FICAR PASES.
- - Arreglar el sistema de data quan compres una entrada.
- - POSAR O LLEVAR ELS REPORTS, PERO FER ALGO!
+

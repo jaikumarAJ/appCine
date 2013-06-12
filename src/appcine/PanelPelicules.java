@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import entitats.Pelicula;
@@ -16,28 +12,21 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 import recursos.Colors;
 
-//COLORS
 /**
+ * Class que controla el Panel que mostra totes les pel·lícules que hi ha al
+ * cine.
  *
  * @author torandell9
  */
 public class PanelPelicules extends javax.swing.JPanel {
 
-    /**
-     * static Color colorFonsPrincipal = new Color(Integer.parseInt("228751",
-     * 16)); static Color colorFonsPelicules1 = new
-     * Color(Integer.parseInt("36DA82", 16));
-     *
-     * static Color colorTitolPelicules = new
-     * Color(Integer.parseInt("333333",16));
-    *
-     */
-    //ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
-    ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
-    PantallaInicial principal;
+    private ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
+    private PantallaInicial principal;
 
     /**
-     * Creates new form PanelPelicules
+     * Constructor bàsic
+     *
+     * @param principal : instancia de la PantallaInicial pare del programa.
      */
     public PanelPelicules(PantallaInicial principal) {
         initComponents();
@@ -59,8 +48,9 @@ public class PanelPelicules extends javax.swing.JPanel {
 
     /**
      * Els contenedors son fileres de pel·lícules (2 pelicules per filera)
+     *
      * @param quantPelicules
-     * @return 
+     * @return
      */
     public ArrayList<JPanel> pintarContenedors(int quantPelicules) {
         double quantContenedors = Math.ceil((double) quantPelicules / (double) 2);
@@ -79,7 +69,8 @@ public class PanelPelicules extends javax.swing.JPanel {
     }
 
     /**
-     * De totes les pel·lícules les agafa, i fica cadascuna dins el seu contenedor (fila)
+     * De totes les pel·lícules les agafa, i fica cadascuna dins el seu
+     * contenedor (fila)
      */
     public void mostrarPelicules() {
 
@@ -117,15 +108,8 @@ public class PanelPelicules extends javax.swing.JPanel {
             labelTitol.setFont(new java.awt.Font("Lucida Grande", 1, 16));
             panelPelicula.add(labelTitol);
 
-            //IMATGES DESDE LOCAL
-            /**
-             * String ruta_img = "/recursos/portades/" +
-             * this.pelicules.get(i).getRuta_imatge(); lblPortada.setIcon(new
-             * javax.swing.ImageIcon(getClass().getResource(ruta_img)));
-             *
-             */
-            String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
-            // String ruta_img = "http://84.127.90.37/appcine/portades/" + this.pelicules.get(i).getRuta_imatge();
+            // String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
+            String ruta_img = "http://62.43.75.57 /appcine/portades/" + this.pelicules.get(i).getRutaImatge();
             try {
                 lblPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
             } catch (MalformedURLException ex) {
@@ -170,8 +154,7 @@ public class PanelPelicules extends javax.swing.JPanel {
 
     /**
      * Mostra la fitxa de la pelicula que li pasem per el parametre
-     *
-     * @param idPelicula
+     * @param idPelicula : identificador de la Pel·lícula que es vol mostrar.
      */
     private void mostrarFitxaPelicula(int idPelicula) throws SQLException {
         for (Pelicula p : this.pelicules) {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import entitats.Butaca;
@@ -10,7 +6,6 @@ import entitats.Pelicula;
 import entitats.Tarifa;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,15 +23,16 @@ import recursos.Colors;
 import sales.DibuixSala;
 
 /**
+ * Clase que controla el Panel per comprar entrades.
  *
  * @author torandell9
  */
 public final class PanelEntrades extends javax.swing.JPanel {
 
     /**
-     * Creates new form PanelEntrades
+     * Creates new form PanelEntrades.
      */
-    public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
+    public ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>(); /** ArrayList amb totes les pel·lícules disponibles per comprar entrades **/
     private ArrayList<Pase> pases = new ArrayList<Pase>();
     private int idSeleccionat;
     private String dia;
@@ -45,9 +41,14 @@ public final class PanelEntrades extends javax.swing.JPanel {
     private Pase p;
     private String seient;
     private RecursosBD rBD;
-    public Tarifa tarifa;
+    public Tarifa tarifa; /** Variable temporal de la tarifa que s'esta aplicant a l'entrada que s'esta venent **/
     private ArrayList<java.util.Date> datesDisponibles = new ArrayList<java.util.Date>();
 
+    /**
+     * Constructor basic.
+     * Inicialitza el PanelEntrades.
+     * @param pi : instancia de la PantallaInicial pare del programa.
+     */
     public PanelEntrades(PantallaInicial pi) {
         this.pi = pi;
         initComponents();
@@ -57,23 +58,27 @@ public final class PanelEntrades extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Constructor per quan la pantalla s'ha de carregar directament amb les dades d'un pase en concret (normalment venen de la fitxa de la pel·lícula)
+     * @param pi : Instancia de la PantallaInicial pare del programa.
+     * @param p : Objecte del Pase en concret que s'ha de carregar.
+     */
     public PanelEntrades(PantallaInicial pi, Pase p) {
         this(pi);
         this.rBD.selectPelicules(pelicules);
         this.omplirLlistatPelicules(); //omplim el list de pelicules per si volen canviar
         this.llistatPelicules.setSelectedItem(p.getPelicula().getTitol());
         this.mostrarDies();
-        System.out.println(p.getDia());
         this.diasDisponibles.setSelectedItem(this.transformarData(p.getDia()));
-
         this.mostrarHores();
-        System.out.println(p.getHora());
         this.llistatHores.setSelectedItem(p.getHora().toString());
         this.etiqSala.setText(p.getSala().getNom()); // posam el nom de la sala
         this.mostrarSala(p);
 
     }
-
+    /**
+     * Carrega el JComboBox amb les pel·lícules dins l'ArrayList.
+     */
     private void omplirLlistatPelicules() {
 
         for (Pelicula p : this.pelicules) {
@@ -81,6 +86,12 @@ public final class PanelEntrades extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Quan fan click a un seient, mostra un Dialog amb les dades de la entrada que vol comprar (dia, hora, pel·lícula...) i demana confirmació per marcar el seient com a reservat.
+     * @param evt
+     * @param seient : Seient on volen comprar l'entrada
+     * @param idPase : identificador del Pase que volen comprar
+     */
     public void comprarEntrada(java.awt.event.MouseEvent evt, String seient, int idPase) {
         this.entrades = this.rBD.getEntrades(idPase);
         //TREIM EL PREU DE LA BASE DE DADES
@@ -106,6 +117,9 @@ public final class PanelEntrades extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Mostra un dialog amb les dades de la reserva que volen fer i demana confirmació.
+     */
     private void mostrarDialog() {
         //POSA ELS COLORS
         this.dialogConfirm.setBackground(Colors.colorTitolPelicules);
@@ -126,11 +140,9 @@ public final class PanelEntrades extends javax.swing.JPanel {
 
     /**
      * Mostra un pdf amb la entrada
-     *
-     * @param idEntrada
+     * @param idEntrada : id de la Entrada de la que es mostrarà el PDF.
      */
     private void mostrarEntrada(int idEntrada) {
-        //TODO: mostra l'entrada amb les dates i hores malament
         try {
             ConexionMySQL con = new ConexionMySQL();
 
@@ -150,9 +162,12 @@ public final class PanelEntrades extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Carrega el dibuix de la Sala per al Pase passat per paràmetre.
+     * @param p : Ojbecte Pase del que s'extreurà la Sala i tipus de Sala
+     */
     public void mostrarSala(Pase p) {
         this.borrarSeients();
-
         try {
 
             Class c = Class.forName("sales." + p.getSala().getTipusSala().getNom());
@@ -420,20 +435,29 @@ public final class PanelEntrades extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Borra el dibuix de la Sala del @contenedorSeients per poder-hi tornar a escriure damunt.
+     */
     private void borrarSeients() {
-
         this.contenedorSeients.removeAll();
-
         this.contenedorSeients.setVisible(false);
         this.contenedorSeients.setVisible(true);
 
     }
 
+    /**
+     * Tranforma el Date passat per paràmetre.
+     * @param d : Date que es vol transformar
+     * @return : String amb el format dd-MM-yyyy del Date.
+     */
     public String transformarData(java.util.Date d) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         return sdf.format(d);
     }
 
+    /**
+     * Ompleix el JComboBox amb els dies que es passarà la pel·lícula sel.leccionada.
+     */
     public void mostrarDies() {
         this.diasDisponibles.removeAllItems();//buidam tota la llista
 
@@ -454,6 +478,7 @@ public final class PanelEntrades extends javax.swing.JPanel {
 
         }
     }
+    
     private void llistatPeliculesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistatPeliculesActionPerformed
 
         this.borrarSeients();
@@ -461,7 +486,9 @@ public final class PanelEntrades extends javax.swing.JPanel {
         this.mostrarDies();
 
     }//GEN-LAST:event_llistatPeliculesActionPerformed
-
+    /**
+     * Ompleix el JComboBox amb les hores on es passarà una pel·lícula a un día concret.
+     */
     public void mostrarHores() {
         this.llistatHores.removeAllItems();
         this.llistatHores.addItem("---Selecciona una--");
@@ -521,11 +548,9 @@ public final class PanelEntrades extends javax.swing.JPanel {
 
         Butaca b = new Butaca();
         b.setId(seient);
-
         int idEntrada = this.rBD.insertarEntrada(this.p, b, this.tarifa);
         //mostram el popup
         this.dialogConfirm.setVisible(false);
-
 
         JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
         this.mostrarEntrada(idEntrada);

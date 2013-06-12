@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import java.awt.Image;
@@ -12,16 +8,15 @@ import javax.imageio.ImageIO;
 import recursos.Colors;
 
 /**
- *
+ * Pantalla Mare del programa. Conté el tabBar i la caixa on aniràn els 'subPanels'.
  * @author torandell9
  */
 public class PantallaInicial extends javax.swing.JFrame {
 
-    //llistat de 
-    public PanelPelicules pp = new PanelPelicules(this);
-    public PanelFitxaPelicula pfp = new PanelFitxaPelicula(this);
-    public PanelEntrades pe = new PanelEntrades(this);
-    public PanelHoraris ph = new PanelHoraris(this);
+    public PanelPelicules pp = new PanelPelicules(this); /** Instància del Panel que mostra totes les pel·lícules**/
+    public PanelFitxaPelicula pfp = new PanelFitxaPelicula(this);  /** Instància del Panel que mostra la fitxa d'una pel·lícula en concret **/
+    public PanelEntrades pe = new PanelEntrades(this); /** Instància del Panel que mostra els pases per comprar una entrada **/
+    public PanelHoraris ph = new PanelHoraris(this); /** Instància del Panel que mostra tots els horaris disponibles d'avui cap endavant **/
 
     /*
      * Constructor buid
@@ -30,7 +25,7 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         Image i;
         try {
-            i = ImageIO.read(getClass().getResource("/recursos/icono_cine.jpg"));
+            i = ImageIO.read(getClass().getResource("/recursos/icono_cine.jpg")); // seteja l'icona del programa.
             setIconImage(i);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -168,7 +163,6 @@ public class PantallaInicial extends javax.swing.JFrame {
     }
 
     private void btnPeliculesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPeliculesMouseClicked
-
         this.mostrarPanell(this.pp);
 
     }//GEN-LAST:event_btnPeliculesMouseClicked

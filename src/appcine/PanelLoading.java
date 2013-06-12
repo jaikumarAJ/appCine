@@ -1,42 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
-import entitats.Pelicula;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JPanel;
-import recursos.Colors;
-
-//COLORS
-
-
 /**
- *
+ * Mostra una animació de Loading per quan hi ha molts de pases i s'han de carregar del servidor, pot anar un poc lento i pareixer que el programa s'ha penjat.
  * @author torandell9
  */
 public class PanelLoading extends javax.swing.JPanel {
-    /**
-    static Color colorFonsPrincipal = new Color(Integer.parseInt("228751", 16));
-    static Color colorFonsPelicules1 = new Color(Integer.parseInt("36DA82", 16));
-  
-    static Color colorTitolPelicules = new Color(Integer.parseInt("333333",16));
-    * */
-    //ArrayList<Pelicula> pelicules = new ArrayList<Pelicula>();
+    
+    private PantallaInicial principal;
 
-    PantallaInicial principal;
-
-    /**
-     * Creates new form PanelLoading
-     */
+   /**
+    *  Constructor bàsic.
+    * @param principal : instància de la PantallaInicial pare del programa.
+    */
     public PanelLoading(PantallaInicial principal)  {
         initComponents();
         this.principal = principal;
@@ -51,10 +26,7 @@ public class PanelLoading extends javax.swing.JPanel {
         }
         super.setVisible(aFlag);
     }
-    
- 
-    
-  
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
