@@ -128,7 +128,7 @@
               <Connection code="Colors.colorLletresTabs" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/recursos/icono_horario.jpg"/>
+              <Image iconType="3" name="/recursos/icono_horario.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;Horaris&lt;/b&gt;&lt;/html&gt;"/>
             <Property name="borderPainted" type="boolean" value="false"/>
@@ -138,28 +138,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnComprarMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Colors.colorBotonera" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Colors.colorLletresTabs" type="code"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor" postCode="btnPelicules.setForeground(Colors.colorLletresTabs);">
-              <Image iconType="3" name="/recursos/icono_stats.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;b&gt;Estad&#xed;stiques&lt;/b&gt;&lt;/html&gt;"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="opaque" type="boolean" value="true"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton2MouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

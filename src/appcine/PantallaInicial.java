@@ -6,16 +6,9 @@ package appcine;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 import recursos.Colors;
 
 /**
@@ -53,6 +46,7 @@ public class PantallaInicial extends javax.swing.JFrame {
      *
      * @param aFlag
      */
+    @Override
     public void setVisible(boolean aFlag) {
         if (aFlag) {
             this.mostrarPanell(this.pp);
@@ -85,7 +79,6 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnPelicules = new javax.swing.JButton();
         btnEntrades = new javax.swing.JButton();
         btnComprar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -146,7 +139,7 @@ public class PantallaInicial extends javax.swing.JFrame {
         btnComprar.setBackground(Colors.colorBotonera);
         btnPelicules.setForeground(Colors.colorLletresTabs);
         btnComprar.setForeground(Colors.colorLletresTabs);
-        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_horario.jpg"))); // NOI18N
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_horario.png"))); // NOI18N
         btnComprar.setText("<html><b>Horaris</b></html>");
         btnComprar.setBorderPainted(false);
         btnComprar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -158,23 +151,6 @@ public class PantallaInicial extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btnComprar);
-
-        jButton2.setBackground(Colors.colorBotonera);
-        jButton2.setForeground(Colors.colorLletresTabs);
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono_stats.png"))); // NOI18N
-        btnPelicules.setForeground(Colors.colorLletresTabs);
-        jButton2.setText("<html><b>Estadístiques</b></html>");
-        jButton2.setBorderPainted(false);
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setOpaque(true);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-        jToolBar1.add(jButton2);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
@@ -205,30 +181,6 @@ public class PantallaInicial extends javax.swing.JFrame {
 
         this.mostrarPanell(this.ph);
     }//GEN-LAST:event_btnComprarMouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        try {
-            /**
-            Class.forName("org.gjt.mm.mysql.Driver");
-            Connection link = DriverManager.getConnection("jdbc:mysql://localhost/cinema_antiga", "root", "root");
-            * */
-            ConexionMySQL con = new ConexionMySQL();
-            
-            Connection link = con.conectar();
-            JasperReport reporte;
-
-            reporte = JasperCompileManager.compileReport("src/reports/report_grafiques.jrxml");
-            
-            JasperPrint print = JasperFillManager.fillReport(reporte, null, link);
-
-            JasperViewer.viewReport(print, false);
-
-        } catch (Exception ex) {
-            Logger.getLogger(PantallaInicial.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("error llegint l'informe report_grafiques");
-        }
-
-    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -270,7 +222,6 @@ public class PantallaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnEntrades;
     private javax.swing.JButton btnPelicules;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JToolBar jToolBar1;
     public javax.swing.JPanel panelContingut;
     // End of variables declaration//GEN-END:variables

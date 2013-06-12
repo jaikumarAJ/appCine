@@ -19,13 +19,17 @@ public class PanelHoraris extends javax.swing.JPanel {
 
     public PantallaInicial pi;
     public ArrayList<Pase> pases = new ArrayList<Pase>();
-    DefaultTableModel myModel = new DefaultTableModel(new Object[][]{}, new String[]{"Dasdfa", "Hora", "Pel·lícula", "3D", "Places lliures"}) {
+    DefaultTableModel myModel = new DefaultTableModel(new Object[][]{}, new String[]{"Día", "Hora", "Pel·lícula", "3D", "Places lliures"}) {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
 
+    /**
+     * Constructor buid
+     * @param pi 
+     */
     public PanelHoraris(PantallaInicial pi) {
         initComponents();
         this.pi = pi;
@@ -55,26 +59,31 @@ public class PanelHoraris extends javax.swing.JPanel {
         super.setVisible(aFlag);
     }
 
+    /**
+     * Carrega la taula d'horaris
+     */
     public void carregarHorari() {
         RecursosBD rbd = new RecursosBD();
 
         this.pases = rbd.getPases();
-        
-         for (Pase p : this.pases) {
-            String es3d="no";
-       
-           if(p.getPelicula().getTresd()){
-               es3d="si";
-           }
+
+        for (Pase p : this.pases) {
+            String es3d = "no";
+            try {
+                if (p.getPelicula().getTresd()) {
+                    es3d = "si";
+                }
+            } catch (NullPointerException ex) {
+            }
             this.myModel.addRow(new Object[]{
                         p.getDiaString(),
                         p.getHora(),
                         p.getPelicula().getTitol(),
                         es3d,
-                         p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size()
+                        p.getSala().getTipusSala().getButacas().size() - p.getEntradas().size()
                     });
         }
-       
+
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(this.myModel);
 
@@ -145,13 +154,12 @@ public class PanelHoraris extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void taulaHorariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taulaHorariMouseClicked
- if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
             int row = this.taulaHorari.rowAtPoint(evt.getPoint());
             this.pi.pe = new PanelEntrades(this.pi, this.pases.get(row));
             this.pi.mostrarPanell(this.pi.pe);
         }    // TODO add your handling code here:
     }//GEN-LAST:event_taulaHorariMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;

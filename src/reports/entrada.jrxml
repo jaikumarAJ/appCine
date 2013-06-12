@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="600" pageHeight="360" orientation="Landscape" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="339e2cc8-66e5-4277-81cf-6c6c51fa54d7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="16"/>
 	<parameter name="idEntrada" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -51,7 +51,7 @@
 				</textElement>
 				<text><![CDATA[Día:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="HH.mm">
 				<reportElement uuid="ee51ac41-b126-4ec6-b428-8369de1c1c07" x="113" y="64" width="162" height="20"/>
 				<textElement>
 					<font size="14" isBold="true"/>
@@ -86,7 +86,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="3458f1d5-a066-4f25-a257-f3959751263d" x="113" y="38" width="162" height="20"/>
 				<textElement>
 					<font size="14" isBold="true"/>

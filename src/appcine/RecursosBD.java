@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -70,13 +69,14 @@ public class RecursosBD {
      *
      * @param idPelicula : el nom ho dui tot
      * @return ArrayList de java.sql.Date amb les dates en format yyyy-mm-dd
+     *
+     *
+     * public ArrayList<java.sql.Date> getDiasPelicula(int idPelicula) { String
+     * hql = "SELECT distinct pa.dia from Pase pa where pa.pelicula.id='2'";
+     * return (ArrayList) this.getSelect(hql);
+     *
+     * }
      */
-    public ArrayList<java.sql.Date> getDiasPelicula(int idPelicula) {
-        String hql = "SELECT distinct pa.dia from Pase pa where pa.pelicula.id='2'";
-        return (ArrayList) this.getSelect(hql);
-
-    }
-
     /**
      * Retorna les hores en que es mostra la pel·lícula en un dia en concret
      *
@@ -192,7 +192,7 @@ public class RecursosBD {
 
             return en.getIdEntrada();
         } catch (Exception ex) {
-            ex.printStackTrace();
+           
             System.out.println("Error al introduir" + ex);
         }
         return 0;

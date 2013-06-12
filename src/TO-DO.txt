@@ -1,15 +1,14 @@
+Javadocs.
+Presentacions.
 CLIENT:
  - Comentar codi
  - Fix imports
  - col·locar arxius
- - try /catch NullPointerException (PanelHoraris.java:66)
  - borrar arxius inncecesaris
- - que agafi les pel·lícules del server que toca (possar-ho dins un xml?)
 
 
 ADMIN:
+ - VALIDAR ELS GENERES NO FUNCIONA.
+ - FICAR PASES.
+ - Arreglar el sistema de data quan compres una entrada.
  - POSAR O LLEVAR ELS REPORTS, PERO FER ALGO!
- - ficar pelis a saco!
- - que fiqui les pel·lícules al server que toca! (posar-ho dins un xml??)
- - DEMANAR CONFIRMACIÓ PER BORRAR LA PELICULA
-- quan fiquen una peli, el tresd esta en null per defecte

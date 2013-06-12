@@ -65,7 +65,7 @@ public final class PanelEntrades extends javax.swing.JPanel {
         this.mostrarDies();
         System.out.println(p.getDia());
         this.diasDisponibles.setSelectedItem(this.transformarData(p.getDia()));
-        
+
         this.mostrarHores();
         System.out.println(p.getHora());
         this.llistatHores.setSelectedItem(p.getHora().toString());
@@ -428,14 +428,14 @@ public final class PanelEntrades extends javax.swing.JPanel {
         this.contenedorSeients.setVisible(true);
 
     }
-    public String transformarData(java.util.Date d){
-         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-         return sdf.format(d);
+
+    public String transformarData(java.util.Date d) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(d);
     }
-    
-    
-    public void mostrarDies(){
-         this.diasDisponibles.removeAllItems();//buidam tota la llista
+
+    public void mostrarDies() {
+        this.diasDisponibles.removeAllItems();//buidam tota la llista
 
         this.diasDisponibles.addItem("--- Seleccionar dia ---");
         if (this.llistatPelicules.getSelectedIndex() > 0) {
@@ -446,7 +446,7 @@ public final class PanelEntrades extends javax.swing.JPanel {
             for (Pase p : setPases) {
                 if (!dates.contains(p.getDia())) {
                     dates.add(p.getDia());
-                   
+
                     this.diasDisponibles.addItem(this.transformarData(p.getDia()));
                     this.datesDisponibles.add(p.getDia());
                 }
@@ -462,7 +462,7 @@ public final class PanelEntrades extends javax.swing.JPanel {
 
     }//GEN-LAST:event_llistatPeliculesActionPerformed
 
-    public void mostrarHores(){
+    public void mostrarHores() {
         this.llistatHores.removeAllItems();
         this.llistatHores.addItem("---Selecciona una--");
 
@@ -526,14 +526,11 @@ public final class PanelEntrades extends javax.swing.JPanel {
         //mostram el popup
         this.dialogConfirm.setVisible(false);
 
-        this.mostrarEntrada(idEntrada);
-        JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
 
+        JOptionPane.showMessageDialog(this, "Gràcies per comprar la teva entrada");
+        this.mostrarEntrada(idEntrada);
         this.dialogConfirm.dispose();
 
-
-
-        // TODO: se pot fer que posi la butaca en vermell en lloc de que recarregui tota la sala? Amb la id de la butaca??
         this.mostrarSala(this.p);
 
     }//GEN-LAST:event_btnConfirmarMouseClicked
