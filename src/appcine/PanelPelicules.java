@@ -109,7 +109,7 @@ public class PanelPelicules extends javax.swing.JPanel {
             panelPelicula.add(labelTitol);
 
             // String ruta_img = "http://localhost/portades/" + this.pelicules.get(i).getRutaImatge();
-            String ruta_img = "http://62.43.75.57 /appcine/portades/" + this.pelicules.get(i).getRutaImatge();
+            String ruta_img = "http://62.43.75.57/appcine/portades/" + this.pelicules.get(i).getRutaImatge();
             try {
                 lblPortada.setIcon(new javax.swing.ImageIcon(new URL(ruta_img)));
             } catch (MalformedURLException ex) {

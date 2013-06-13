@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sales;
 
 import appcine.PanelEntrades;
@@ -13,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Carrega un panel de la Sala corresponent i el mostra.
  * @author torandell9
  */
 public class DibuixSala extends javax.swing.JPanel {
@@ -38,6 +34,10 @@ public class DibuixSala extends javax.swing.JPanel {
         this.idPase = idPase;
     }
 
+    /**
+     * De totes les cadires que hi ha a la sala, comproba si ja estan reservades o no.
+     * @param fields 
+     */
     public void pintarCadires(final Field[] fields) {
         RecursosBD rb = new RecursosBD();
 

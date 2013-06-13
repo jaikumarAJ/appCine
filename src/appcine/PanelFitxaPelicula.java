@@ -1,7 +1,3 @@
-    /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package appcine;
 
 import entitats.Pase;
@@ -14,7 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Clase que mostra la Fitxa per la pel·lícula en concret.
  * @author torandell9
  */
 public class PanelFitxaPelicula extends javax.swing.JPanel {

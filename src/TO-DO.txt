@@ -1,9 +1,5 @@
-Javadocs.
 Presentacions.
 Fer jars.
-CLIENT:
- - Comentar codi
-
-ADMIN:
- - FICAR PASES.
-
+FER ENTITAT RELACIÓ.
+Pasar tot a la bd del fitpc
+provar de ficar una peli nova

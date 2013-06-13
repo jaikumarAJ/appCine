@@ -1,12 +1,7 @@
 package sales;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
+ * Dibuix de la Sala 1
  * @author torandell9
  */
 public class sala1 extends DibuixSala {
@@ -17,7 +12,6 @@ public class sala1 extends DibuixSala {
     public sala1 (Integer idPase) {
        super(idPase);
        initComponents();
-       //tamare
        super.pintarCadires(sala1.class.getDeclaredFields());
     }
 
